@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pictograph Math Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .game-container {
+            max-width: 600px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 { color: #ff4500; }
+        .pictograph {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #ffebcd;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px 0;
+        }
+        .symbol { font-size: 30px; margin: 5px; }
+        .options button {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: #4caf50;
+            color: white;
+            font-size: 16px;
+        }
+        .options button:hover { background: #45a049; }
+        #feedback {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #score {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #000080;
+        }
+        #questions-left {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #ff4500;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>📊 Pictograph Math Game 🎮</h1>
+        <p id="score">Score: 0</p>
+        <p id="questions-left">Questions Left: 10</p>
+        <div id="question-container">
+            <h2 id="question"></h2>
+            <div class="pictograph" id="pictograph"></div>
+            <p><strong>Key:</strong> Each symbol represents <span id="key-value"></span> items.</p>
+            <div class="options" id="options"></div>
+        </div>
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        const symbols = ["⚽", "📚", "🚲", "🍕", "🏆", "🎸", "💻", "🎮"];
+        let score = 0;
+        let questionCount = 0;
+        const maxQuestions = 10;
+        
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+        function generateRandomQuestion() {
+            let questionTypes = ["count", "compare", "total", "difference", "missing_value"];
+            let questionType = questionTypes[getRandomInt(0, questionTypes.length - 1)];
+            let symbol = symbols[getRandomInt(0, symbols.length - 1)];
+            let keyValue = getRandomInt(2, 5);
+            let values = [getRandomInt(2, 10), getRandomInt(2, 10), getRandomInt(2, 10)].map(v => v * keyValue);
+            let correctAnswer, question;
+
+            if (questionType === "count") {
+                correctAnswer = values[0];
+                question = `Each ${symbol} represents ${keyValue} items. How many total items are in the first row?`;
+            } else if (questionType === "compare") {
+                correctAnswer = Math.abs(values[0] - values[1]);
+                question = `Compare the first and second row of ${symbol}s. What is the difference?`;
+            } else if (questionType === "total") {
+                correctAnswer = values.reduce((a, b) => a + b, 0);
+                question = `What is the total number of items in all rows?`;
+            } else if (questionType === "difference") {
+                correctAnswer = Math.max(...values) - Math.min(...values);
+                question = `What is the difference between the highest and lowest row values?`;
+            } else {
+                correctAnswer = values[1] / keyValue;
+                question = `Each ${symbol} represents ${keyValue} items. The second row has ${values[1]} items. How many ${symbol} symbols should be used to represent it?`;
+            }
+            
+            let options = [correctAnswer, getRandomInt(2, 50), getRandomInt(2, 50)];
+            options = [...new Set(options)];
+            while (options.length < 3) {
+                options.push(getRandomInt(2, 50));
+            }
+            options.sort(() => Math.random() - 0.5);
+            
+            return { data: values, symbol, keyValue, question, correct: correctAnswer, options };
+        }
+        
+        function checkAnswer(selected) {
+            if (selected === currentQuestion.correct) {
+                score += 10;
+                document.getElementById("feedback").textContent = "✅ Correct!";
+            } else {
+                document.getElementById("feedback").textContent = "❌ Incorrect!";
+            }
+            document.getElementById("score").textContent = `Score: ${score}`;
+            setTimeout(loadQuestion, 1000);
+        }
+        
+        let currentQuestion;
+        
+        function loadQuestion() {
+            if (questionCount >= maxQuestions) {
+                document.getElementById("question-container").innerHTML = `<h2>Game Over! 🎉</h2><p>Your final score is: ${score}</p>`;
+                return;
+            }
+            
+            questionCount++;
+            document.getElementById("questions-left").textContent = `Questions Left: ${maxQuestions - questionCount}`;
+            currentQuestion = generateRandomQuestion();
+            document.getElementById("question").textContent = currentQuestion.question;
+            document.getElementById("key-value").textContent = currentQuestion.keyValue;
+            document.getElementById("feedback").textContent = "";
+            
+            const pictograph = document.getElementById("pictograph");
+            pictograph.innerHTML = "";
+            currentQuestion.data.forEach(value => {
+                let row = document.createElement("div");
+                row.classList.add("row");
+                for (let i = 0; i < value / currentQuestion.keyValue; i++) {
+                    let symbol = document.createElement("span");
+                    symbol.textContent = currentQuestion.symbol;
+                    symbol.classList.add("symbol");
+                    row.appendChild(symbol);
+                }
+                pictograph.appendChild(row);
+            });
+            
+            const options = document.getElementById("options");
+            options.innerHTML = "";
+            currentQuestion.options.forEach(opt => {
+                let button = document.createElement("button");
+                button.textContent = opt;
+                button.onclick = () => checkAnswer(opt);
+                options.appendChild(button);
+            });
+        }
+        
+        loadQuestion();
+    </script>
+</body>
+</html>
