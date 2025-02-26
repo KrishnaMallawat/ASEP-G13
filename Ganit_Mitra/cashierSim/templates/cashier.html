@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brown Page with Grey Rectangle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('cashierSim.static',filename='cashierstyle.css')}}">
+    <script type="module" src="{{url_for('cashierSim.static',filename='gamebrain.js')}}" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Carme&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Geologica:wght@100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+PL:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="timer-container">
+        <div class="time-bar" id="timeBar"></div>
+    </div>
+
+    <div class="machine">
+        <div class="screen"><h2>Cashier's Billing: <br></h2></div>
+        <div class="footer">
+            <span>Total:</span>
+            <input type="text" id="totalBilled" value="0" >
+        </div>
+        
+        <div class="buttons">
+            <div class="billing">Billing</div>
+            <div class="enter" >Enter</div>
+        </div>
+    </div>
+
+    <div class="trade_centre">
+        <div class="background_text" data-text="Customer">CUSTOMER</div>
+        <div class="customer">
+            
+        </div>
+        <div class="background_text" data-text="Service">SERVICE</div>
+        <div class="service">
+            
+        </div>
+    </div>
+
+    <div class="cashes">
+        
+        <div class="cashbox" >                                                                                                                    
+            <div class="box_bottom" id="five">5</div>
+        </div>
+        <div class="cashbox">
+            <div class="box_bottom" id="ten">10</div>
+        </div>
+        <div class="cashbox" >
+            <div class="box_bottom" id="twenty">20</div>
+        </div>
+        <div class="cashbox" >
+            <div class="box_bottom" id="fifty">50</div>
+        </div>
+        <div class="cashbox" >
+            <div class="box_bottom" id="hundred">100</div>
+        </div>
+        <div class="cashbox" >
+            <div class="box_bottom" id="twohundred">200</div>
+        </div>
+    </div>
+    
+    <script>
+        window.scriptpath = "{{ url_for('cashierSim.static',filename='cashierbill.js') }}"
+    </script>
+
+</body>
+</html>

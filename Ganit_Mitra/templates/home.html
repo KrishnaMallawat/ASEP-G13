@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boxed Menu with Gradient Effects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+        body {
+            font-family: 'GEOLOGICA', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url(GAME\ 1\ BG.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: black;
+        }
+
+        /* Container for the entire menu */
+        .menu-container {
+            padding: 30px;
+            border-radius: 25px;
+            max-width: 800px;
+            width: 70%;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5dvh;
+        }
+
+        /* Title styling */
+        .title {
+            text-align: center;
+            font-size: 60px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px #00a3c4;
+        }
+
+        /* Menu grid for larger screens (default) */
+        .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .menu li {
+            font-size: 22px;
+            font-weight: bold;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #10abff 0%, #254fbd 100%);
+            color: #ffffff;
+            border-radius: 15px;
+            border: #fdbb2dcd solid 1px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .menu li:hover {
+            background-color: #fdbb2d;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            color: black;
+        }
+
+        /* Responsive for mobile: turn into a single row and make buttons smaller */
+        @media (max-width: 768px) {
+            .menu {
+                grid-template-columns: 1fr;
+            }
+
+            .menu li {
+                padding: 15px;
+                font-size: 18px;
+            }
+
+            .menu-container {
+                width: 90%;
+                margin-top: 50px;
+            }
+
+            .title {
+                font-size: 30px;
+            }
+        }
+
+
+        /* Responsive for very small screens (e.g., small phones) */
+        @media (max-width: 480px) {
+            .menu li {
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+        }
+
+        /* Landscape mode for mobile */
+        @media (orientation: landscape) and (max-width: 768px) {
+            .menu {
+                grid-template-columns: repeat(2, 1fr); /* Two-column layout for landscape mode */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-container">
+        <div class="title">GANIT MITRA</div>
+        <ul class="menu">
+            <li><a href="{{ url_for('cashierSim.cashier_home') }}">Cashier Simulator</a></li>
+            <li><a href="Instruction.html">Instruction</a></li>
+            <li><a href="Fraction Game/Loading.html">Fraction Fields</a></li>
+            <li><a href="Direction Game/Loading.html">Direction Sense Test</a></li>
+            <li><a href="Match the column.html">Match the Column</a></li>
+            <li><a href="Memory Cards/Loading.html">Memory Cards</a></li>
+            <li><a href="Clock Game/Loading.html">Samay Sudhaar</a></li>
+            <li><a href="">Pictograph</a></li>
+            <li><a href="Results.html">Case Based</a></li>
+            <li><a href="Exit.html">Result</a></li>
+        </ul>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,293 @@
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    background-image: url(images/Cashier.png);
+    background-size: cover;
+}
+
+.timer-container {
+    margin-left: 2%;
+    align-items: center;
+    position: absolute;
+    position: relative;
+    width: 5vw;
+    height: 75vh; 
+    background-color: rgb(173, 0, 0);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #000;
+}
+.time-bar {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 255, 17);
+    transform-origin: top;
+    transition: height 0.1s linear;
+}
+  
+.machine {
+    display: flex;
+    flex-direction: column;
+    width: 30%; /* Adjust width as needed */
+    height: 76vh;
+    background-color: grey;
+    margin-left: 2%;
+    background: linear-gradient(
+        145deg,
+        #c7c7c7,
+        #999999,
+        #717171
+    ); /* Metallic gradient */
+    border-radius: 15px; /* Smooth edges */
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.6),
+        -4px -4px 10px rgba(255, 255, 255, 0.3); /* 3D depth */
+    padding: 10px;
+    border: 2px solid rgb(134, 134, 134); /* Strong metal-like outline */
+}
+
+.screen {
+    width: 90%; /* Adjust width as needed */
+    height: 70%;
+    background-color: rgb(0, 0, 0);
+    margin-left: 5%;
+    margin-top: 5%;
+
+    font-size: 20px;
+    color: aliceblue;
+    font-family: "courier prime";
+
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    text-align: center;
+}
+.item_name {
+    margin-left: 2%;
+}
+.item_price {
+    margin-right: 2%;
+}
+.footer {
+    width: 90%;
+    height: 10%;
+    margin-left: 5%;
+    background-color: black;
+    border-top: 2px solid darkgrey;
+
+    display: flex;
+    justify-content: space-between; /* Pushes "Total:" left and input right */
+    align-items: center;
+}
+.footer span {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: "courier prime";
+    color: aqua;
+    margin-left: 10%;
+}
+.footer input {
+    width: 100px;
+    padding: 5px;
+    font-size: 16px;
+    text-align: right;
+    margin-right: 1%;
+    border: none;
+    background-color: white;
+    font-family: "courier prime";
+}
+.buttons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2.5%;
+    width: 100%;
+    height: 10%;
+}
+.billing {
+    width: 42.5%;
+    height: 100%;
+    background-color: navy;
+    margin-left: 5%;
+
+    font-size: 20px;
+    font-weight: bold;
+    color: aliceblue;
+    font-family: "courier prime";
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); /* Adds depth */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Slight glossy effect */
+    border-radius: 8px; /* Smoothens edges */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 3D text effect */
+    transform: perspective(500px) translateZ(5px); /* Subtle pop-out effect */
+    transition: all 0.2s ease-in-out;
+}
+.billing:hover {
+    transform: perspective(500px) translateZ(2px);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+.billing:active {
+    transform: perspective(500px) translateZ(0);
+    box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.enter {
+    width: 42.5%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    margin-left: 5%;
+
+    font-size: 20px;
+    color: black;
+    font-family: "Orbitron", sans-serif;
+
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    text-align: center;
+
+    transition: background-color 0.5s ease-in-out;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    transform: perspective(500px) translateZ(5px);
+    transition: all 0.2s ease-in-out, background-color 0.5s ease-in-out;
+    font-family: "courier prime";
+}
+
+.enter:hover {
+    transform: perspective(500px) translateZ(2px);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+.enter:active {
+    transform: perspective(500px) translateZ(0);
+    box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.correct {
+    background-color: green;
+}
+.wrong {
+    background-color: red;
+}
+
+.trade_centre {
+    display: flex;
+    flex-direction: column;
+    width: 80vh; /* Adjust width as needed */
+    height: 80vh;
+    padding: 0;
+    margin-left: 2%;
+    box-sizing: border-box;
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.34),
+        -4px -4px 10px rgba(255, 255, 255, 0.1); /* 3D depth */
+    padding: 10px;
+    border: 1px solid rgba(134, 134, 134, 0.347); /* Strong metal-like outline */
+    background-color: #99999948;
+}
+.customer,
+.service {
+    width: 90%;
+    height: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 1vh;
+    position: relative;
+    background-color: silver;
+}
+.background_text {
+    position: relative;
+    display: inline-block;
+    font-size: 24px;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.cashes {
+    display: grid;
+    grid-template-areas:
+        " cash5 cash10"
+        " cash20"
+        "cash50"
+        " cash100"
+        "cash200";
+    row-gap: 4vh;
+    position: absolute;
+    right: 6%;
+}
+.cashbox {
+    width: 25vh;
+    height: 10vh;
+}
+
+.cashbox #five {
+    width: 25vh;
+    height: 10vh;
+    background-image: url(images/5.png);
+    background-size: cover;
+}
+.cashbox #ten {
+    width: 25vh;
+    height: 10vh;
+    background-image: url(images/10.png);
+    background-size: cover;
+}
+.cashbox #twenty {
+    width: 25vh;
+    height: 10vh;
+    background-image: url(images/20.png);
+    background-size: cover;
+}
+.cashbox #fifty {
+    width: 25vh;
+    height: 10vh;
+    background-image: url(images/50.png);
+    background-size: cover;
+}
+.cashbox #hundred {
+    width: 25vh;
+    height: 10vh;
+    background-image: url(images/100.png);
+    background-size: cover;
+}
+.cashbox #twohundred {
+    width: 25vh;
+    height: 10vh;
+    background-image: url(images/200.png);
+    background-size: cover;
+}
+
+.box_bottom {
+    width: 90%;
+    height: 90%;
+    margin-left: 5%;
+    margin-top: 5%;
+
+    font-family: "Pacifico", cursive;
+    font-size: 2rem;
+    color: transparent;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.money,
+.ticket {
+    font-family: "Pacifico", cursive;
+    font-size: 1rem;
+    color: #000000;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
