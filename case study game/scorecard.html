@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scorecard - Case-Based Study of Maths</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .scorecard {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 3px solid #4caf50;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .scorecard h1 {
+            color: #4caf50;
+            margin-bottom: 20px;
+        }
+        
+        .scorecard p {
+            font-size: 1.2rem;
+            color: #333;
+        }
+        
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            background: #2196f3;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1.5rem;
+        }
+        
+        .back-button:hover {
+            background: #1976d2;
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="fade-in">
+    <div class="container">
+        <div class="scorecard">
+            <h1>Your Scorecard</h1>
+            <p id="scoreText"></p>
+            <button class="back-button" onclick="window.location.href='case based study.html'">Back to Play</button>
+        </div>
+    </div>
+
+    <script>
+        // Get Score from URL Parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const score = urlParams.get('score');
+
+        // Display Score
+        const scoreText = document.getElementById("scoreText");
+        scoreText.innerHTML = `You scored ${score} out of 3!`;
+    </script>
+</body>
+
+</html>
