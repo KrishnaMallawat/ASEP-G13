@@ -1,35 +1,97 @@
+/* General page styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: geologica, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevents scrolling */
 }
 
+/* Form container */
 .container {
-    background: white;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.63);
+    backdrop-filter: blur(5px);
+    padding: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     text-align: center;
+    width: 390px; /* Standard width */
+    max-height: 85vh;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box; /* Prevents padding from affecting width */
 }
 
-input, button {
+/* Form elements */
+h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: -6px;
+}
+
+/* Labels */
+label {
     display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    color: #000000;
+    font-size: 0.9rem;
 }
 
+/* Inputs */
+input {
+    width: 100%; /* Ensures inputs take full width */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+/* Button */
 button {
-    background: blue;
+    width: 100%;
+    padding: 10px;
+    background: #254fbd;
     color: white;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+    margin-top: 15px;
+}
+
+button:hover {
+    background: #008cba;
+}
+
+/* Error message styling */
+.error {
+    color: red;
+    margin-top: 5px;
+    font-size: 0.8rem;
+}
+
+/* Link styling */
+p {
+    margin-top: 10px;
+    font-size: 0.9rem;
 }
 
 a {
+    color: #007BFF;
     text-decoration: none;
-    color: blue;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
 }
