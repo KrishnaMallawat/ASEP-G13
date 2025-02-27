@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIRECTION SENSE TEST</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Geologica', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+            background-image: url(Direction\ Sense\ Test\ BG.png);
+            background-size: cover;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            width: 350px;
+            background-color: #ffffff;
+            margin-left: 30%;
+        }
+
+        .instructions {
+            margin-bottom: 20px;
+            background-color: #ffe46be2;
+            border-radius: 5px;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructions p {
+            font-size: 18px;
+        }
+
+        .arrow-container {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            background-color: #e0f7fa;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 60px solid #007bff;
+            transition: transform 0.5s;
+            transform-origin: 50% 50%;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #254fbd;
+            color: #fff;
+            border-radius: 5px;
+            margin: 5px;
+            transition: background-color 0.3s;
+            font-family: 'Geologica', sans-serif;
+        }
+
+        button:hover {
+            background-color: #091e53;
+            transform: scale(1.05);
+        }
+
+        .scoreboard {
+            margin-top: 20px;
+        }
+
+        .scoreboard p {
+            background-color:#007bff50;
+            border-radius: 5px;
+            padding: 6px;
+            margin: 10px 5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="instructions">
+            <p id="question-text"></p>
+        </div>
+        <div class="arrow-container">
+            <div class="arrow" id="arrow"></div>
+        </div>
+        <div class="scoreboard">
+            <p>Score: <span id="score">0</span>/5</p>
+            <p>Question: <span id="question-number">1</span>/5</p>
+        </div>
+        <button onclick="checkDirection()">Submit <i class="fa-solid fa-check"></i></button>
+    </div>
+    <script>
+        const questions =
+        [ 
+    { 
+        question: "If you are facing North and the sun is rising in the East, and you turn 90° right, which direction are you facing?", 
+        correctDirection: 90 // East
+    },
+    { 
+        question: "If you are facing East and the moon is visible, and you turn 45° left, which direction are you facing?", 
+        correctDirection: 45 // North-East
+    },
+    { 
+        question: "If you are facing South and Polaris is behind you, and you turn 90° left, which direction are you facing?", 
+        correctDirection: 90 // East
+    },
+    { 
+        question: "If you are facing West and the sun is setting, and you turn 45° right, which direction are you facing?", 
+        correctDirection: 315 // North-West
+    },
+    { 
+        question: "If you are facing North and the moon is overhead, and you turn 180°, which direction are you facing?", 
+        correctDirection: 180 // South
+    },
+    { 
+        question: "If you are facing East and the sun rises, and you turn 90° right, which direction are you facing?", 
+        correctDirection: 180 // South
+    },
+    { 
+        question: "If you are facing West and the sun is setting, and you turn 90° right, which direction are you facing?", 
+        correctDirection: 0 // North
+    }
+    ].sort(() => Math.random() - 0.5).slice(0, 5);
+    
+    let currentDirection = 0;
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let results = [];
+    
+    const arrow = document.getElementById('arrow');
+    const questionText = document.getElementById('question-text');
+    const scoreElement = document.getElementById('score');
+    const questionNumberElement = document.getElementById('question-number');
+    
+    function updateArrow() {
+        let normalizedDirection = ((currentDirection % 360) + 360) % 360;
+        arrow.style.transform = `rotate(${normalizedDirection}deg)`;
+    }
+    
+    function resetDirection() {
+        currentDirection = 0;
+        updateArrow();
+    }
+    
+    function displayQuestion() {
+        const currentQuestion = questions[currentQuestionIndex];
+        questionText.textContent = currentQuestion.question;
+        questionNumberElement.textContent = currentQuestionIndex + 1;
+    }
+    
+    function checkDirection() {
+        const currentQuestion = questions[currentQuestionIndex];
+        const correctDirection = currentQuestion.correctDirection;
+        let normalizedDirection = ((currentDirection % 360) + 360) % 360;
+        const isCorrect = normalizedDirection === correctDirection;
+    
+        results.push({
+            questionNumber: currentQuestionIndex + 1,
+            isCorrect: isCorrect
+        });
+    
+        if (isCorrect) {
+            alert('Correct! You are facing the right direction.');
+            score++;
+            scoreElement.textContent = score;
+        } else {
+            alert('Incorrect. Try again!');
+        }
+    
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            resetDirection();
+            displayQuestion();
+        } else {
+            const resultsParam = encodeURIComponent(JSON.stringify(results));
+            window.location.href = `Results.html?results=${resultsParam}&score=${score}`;
+        }
+    }
+    
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+            currentDirection -= 45;
+            updateArrow();
+        } else if (event.key === 'ArrowRight') {
+            currentDirection += 45;
+            updateArrow();
+        }
+    });
+    
+    // Initialize the quiz
+    displayQuestion();
+    updateArrow();
+    </script>
+    
+</body>
+</html>

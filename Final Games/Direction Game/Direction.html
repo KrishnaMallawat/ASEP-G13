@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direction Sense Test Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Carme&family=Geologica:wght@100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url(Direction\ Sense\ Test\ BG.png);
+            background-size: contain;
+            font-family: geologica;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            margin-left: 30%;
+        }
+
+        .instructions {
+            margin-bottom: 20px;
+        }
+
+        .instructions p {
+            font-weight: bold;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .instructions li {
+            background-color: #ffe46bc6;
+            border-radius: 5px;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 60px solid #000;
+            margin: 20px auto;
+            transition: transform 0.5s;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-right: 5px;
+            font-family: geologica;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .scoreboard {
+            margin-top: 20px;
+        }
+
+        .scoreboard p {
+            background-color: #0057b339;
+            border-radius: 5px;
+            padding: 6px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="instructions">
+            <p>You are facing North. Follow these instructions:</p>
+            <ul id="instructions-list"></ul>
+        </div>
+        <div class="arrow" id="arrow"></div>
+        <div class="scoreboard">
+            <p>Score: <span id="score">0</span>/5</p>
+            <p>Question: <span id="question-number">1</span>/5</p>
+        </div>
+        <button onclick="checkDirection()">Submit <i class="fa-solid fa-check"></i></button>
+        <button onclick="resetDirection()">Reset <i class="fa-solid fa-arrow-rotate-right"></i></button>
+    </div>
+    <script>
+        const instructionSets = [
+            [
+                { direction: 'right', degrees: 90 },
+                { direction: 'left', degrees: 180 },
+                { direction: 'right', degrees: 90 },
+                { direction: 'left', degrees: 45 }
+            ],
+            [
+                { direction: 'left', degrees: 90 },
+                { direction: 'right', degrees: 45 },
+                { direction: 'left', degrees: 90 },
+                { direction: 'right', degrees: 135 }
+            ],
+            [
+                { direction: 'right', degrees: 45 },
+                { direction: 'right', degrees: 90 },
+                { direction: 'left', degrees: 180 },
+                { direction: 'left', degrees: 45 }
+            ]
+        ];
+
+        let currentDirection = 0;
+        let selectedInstructions;
+        let score = 0;
+        let questionNumber = 1;
+        let results = [];
+
+        const arrow = document.getElementById('arrow');
+        const instructionsList = document.getElementById('instructions-list');
+        const scoreElement = document.getElementById('score');
+        const questionNumberElement = document.getElementById('question-number');
+
+        function updateArrow() {
+            arrow.style.transform = `rotate(${currentDirection}deg)`;
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') {
+                currentDirection -= 22.5;
+                updateArrow();
+            } else if (event.key === 'ArrowRight') {
+                currentDirection += 22.5;
+                updateArrow();
+            }
+        });
+
+        function resetDirection() {
+            currentDirection = 0;
+            updateArrow();
+            generateRandomInstructions();
+        }
+
+        function checkDirection() {
+            let correctDirection = 0;
+            selectedInstructions.forEach(instruction => {
+                correctDirection += instruction.direction === 'right' ? instruction.degrees : -instruction.degrees;
+            });
+            const isCorrect = currentDirection % 360 === correctDirection % 360;
+            if (isCorrect) {
+                alert('Correct! You are facing the right direction.');
+                score++;
+                scoreElement.textContent = score;
+            } else {
+                alert('Incorrect. Try again!');
+            }
+            results.push({ question: questionNumber, isCorrect });
+
+            if (questionNumber < 5 ) {
+                questionNumber++;
+                questionNumberElement.textContent = questionNumber;
+                resetDirection();
+            } else {
+                showResults();
+                // Disable further interaction
+                document.querySelectorAll('button').forEach(button => button.disabled = true);
+                document.removeEventListener('keydown', handleKeyDown);
+            }
+        }
+
+        function generateRandomInstructions() {
+            selectedInstructions = instructionSets[Math.floor(Math.random() * instructionSets.length)];
+            instructionsList.innerHTML = '';
+            selectedInstructions.forEach(instruction => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Turn ${instruction.degrees} degrees to your ${instruction.direction}.`;
+                instructionsList.appendChild(listItem);
+            });
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'ArrowLeft') {
+                currentDirection -= 22.5;
+                updateArrow();
+            } else if (event.key === 'ArrowRight') {
+                currentDirection += 22.5;
+                updateArrow();
+            }
+        }
+
+        function showResults() {
+            const queryString = new URLSearchParams({ results: JSON.stringify(results), score }).toString();
+            window.location.href = `Results.html?${queryString}`;
+        }
+
+        document.addEventListener('keydown', handleKeyDown);
+
+        // Generate initial random instructions
+        generateRandomInstructions();
+        // Initial update to set the arrow to the starting position
+        updateArrow();
+    </script>
+</body>
+</html>
+
+
+

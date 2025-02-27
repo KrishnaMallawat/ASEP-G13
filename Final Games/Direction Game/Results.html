@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIRECTION SENSE TEST</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+        body {
+            font-family: 'Geologica', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('Results%20BG.png');
+            background-size: cover;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            margin-top: -20px;
+            margin-left: 59dvh;
+        }
+
+        .results-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #060057;
+        }
+
+        .results-table {
+            width: 40%;
+            margin: 24px auto;
+            border-collapse: collapse;
+            margin-top: -10px;
+        }
+
+        .results-table th,
+        .results-table td {
+            border: 1px solid #060057;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .results-table th {
+            background-color: #ffe36b;
+            color: #060057;
+        }
+
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .button {
+            margin: -5px 5px;
+            padding: 10px 20px;
+            background-color: #060057;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .button:hover {
+            background-color: #ffe36b;
+            color: #060057;
+        }
+
+        .button a {
+            color: inherit;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="results-container"></div>
+        <button class="button" style="font-family: geologica;">
+            <a href="Start.html">
+            <i class="fa-solid fa-arrow-rotate-right"></i>
+            </a>
+        </button>
+        <button class="button" style="font-family: geologica;">
+            <a href="/Menu.html">
+                Menu  <i class="fa-solid fa-bars"></i>
+            </a>
+        </button>
+    </div>
+
+    <script>
+        // Fetch results and score from URL parameters
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const results = JSON.parse(urlParams.get('results')) || [];
+        const score = urlParams.get('score') || 0;
+    
+        function displayResults() {
+            let resultsHTML = `<h2>Your Score: ${score}/${results.length}</h2>`;
+            resultsHTML += '<table class="results-table">';
+            resultsHTML += '<tr><th>Question Number</th><th>Status</th></tr>';
+            results.forEach((result) => {
+                resultsHTML += `
+                    <tr>
+                        <td>Question ${result.questionNumber}</td>
+                        <td class="${result.isCorrect ? 'correct' : 'incorrect'}">
+                            ${result.isCorrect ? 'Correct' : 'Incorrect'}
+                        </td>
+                    </tr>
+                `;
+            });
+            resultsHTML += '</table>';
+            document.getElementById('results-container').innerHTML = resultsHTML;
+        }
+    
+        // Display results on page load
+        displayResults();
+    </script>
+    
+    
+</body>
+</html>
