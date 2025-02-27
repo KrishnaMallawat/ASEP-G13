@@ -1,6 +1,8 @@
 from flask import Flask, jsonify ,render_template , Blueprint, session, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from extension import db
 import random
 import os
 
@@ -10,10 +12,13 @@ cashierSim = Blueprint(
     static_folder="static"
 )
 
-app= Flask(__name__)
-# app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///cashier_scores.db"
-# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-CORS(app,resources={r"/data": {"origins": "*"}})
+class cashier_results(db.Model,UserMixin):
+    _bind_key_ = "cashier"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    customers =db.Column(db.Integer, nullable=False)
+    accuracy = db.Column(db.Float, nullable=False)
+    avg_speed = db.Column(db.Float, nullable=False)
 
 # file_path = os.path.join(os.getcwd(),"cashierSim","items_list.txt")
 file_path = os.path.join(os.path.dirname(__file__), "items_list.txt")
@@ -32,6 +37,7 @@ for i in range(0, len(paragraphs), 2):
             continue 
 
 @cashierSim.route("/data")
+@login_required
 def send_q():
     selected_items = random.sample(items, random.randint(3,8))  
     total = sum(item["price"] for item in selected_items)
@@ -42,26 +48,54 @@ def send_q():
     return jsonify(bill)
 
 @cashierSim.route('/home')
+@login_required
 def cashier_home():
     return render_template('cashierSimHome.html') 
 
 @cashierSim.route('/play')
+@login_required
 def cashier_game():
     return render_template('cashier.html')
 
 @cashierSim.route('/how-to-play')
+@login_required
 def cashier_instructions():
     return render_template('cashierInstructions.html')
 
 @cashierSim.route('/end')
+@login_required
 def cashier_end():
-    customers = session.get('customers', [])
-    return render_template('cashierEndGame.html',customers=customers)
+    latest_result = cashier_results.query.filter_by(user_id=current_user.id).order_by(cashier_results.id.desc()).first()
+    return render_template(
+        'cashierEndGame.html',
+        customers=latest_result.customers if latest_result else "N/A",
+        accuracy=latest_result.accuracy if latest_result else "N/A",
+        avg_speed=latest_result.avg_speed if latest_result else "N/A"
+    )
 
 @cashierSim.route('/storeCustomers', methods=['POST'])
+@login_required
 def store_customers():
-    session['customers'] = request.json.get('customers', [])
-    return '', 204 
+    data = request.json
+    
+    new_entry=cashier_results(
+        user_id=current_user.id,
+        customers=data.get('customers', 0),
+        accuracy=round(float(data.get('accuracy', 0.0)), 2), \
+        avg_speed=round(float(data.get('avg_speed', 0.0)), 2)
+    )
+    
+    db.session.add(new_entry)
+    db.session.commit()
+    return jsonify({'message': 'Results stored successfully'}), 200
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@cashierSim.route('/history')
+@login_required
+def cashier_history():
+    user_results = cashier_results.query.filter_by(user_id=current_user.id).all()
+    return render_template('cashierHistory.html', results=user_results)
+
+@cashierSim.route('/whoami')
+@login_required
+def whoami():
+    return f"Current user in cashierSim: {current_user.id}, Email: {current_user.email}"

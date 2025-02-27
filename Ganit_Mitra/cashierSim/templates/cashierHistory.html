@@ -17,9 +17,21 @@
         </div>
     </div>
     <div class="results">
-        <p>Customers served: {{customers}}</p>
-        <p>Accuracy: {{accuracy}}</p>
-        <p>Average Speed: {{avg_speed}}</p>
+        <h2>Game History</h2>
+        {% if results %}
+            <ul>
+                {% for result in results %}
+                    <li>
+                        <p>Customers served: {{ result.customers }}</p>
+                        <p>Accuracy: {{ result.accuracy }}%</p>
+                        <p>Average Speed: {{ result.avg_speed }} seconds</p>
+                        <hr>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No game history found.</p>
+        {% endif %}
     </div>
 </body>
 </html>

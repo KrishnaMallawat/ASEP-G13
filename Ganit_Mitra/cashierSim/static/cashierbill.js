@@ -21,8 +21,6 @@ async function fetchData() {
 
         outputDiv.innerHTML = content;
 
-        console.log("Data received:", content);
-
     } catch (error) {
         console.error("Error fetching data:", error);
     }

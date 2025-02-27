@@ -31,10 +31,22 @@ if (!countdown) {
         }
         else{
             setTimeout(() => {
+                function calculateAverage(arr) {
+                    if (arr.length === 0) return 0; // Avoid division by zero
+                    let sum = arr.reduce((acc, val) => acc + val, 0);
+                    return sum / arr.length;
+                }
+                
+                let avg_speed = calculateAverage(window.billingTimes);
+
                 fetch('/cashierSim/storeCustomers', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ customers: --window.customers})
+                    body: JSON.stringify({ 
+                        customers: window.customers, 
+                        accuracy: ((window.correctClicks / window.clicks) * 100) ,
+                        avg_speed : avg_speed
+                    })
                 }).then(() => {
                     window.location.href = "/cashierSim/end";
                 });

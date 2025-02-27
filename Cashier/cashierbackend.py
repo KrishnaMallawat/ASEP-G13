@@ -5,7 +5,7 @@ import random
 app= Flask(__name__)
 CORS(app,resources={r"/data": {"origins": "*"}})
 
-with open("ASEP-G13\Aqibe\items_list.txt", "r", encoding="utf-8") as f:
+with open("items_list.txt", "r", encoding="utf-8") as f:
     paragraphs = [line.strip() for line in f if line.strip()]
     
 # print(paragraphs)

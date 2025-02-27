@@ -1,9 +1,13 @@
 window.totalBill=0;
 window.customers=0;
-window.clicks=0;
-window.incorrectClicks=0;
+window.clicks=-1;
+window.correctClicks=-1;
+window.billingTimes = []; 
+
+let startTime=0
 
 export function nextBilling(){
+
     let parent = document.querySelector(".trade_centre .customer");  
     let div = document.createElement("div");
 
@@ -14,6 +18,12 @@ export function nextBilling(){
 
     if (window.customers>0) {
         parent.appendChild(div);
+
+        let endTime = performance.now();
+        let timeTaken = (endTime - startTime)/1000;
+        window.billingTimes.push(timeTaken);
+        console.log(timeTaken)
+        console.log("Time taken for billing (excluding timeout):", timeTaken, "s");
     }
 
     console.log(window.service_total_amount);
@@ -26,12 +36,14 @@ export function nextBilling(){
         document.body.appendChild(script);
         div.classList.add("correct"); 
         window.customers+=1;
-        window.clicks+=1;
+        window.correctClicks+=1;
+        startTime = performance.now();
     }
     else{
         div.classList.add("wrong");
-        window.incorrectClicks+=1;
     }
+
+    window.clicks+=1;
 
     setTimeout(() => {
         document.querySelector(".ticket").remove();
@@ -54,9 +66,12 @@ export function Calculate(button,customer_payment){
     if (totalInput==window.totalBill){
         button.classList.add("correct"); 
         customer_payment(totalInput);
+        window.correctClicks+=1;
     } else {
         button.classList.add("wrong"); 
     }
+
+    window.clicks+=1;
 
     setTimeout(() => {
         button.classList.remove("correct", "wrong");

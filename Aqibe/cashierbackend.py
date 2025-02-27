@@ -33,6 +33,5 @@ def send_q():
 def index():
     return render_template('cashier.html') 
 
-
 if __name__ == "__main__":
     app.run(debug=True)
