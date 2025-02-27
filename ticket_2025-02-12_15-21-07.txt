@@ -1,0 +1,14 @@
+--------------------------------------
+          Movie Ticket Receipt        
+--------------------------------------
+
+User Name: g13
+Movie Name: Avengers: Endgame
+
+Seats Booked:
+  - Row 9, Seat 1
+
+Total Cost: Rs. 200
+
+Thank you for booking with us!
+--------------------------------------
