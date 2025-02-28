@@ -1,60 +1,63 @@
+/* General body styling */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f0f8ff;
-    background-image: url('Triangles.jpg'); /* Ensure the image path is correct */
+    background-image: url('Triangles.jpg');
     background-size: cover;
-    /* background-position: center; */
-    /* background-repeat: no-repeat; Ensure the image does not repeat */
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Use box model */
+    box-sizing: border-box;
 }
 
+/* Main title styling */
 h1 {
     color: #333;
     margin: 20px 0;
-    background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent background */
-    padding: 10px; /* Add padding for better readability */
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 10px;
 }
-h2{
-    margin-top: 40px;
+
+/* Subtitle styling */
+h2 {
+    margin-top: 0;
     color: #4e7878;
 }
+
+/* Game container styling */
 .game-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 40px;
-    margin-left: 280px;
-    margin-right: 280px;
+    margin: 10px 280px;
     padding: 20px;
-    background-color: rgb(212 193 193 / 80%); /* Semi-transparent background */
-    border-radius: 10px;
+    background-color: rgba(212, 193, 193, 0.8);
+    border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Use box model */
 }
 
+/* Question container styling */
 .question {
     display: none;
     justify-content: center;
     margin-bottom: 20px;
-    box-sizing: border-box; /* Use box model */
 }
 
+/* Active question styling */
 .question.active {
     display: flex;
 }
 
+/* Column styling */
 .column {
     margin: 0 20px;
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box; /* Use box model */
+    border-radius: 10px;
 }
 
+/* Item and dropzone styling */
 .item, .dropzone {
     padding: 10px;
     margin-bottom: 10px;
@@ -62,17 +65,19 @@ h2{
     border: 1px solid #ccc;
     border-radius: 3px;
     cursor: pointer;
-    box-sizing: border-box; /* Use box model */
 }
 
+/* Item hover effect */
 .item:hover {
     background-color: #f1f1f1;
 }
 
+/* Dragging item effect */
 .item.dragging {
     opacity: 0.5;
 }
 
+/* Dropzone styling */
 .dropzone {
     min-height: 40px;
     display: flex;
@@ -80,65 +85,48 @@ h2{
     justify-content: center;
 }
 
-#submit, .next, .reset {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-right: 10px; /* Add some space between buttons */
-    box-sizing: border-box; /* Use box model */
-    border-radius: 20px;
-}
-
-#result, #score {
-    margin-top: 20px;
-    font-weight: bold;
-    box-sizing: border-box; /* Use box model */
-    margin-left: 40vw;
-    margin-right: 40vw;
-    background-color: black;
-    color: white;
-    margin-bottom: 20px; /* Add bottom margin */
-}
-
-.score-container {
-    margin: 20px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.menu-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-}
-
-.menu-container button {
-    margin: 10px;
+/* Button styling */
+.button {
+    margin-top: 5px;
     padding: 15px 30px;
     font-size: 18px;
     cursor: pointer;
-    border-radius: 10px;
+    margin-right: 10px;
+    border-radius: 20px;
 }
 
-.instructions-container {
-    margin: 20px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Index and result button styling */
+.index-button, .result-button {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+    padding: 20px 40px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+/* Container styling for menu, instructions, and score */
+.menu-container, .instructions-container, .score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Result and score display styling */
+#result, #score {
+    margin: 20px 40vw;
+    font-weight: bold;
+    background-color: black;
+    color: white;
 }
 
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
     .game-container {
-        margin-left: 20px;
-        margin-right: 20px;
+        margin: 10px 20px;
         padding: 10px;
     }
 
@@ -148,16 +136,11 @@ h2{
     }
 
     #result, #score {
-        margin-left: 10px;
-        margin-right: 10px;
+        margin: 10px;
     }
 }
 
 @media (max-width: 480px) {
-    body {
-        background-color: #e0f7fa; /* Change background color for phone view */
-        background-image: url('BG PH.jpg'); /* Change background image for phone view */
-    }
     h1 {
         font-size: 24px;
         padding: 5px;
@@ -174,7 +157,7 @@ h2{
     }
 
     .question {
-        flex-direction: column; /* Align elements vertically */
+        flex-direction: column;
     }
 
     .column {
@@ -183,7 +166,7 @@ h2{
     }
 
     .column:nth-child(2) {
-        margin-bottom: 20px; /* Increase bottom margin after the second column */
+        margin-bottom: 20px;
     }
 
     .item, .dropzone {
@@ -197,21 +180,17 @@ h2{
     }
 
     #result, #score {
-        margin-left: 5px;
-        margin-right: 5px;
+        margin: 5px;
         font-size: 14px;
     }
 
     .next, .reset {
-        position: relative; /* Change position to relative */
-        bottom: 0;
-        left: 0;
-        right: 0;
+        position: relative;
         margin: 5px auto;
-        display: block; /* Ensure the buttons are displayed */
+        display: block;
     }
 
     .next {
-        margin-bottom: 10px; /* Add space between next and reset buttons */
+        margin-bottom: 10px;
     }
 }

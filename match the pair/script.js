@@ -155,11 +155,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectedQuestions = selectRandomQuestions(questions, 4);
     initializeGame(selectedQuestions);
 
+    // Function to select random questions
     function selectRandomQuestions(data, numQuestions) {
-        const shuffled = data.sort(() => 0.5 - Math.random());
-        return shuffled.slice(0, numQuestions);
+        return data.sort(() => 0.5 - Math.random()).slice(0, numQuestions);
     }
 
+    // Function to shuffle an array
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -168,26 +169,26 @@ document.addEventListener('DOMContentLoaded', () => {
         return array;
     }
 
+    // Function to initialize the game
     function initializeGame(data) {
         const gameContainer = document.getElementById('game-container');
+        const buttonContainer = document.getElementById('button-container');
+        const questionTitle = document.getElementById('question-title');
         
         data.forEach((questionData, index) => {
             const questionDiv = document.createElement('div');
             questionDiv.classList.add('question');
-            if (index === 0) questionDiv.classList.add('active');
+            if (index === 0) {
+                questionDiv.classList.add('active');
+                questionTitle.textContent = questionData.question;
+            }
             questionDiv.id = `question${index + 1}`;
-
-            const questionTitle = document.createElement('h2');
-            questionTitle.textContent = questionData.question;
-            questionDiv.appendChild(questionTitle);
 
             const questionsColumn = document.createElement('div');
             questionsColumn.classList.add('column');
             questionsColumn.id = `q${index + 1}-questions`;
 
-            // Shuffle items
-            const shuffledItems = shuffleArray([...questionData.items]);
-            shuffledItems.forEach(item => {
+            shuffleArray([...questionData.items]).forEach(item => {
                 const itemDiv = document.createElement('div');
                 itemDiv.classList.add('item');
                 itemDiv.draggable = true;
@@ -200,9 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             answersColumn.classList.add('column');
             answersColumn.id = `q${index + 1}-answers`;
 
-            // Shuffle answers
-            const shuffledAnswers = shuffleArray([...questionData.answers]);
-            shuffledAnswers.forEach(answer => {
+            shuffleArray([...questionData.answers]).forEach(answer => {
                 const answerDiv = document.createElement('div');
                 answerDiv.classList.add('dropzone');
                 answerDiv.id = answer.id;
@@ -212,59 +211,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
             questionDiv.appendChild(questionsColumn);
             questionDiv.appendChild(answersColumn);
-
-            if (index < data.length - 1) {
-                const nextButton = document.createElement('button');
-                nextButton.classList.add('next');
-                nextButton.id = `next${index + 1}`;
-                nextButton.textContent = 'Next';
-                nextButton.addEventListener('click', () => showQuestion(index + 1));
-                questionDiv.appendChild(nextButton);
-            } else {
-                const submitButton = document.createElement('button');
-                submitButton.id = 'submit';
-                submitButton.textContent = 'Submit';
-                submitButton.addEventListener('click', () => calculateScore(data));
-                questionDiv.appendChild(submitButton);
-            }
-
-            const resetButton = document.createElement('button');
-            resetButton.classList.add('reset');
-            resetButton.id = `reset${index + 1}`;
-            resetButton.textContent = 'Reset';
-            resetButton.addEventListener('click', () => resetCurrentQuestion(index + 1));
-            questionDiv.appendChild(resetButton);
-
             gameContainer.appendChild(questionDiv);
         });
+
+        // Create and initialize the Next button
+        const nextButton = document.createElement('button');
+        nextButton.classList.add('button', 'next');
+        nextButton.id = 'next-button';
+        nextButton.textContent = 'Next';
+        nextButton.addEventListener('click', () => showNextQuestion(data));
+        buttonContainer.appendChild(nextButton);
+
+        // Create and initialize the Submit button
+        const submitButton = document.createElement('button');
+        submitButton.classList.add('button');
+        submitButton.id = 'submit-button';
+        submitButton.textContent = 'Submit';
+        submitButton.addEventListener('click', () => calculateScore(data));
+        submitButton.style.display = 'none';
+        buttonContainer.appendChild(submitButton);
+
+        // Create and initialize the Reset button
+        const resetButton = document.createElement('button');
+        resetButton.classList.add('button', 'reset');
+        resetButton.id = 'reset-button';
+        resetButton.textContent = 'Reset';
+        resetButton.addEventListener('click', resetCurrentQuestion);
+        buttonContainer.appendChild(resetButton);
 
         // Initialize drag and drop functionality
         initializeDragAndDrop();
     }
 
+    // Function to initialize drag and drop functionality
     function initializeDragAndDrop() {
-        const items = document.querySelectorAll('.item[draggable="true"]');
-        const dropzones = document.querySelectorAll('.dropzone');
-
-        items.forEach(item => {
+        document.querySelectorAll('.item[draggable="true"]').forEach(item => {
             item.addEventListener('dragstart', dragStart);
         });
 
-        dropzones.forEach(dropzone => {
+        document.querySelectorAll('.dropzone').forEach(dropzone => {
             dropzone.addEventListener('dragover', dragOver);
             dropzone.addEventListener('drop', drop);
         });
     }
 
+    // Function to handle drag start event
     function dragStart(e) {
         e.dataTransfer.setData('text/plain', e.target.id);
         e.target.classList.add('dragging');
     }
 
+    // Function to handle drag over event
     function dragOver(e) {
         e.preventDefault();
     }
 
+    // Function to handle drop event
     function drop(e) {
         e.preventDefault();
         const itemId = e.dataTransfer.getData('text/plain');
@@ -278,32 +280,30 @@ document.addEventListener('DOMContentLoaded', () => {
         draggedElement.classList.remove('dragging');
     }
 
+    // Function to calculate the score
     function calculateScore(data) {
-        console.log("Submit button clicked");
         let score = 0;
 
-        data.forEach((questionData, index) => {
+        data.forEach((questionData) => {
             questionData.items.forEach(item => {
                 const itemElement = document.getElementById(item.id);
                 const correctAnswer = questionData.answers.find(answer => answer.id === item.id.replace('item', 'answer'));
                 const answerElement = document.getElementById(correctAnswer.id);
 
-                console.log(`Checking item ${item.id} in answer ${correctAnswer.id}`);
                 if (answerElement && answerElement.contains(itemElement)) {
-                    console.log(`Item ${item.id} is correctly placed in ${correctAnswer.id}`);
                     score++;
-                } else {
-                    console.log(`Item ${item.id} is NOT correctly placed in ${correctAnswer.id}`);
                 }
             });
         });
 
-        console.log(`Score calculated: ${score}`);
         const total = data.reduce((acc, question) => acc + question.items.length, 0);
         window.location.href = `result.html?score=${score}&total=${total}`;
     }
 
-    function resetCurrentQuestion(questionIndex) {
+    // Function to reset the current question
+    function resetCurrentQuestion() {
+        const activeQuestion = document.querySelector('.question.active');
+        const questionIndex = Array.from(activeQuestion.parentNode.children).indexOf(activeQuestion) + 1;
         const questionItems = document.querySelectorAll(`#question${questionIndex} .item`);
         const questionsColumn = document.getElementById(`q${questionIndex}-questions`);
         questionItems.forEach(item => {
@@ -311,10 +311,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function showQuestion(index) {
-        const questions = document.querySelectorAll('.question');
-        questions.forEach((question, i) => {
-            question.classList.toggle('active', i === index);
-        });
+    // Function to show the next question
+    function showNextQuestion(data) {
+        const activeQuestion = document.querySelector('.question.active');
+        const questionIndex = Array.from(activeQuestion.parentNode.children).indexOf(activeQuestion);
+        const questionTitle = document.getElementById('question-title');
+        if (questionIndex < data.length - 1) {
+            activeQuestion.classList.remove('active');
+            activeQuestion.nextElementSibling.classList.add('active');
+            questionTitle.textContent = data[questionIndex + 1].question;
+            if (questionIndex === data.length - 2) {
+                document.getElementById('next-button').style.display = 'none';
+                document.getElementById('submit-button').style.display = 'inline-block';
+            }
+        }
     }
 });
