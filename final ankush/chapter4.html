@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study and MCQs on Algebra Basics</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url(/mcq.jpg);
+            background-size: cover;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .case-study {
+            background: #2bbce4bc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ffcc00;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: bolder;
+        }
+        
+        .case-study h1 {
+            color: #0c12af;
+            margin-bottom: 20px;
+        }
+        
+        .case-study ul {
+            text-align: left;
+            margin: 20px 0;
+        }
+        
+        .case-study ul li {
+            margin-bottom: 10px;
+        }
+        
+        .mcq-section {
+            background: #4ac8d6eb;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ffcc00;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #ff4500;
+        }
+        
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .options li {
+            margin-bottom: 10px;
+        }
+        
+        .options li label {
+            cursor: pointer;
+            display: block;
+            padding: 10px;
+            background: #fcfdfcb8;
+            border-radius: 5px;
+            transition: background 0.3s;
+            border: 2px solid rgb(170, 0, 255);
+        }
+        
+        .options li label:hover {
+            background: #d7ea2f;
+        }
+        
+        .submit-button,
+        .nav-button {
+            display: inline-block;
+            margin: 20px 10px;
+            padding: 10px 20px;
+            background: #ff5722;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1rem;
+        }
+        
+        .submit-button:hover,
+        .nav-button:hover {
+            background: #e64a19;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            background: #f33614;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1.5rem;
+        }
+        
+        .back-button:hover {
+            background: #1976d2;
+        }
+        
+        .correct {
+            background-color: #4CAF50 !important;
+            color: white;
+        }
+        
+        .incorrect {
+            background-color: #f44336 !important;
+            color: white;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .feedback.wrong {
+            color: #f44336;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Case Study Section -->
+        <div class="case-study">
+            <h1>Case Study: Algebra Basics</h1>
+            <p>
+                Asha is learning algebra and encounters the expression \( x + 5 = 10 \). She is trying to solve for \( x \), which is called a variable.
+            </p>
+
+        </div>
+
+        <!-- MCQ Section -->
+        <div class="mcq-section">
+            <h2>Multiple Choice Questions</h2>
+
+            <!-- Question 1 -->
+            <div id="question1" class="question-container">
+                <div class="question">
+                    1. What is the value of \( x \) in the equation \( x + 5 = 10 \)?
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="A"> A) 5
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="B"> B) 10
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="C"> C) 15
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="D"> D) 0
+                        </label>
+                    </li>
+                </ul>
+                <div class="feedback" id="feedback1"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div id="question2" class="question-container hidden">
+                <div class="question">
+                    2. What is a variable in an algebraic expression?
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="A"> A) A number
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="B"> B) A letter that represents a number
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="C"> C) A mathematical operation
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="D"> D) A symbol for addition
+                        </label>
+                    </li>
+                </ul>
+                <div class="feedback" id="feedback2"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div id="question3" class="question-container hidden">
+                <div class="question">
+                    3. In the equation \( x + 5 = 10 \), what operation is being performed on \( x \)?
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="A"> A) Addition
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="B"> B) Subtraction
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="C"> C) Multiplication
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="D"> D) Division
+                        </label>
+                    </li>
+                </ul>
+                <div class="feedback" id="feedback3"></div>
+            </div>
+            <div id="question4" class="question-container hidden">
+                <div class="question">
+                    4. What must you subtract from 10 to get \( x \)?
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="A"> A) 5
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="B"> B) 10
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="C"> C) 0
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="D"> D) 1
+                        </label>
+                    </li>
+                </ul>
+                <div class="feedback" id="feedback4"></div>
+            </div>
+            <div id="question5" class="question-container hidden">
+                <div class="question">
+                    5. In the equation \( x + 5 = 10 \), what operation is being performed on \( x \)?
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="A"> A) 5
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="B"> B) 10
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="C"> C) 15
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="D"> D) 0
+                        </label>
+                    </li>
+                </ul>
+                <div class="feedback" id="feedback5"></div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button id="prevButton" class="nav-button hidden">Previous</button>
+            <button id="nextButton" class="nav-button">Next</button>
+            <button id="submitButton" class="submit-button hidden">Submit Answers</button>
+        </div>
+        <button class="back-button" onclick="window.location.href='case based study.html'">Back to Main Menu</button>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 5;
+
+        const correctAnswers = {
+            q1: "A",
+            q2: "B",
+            q3: "A",
+            q4: "A",
+            q5: "A"
+        };
+
+        function showQuestion(questionNumber) {
+            document.querySelectorAll('.question-container').forEach((q, index) => {
+                q.classList.toggle('hidden', index + 1 !== questionNumber);
+            });
+
+            document.getElementById('prevButton').classList.toggle('hidden', questionNumber === 1);
+            document.getElementById('nextButton').classList.toggle('hidden', questionNumber === totalQuestions);
+            document.getElementById('submitButton').classList.toggle('hidden', questionNumber !== totalQuestions);
+        }
+
+        function checkAnswer(questionNumber) {
+            const selectedOption = document.querySelector(`input[name="q${questionNumber}"]:checked`);
+            const feedback = document.getElementById(`feedback${questionNumber}`);
+            const options = document.querySelectorAll(`#question${questionNumber} .options li label`);
+
+            if (!selectedOption) return; // No option selected
+
+            // Disable all radio buttons for this question
+            document.querySelectorAll(`#question${questionNumber} input[type="radio"]`).forEach(input => {
+                input.disabled = true;
+            });
+
+            // Reset styles and feedback
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+            });
+            feedback.textContent = "";
+
+            if (selectedOption.value === correctAnswers[`q${questionNumber}`]) {
+                selectedOption.parentElement.classList.add('correct');
+                feedback.textContent = "Correct!";
+                feedback.classList.add('correct');
+                feedback.classList.remove('wrong');
+            } else {
+                selectedOption.parentElement.classList.add('incorrect');
+                // Highlight the correct answer
+                options.forEach(option => {
+                    if (option.querySelector('input').value === correctAnswers[`q${questionNumber}`]) {
+                        option.classList.add('correct');
+                    }
+                });
+                feedback.textContent = "Wrong! The correct answer is highlighted.";
+                feedback.classList.add('wrong');
+                feedback.classList.remove('correct');
+            }
+        }
+
+        document.getElementById('nextButton').addEventListener('click', () => {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        document.getElementById('prevButton').addEventListener('click', () => {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        document.getElementById('submitButton').addEventListener('click', submitAnswers);
+
+        function submitAnswers() {
+            let score = 0;
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedOption && selectedOption.value === correctAnswers[`q${i}`]) {
+                    score++;
+                }
+            }
+            window.location.href = `scorecard.html?score=${score}`;
+        }
+
+        // Add event listeners to radio buttons for immediate feedback
+        document.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const questionNumber = e.target.name.slice(1); // Extract question number from name (e.g., "q1" -> 1)
+                checkAnswer(questionNumber);
+            });
+        });
+
+        showQuestion(currentQuestion);
+    </script>
+</body>
+
+</html>

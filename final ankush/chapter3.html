@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study and MCQs on Fractions and Decimals</title>
+    <style>
+        /* Your existing CSS styles */
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url(/mcq.jpg);
+            background-size: cover;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .case-study {
+            background: #2bbce4bc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ffcc00;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: bolder;
+        }
+        
+        .case-study h1 {
+            color: #0c12af;
+            margin-bottom: 20px;
+        }
+        
+        .case-study ul {
+            text-align: left;
+            margin: 20px 0;
+        }
+        
+        .case-study ul li {
+            margin-bottom: 10px;
+        }
+        
+        .mcq-section {
+            background: #4ac8d6eb;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ffcc00;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #ff4500;
+        }
+        
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .options li {
+            margin-bottom: 10px;
+        }
+        
+        .options li label {
+            cursor: pointer;
+            display: block;
+            padding: 10px;
+            background: #f9f9f8b8;
+            border-radius: 5px;
+            transition: background 0.3s;
+            border: 2px solid rgb(170, 0, 255);
+        }
+        
+        .options li label:hover {
+            background: #d7ea2f;
+        }
+        
+        .submit-button,
+        .nav-button {
+            display: inline-block;
+            margin: 20px 10px;
+            padding: 10px 20px;
+            background: #ff5722;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1rem;
+        }
+        
+        .submit-button:hover,
+        .nav-button:hover {
+            background: #e64a19;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            background: #f33614;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1.5rem;
+        }
+        
+        .back-button:hover {
+            background: #1976d2;
+        }
+        
+        .correct {
+            background-color: #4CAF50 !important;
+            color: white;
+        }
+        
+        .incorrect {
+            background-color: #f44336 !important;
+            color: white;
+        }
+        
+        .disabled {
+            pointer-events: none;
+            /* Disable further clicks */
+            opacity: 0.7;
+            /* Make it look disabled */
+        }
+    </style>
+    <!-- MathJax Script -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Case Study Section -->
+        <div class="case-study">
+            <h1>Case Study: Fractions and Decimals</h1>
+            <p>
+                Ravi is learning about circles. He discovers that a circle has a center point, radius, and diameter. The distance from the center of the circle to any point on the boundary is called the radius.
+            </p>
+
+
+        </div>
+
+        <!-- MCQ Section -->
+        <div class="mcq-section">
+            <h2>Multiple Choice Questions</h2>
+
+            <!-- Question 1 -->
+            <div id="question1" class="question-container">
+                <div class="question">
+                    1. What is the center of a circle?
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="A"> A)The boundary of the circle
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="B"> B) The farthest point of the circle
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="C"> C) The middle point of the circle
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="D"> D) The distance from one end to the other
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Question 2 -->
+            <div id="question2" class="question-container hidden">
+                <div class="question">
+                    2.What is the radius of a circle?
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="A"> A) The distance from the center to any point on the circle's boundary
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="B"> B) The distance across the circle
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="C"> C) The distance from one side to the other
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="D"> D) o The total circumference of the circle
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Question 3 -->
+            <div id="question3" class="question-container hidden">
+                <div class="question">
+                    3. The diameter of a circle is:
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="A"> A) Twice the radius
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="B"> B) Half the radius
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="C"> C) The same as the radius
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="D"> D) The same as the circumference
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div id="question4" class="question-container hidden">
+                <div class="question">
+                    4.If the radius of a circle is 4 cm, what is the diameter?
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="A"> A) 4 cm
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="B"> B) 8 cm
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="C"> C) 12 cm
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="D"> D) 2 cm
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div id="question5" class="question-container hidden">
+                <div class="question">
+                    5.How is the radius related to the diameter of a circle?
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="A"> A) Radius is half the diameter
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="B"> B)Radius is twice the diameter
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="C"> C) Radius and diameter are the same
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="D"> D) There is no relation
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button id="prevButton" class="nav-button hidden">Previous</button>
+            <button id="nextButton" class="nav-button">Next</button>
+            <button id="submitButton" class="submit-button hidden">Submit Answers</button>
+        </div>
+        <button class="back-button" onclick="window.location.href='case based study.html'">Back to Main Menu</button>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 5;
+
+        const correctAnswers = {
+            q1: "B", // Simplified form of 12/18 is 2/3
+            q2: "B", // Decimal 0.75 as a fraction is 3/4
+            q3: "C", // Sum of 1/4 and 2/5 is 13/20
+            q4: "A", // Sum of 1/4 and 2/5 is 13/20
+            q5: "B", // Sum of 1/4 and 2/5 is 13/20
+        };
+
+        function showQuestion(questionNumber) {
+            document.querySelectorAll('.question-container').forEach((q, index) => {
+                q.classList.toggle('hidden', index + 1 !== questionNumber);
+            });
+
+            document.getElementById('prevButton').classList.toggle('hidden', questionNumber === 1);
+            document.getElementById('nextButton').classList.toggle('hidden', questionNumber === totalQuestions);
+            document.getElementById('submitButton').classList.toggle('hidden', questionNumber !== totalQuestions);
+        }
+
+        document.getElementById('nextButton').addEventListener('click', () => {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        document.getElementById('prevButton').addEventListener('click', () => {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        document.getElementById('submitButton').addEventListener('click', submitAnswers);
+
+        function submitAnswers() {
+            const selectedAnswers = {
+                q1: document.querySelector('input[name="q1"]:checked'),
+                q2: document.querySelector('input[name="q2"]:checked'),
+                q3: document.querySelector('input[name="q3"]:checked')
+            };
+
+            if (!selectedAnswers.q1 || !selectedAnswers.q2 || !selectedAnswers.q3) {
+                alert("Please answer all questions before submitting.");
+                return;
+            }
+
+            let score = 0;
+            if (selectedAnswers.q1.value === correctAnswers.q1) score++;
+            if (selectedAnswers.q2.value === correctAnswers.q2) score++;
+            if (selectedAnswers.q3.value === correctAnswers.q3) score++;
+
+            window.location.href = `scorecard.html?score=${score}`;
+        }
+
+        function checkAnswer(questionNumber, selectedOption) {
+            const correctAnswer = correctAnswers[`q${questionNumber}`];
+            const options = document.querySelectorAll(`#question${questionNumber} .options li label`);
+
+            // Disable all radio buttons for this question
+            document.querySelectorAll(`#question${questionNumber} input[type="radio"]`).forEach(input => {
+                input.disabled = true;
+            });
+
+            // Highlight correct and incorrect answers
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                if (option.querySelector('input').value === correctAnswer) {
+                    option.classList.add('correct');
+                }
+            });
+
+            if (selectedOption.value === correctAnswer) {
+                selectedOption.parentElement.classList.add('correct');
+            } else {
+                selectedOption.parentElement.classList.add('incorrect');
+            }
+        }
+
+        document.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.addEventListener('change', (event) => {
+                const questionNumber = event.target.name.slice(1);
+                checkAnswer(questionNumber, event.target);
+            });
+        });
+
+        showQuestion(currentQuestion);
+    </script>
+</body>
+
+</html>
