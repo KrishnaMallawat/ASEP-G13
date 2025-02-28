@@ -42,7 +42,7 @@ def login():
     error=None
     if request.method == "POST":
         email = request.form["email"]
-        password = request.form["password"]
+        password = request.form.get("password")
         
         user = User.query.filter_by(email=email).first()
         if user and bcrypt.check_password_hash(user.password,password):
@@ -54,6 +54,48 @@ def login():
             return render_template('login.html',error=error)
         
     return render_template('login.html',error=error)
+
+@app.route('/reset',methods=["GET","POST"])
+def reset():
+    return render_template('forgot_password.html')
+
+@app.route('/send_mail',methods=["GET","POST"])
+def send_mail():
+    import smtplib
+    server_mail="aqibe.shaikh241@vit.edu"
+    mail_pass="sapjlhxbkejaptfg"
+    
+    data = request.json
+    
+    email = data.get("email")
+    if not email:
+        return jsonify({'error': 'Email is required'}), 400
+    
+    print("works till here")
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'error': 'Email is required'}), 400
+    
+    print(user)
+    
+    new_password=random.randint(100000,999999)
+    user.password = bcrypt.generate_password_hash(str(new_password)).decode("utf-8")
+    
+    db.session.commit()
+    
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587) as connection:
+            connection.starttls()
+            connection.login(user=server_mail, password=mail_pass)
+            connection.sendmail(
+                from_addr=server_mail,
+                to_addrs=user.email,
+                msg=f"Subject: New Password!\n\nHi {user.name},\nYour new password is {new_password}"
+            )
+    except Exception as e:
+        return jsonify({'error': 'Failed to send email'}), 500          
+            
+    return redirect(url_for('login'))
 
 @app.route('/signup',methods=["GET","POST"])
 def signup():
@@ -79,7 +121,7 @@ def signup():
 @app.route('/home')
 @login_required
 def home():
-    return render_template('home.html') 
+    return render_template('home.html',name=current_user.name,school=current_user.school_name,roll_number=current_user.roll_number) 
 
 @app.route("/logout")
 @login_required

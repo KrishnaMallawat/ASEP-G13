@@ -20,7 +20,7 @@
     />
     <style>
         body {
-            font-family: 'GEOLOGICA', sans-serif;
+            font-family: 'Geologica', sans-serif;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -31,34 +31,62 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-color: black;
+            flex-direction: column;
+            height: 100vh;
         }
 
-        /* Container for the entire menu */
         .menu-container {
             padding: 30px;
             border-radius: 25px;
             max-width: 800px;
             width: 70%;
-            justify-content: center;
-            align-items: center;
-            margin-top: 5dvh;
+            margin-top: 10vh;
+            text-align: center;
         }
 
-        /* Title styling */
-        .title {
+        .header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
             text-align: center;
-            font-size: 60px;
+        }
+
+        .title {
+            font-size: 40px;
             font-weight: bold;
             color: #ffffff;
-            margin-bottom: 30px;
             text-shadow: 2px 2px #00a3c4;
+            margin-bottom: 10px;
         }
 
-        /* Menu grid for larger screens (default) */
+        .user-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .user-info p {
+            margin: 0 15px;
+            color: black;
+            font-weight: bold;
+        }
+
         .menu {
             list-style: none;
             padding: 0;
-            margin: 0;
+            margin: 50px 0 0 0;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
@@ -91,52 +119,31 @@
             color: black;
         }
 
-        /* Responsive for mobile: turn into a single row and make buttons smaller */
         @media (max-width: 768px) {
             .menu {
                 grid-template-columns: 1fr;
             }
-
-            .menu li {
-                padding: 15px;
-                font-size: 18px;
+            .user-info {
+                flex-direction: column;
             }
-
-            .menu-container {
-                width: 90%;
-                margin-top: 50px;
-            }
-
-            .title {
-                font-size: 30px;
-            }
-        }
-
-
-        /* Responsive for very small screens (e.g., small phones) */
-        @media (max-width: 480px) {
-            .menu li {
-                padding: 10px;
-                font-size: 16px;
-            }
-
-            .title {
-                font-size: 24px;
-            }
-        }
-
-        /* Landscape mode for mobile */
-        @media (orientation: landscape) and (max-width: 768px) {
-            .menu {
-                grid-template-columns: repeat(2, 1fr); /* Two-column layout for landscape mode */
+            .user-info p {
+                margin: 5px 0;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="menu-container">
+    <div class="header">
         <div class="title">GANIT MITRA</div>
+        <div class="user-info">
+            <p>Name: {{ name }}</p>
+            <p>Roll No: {{ roll_number }}</p>
+            <p>School: {{ school }}</p>
+        </div>
+    </div>
+    
+    <div class="menu-container">
         <ul class="menu">
             <li><a href="{{ url_for('cashierSim.cashier_home') }}">Cashier Simulator</a></li>
             <li><a href="Instruction.html">Instruction</a></li>
@@ -151,5 +158,5 @@
         </ul>
     </div>
 </body>
-
 </html>
+

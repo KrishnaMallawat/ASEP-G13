@@ -1,5 +1,4 @@
 setInterval(() => {
-    console.log("Generating new elements...");
 
     let cloneCount = 10; 
     let minDistance = 50; 
@@ -37,11 +36,8 @@ setInterval(() => {
         span.style.left = randomLeft;
         document.body.appendChild(span);
 
-        console.log(`Created at: ${randomLeft} (ID: ${uniqueID})`);
-
         setTimeout(() => {
             document.getElementById(uniqueID)?.remove();
-            console.log("Removed:", uniqueID);
         }, 4999);
     }
 }, 300);

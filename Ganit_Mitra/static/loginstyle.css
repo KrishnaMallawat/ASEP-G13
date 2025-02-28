@@ -70,10 +70,41 @@ input {
     border-radius: 5px;
 }
 
-button {
+.login {
     width: 107%;
     padding: 10px;
     background: #254fbd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: geologica, sans-serif;
+}
+
+.return {
+    width: 107%;
+    padding: 10px;
+    background: #9d77b6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: geologica, sans-serif;
+}
+
+.ForgotPassword {
+    display: flex;
+    flex-direction: column;
+}
+
+.send_mail,.forgot {
+    width: 107%;
+    padding: 10px;
+    background: #28bd25;
     color: white;
     border: none;
     border-radius: 5px;

@@ -30,34 +30,57 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            background-color: black;
+            flex-direction: column;
+            height: 100vh;
         }
 
-        /* Container for the entire menu */
         .menu-container {
             padding: 30px;
             border-radius: 25px;
             max-width: 800px;
             width: 70%;
-            justify-content: center;
-            align-items: center;
             margin-top: 5dvh;
+            text-align: center;
         }
 
-        /* Title styling */
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
         .title {
-            text-align: center;
-            font-size: 60px;
+            font-size: 40px;
             font-weight: bold;
             color: #ffffff;
-            margin-bottom: 30px;
             text-shadow: 2px 2px #00a3c4;
+            margin: 0;
         }
 
-        /* Menu grid for larger screens (default) */
+        .user-info {
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .user-info a {
+            color: #fdbb2d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
         .menu {
             list-style: none;
             padding: 0;
-            margin: 0;
+            margin: 50px 0 0 0;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
@@ -90,53 +113,28 @@
             color: black;
         }
 
-        /* Responsive for mobile: turn into a single row and make buttons smaller */
         @media (max-width: 768px) {
             .menu {
                 grid-template-columns: 1fr;
-            }
-
-            .menu li {
-                padding: 15px;
-                font-size: 18px;
-            }
-
-            .menu-container {
-                width: 90%;
-                margin-top: 50px;
-            }
-
-            .title {
-                font-size: 30px;
-            }
-        }
-
-
-        /* Responsive for very small screens (e.g., small phones) */
-        @media (max-width: 480px) {
-            .menu li {
-                padding: 10px;
-                font-size: 16px;
-            }
-
-            .title {
-                font-size: 24px;
-            }
-        }
-
-        /* Landscape mode for mobile */
-        @media (orientation: landscape) and (max-width: 768px) {
-            .menu {
-                grid-template-columns: repeat(2, 1fr); /* Two-column layout for landscape mode */
             }
         }
     </style>
 </head>
 
 <body>
+    <div class="header">
+        <div class="title">GANIT MITRA</div>
+        <div class="user-info">
+            <p>Name: {{ user.name }}</p>
+            <p>Roll No: {{ user.roll_number }}</p>
+            <p>School: {{ user.school }}</p>
+            <a href="changepassword.html">Change Password</a>
+        </div>
+    </div>
+    
     <div class="menu-container">
-        <div class="title">Number Nukkad</div>
         <ul class="menu">
+            <li><a href="{{ url_for('cashierSim.cashier_home') }}">Cashier Simulator</a></li>
             <li><a href="Instruction.html">Instruction</a></li>
             <li><a href="Fraction Game/Loading.html">Fraction Fields</a></li>
             <li><a href="Direction Game/Loading.html">Direction Sense Test</a></li>
@@ -144,11 +142,10 @@
             <li><a href="Memory Cards/Loading.html">Memory Cards</a></li>
             <li><a href="Clock Game/Loading.html">Samay Sudhaar</a></li>
             <li><a href="">Pictograph</a></li>
-            <li><a href="">Crossword</a></li>
             <li><a href="Results.html">Case Based</a></li>
             <li><a href="Exit.html">Result</a></li>
         </ul>
     </div>
 </body>
-
 </html>
+
