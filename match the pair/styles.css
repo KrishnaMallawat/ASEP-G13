@@ -1,0 +1,234 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f8ff;
+    background-image: url('Triangles.jpg'); /* Ensure the image path is correct */
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Use box model */
+}
+
+h1 {
+    color: #333;
+    margin: 20px 0;
+    background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent background */
+    padding: 10px; /* Add padding for better readability */
+}
+
+h2 {
+    margin-top: 40px;
+    color: #4e7878;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    margin-left: 280px;
+    margin-right: 280px;
+    padding: 20px;
+    background-color: rgb(212 193 193 / 80%); /* Semi-transparent background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Use box model */
+}
+
+.question {
+    display: none;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-sizing: border-box; /* Use box model */
+}
+
+.question.active {
+    display: flex;
+}
+
+.column {
+    margin: 0 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Use box model */
+}
+
+.item, .dropzone {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    box-sizing: border-box; /* Use box model */
+}
+
+.item:hover {
+    background-color: #f1f1f1;
+}
+
+.item.dragging {
+    opacity: 0.5;
+}
+
+.dropzone {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#submit, .next, .reset {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px; /* Add some space between buttons */
+    box-sizing: border-box; /* Use box model */
+    border-radius: 20px;
+}
+
+#result, #score {
+    margin-top: 20px;
+    font-weight: bold;
+    box-sizing: border-box; /* Use box model */
+    margin-left: 40vw;
+    margin-right: 40vw;
+    background-color: black;
+    color: white;
+    margin-bottom: 20px; /* Add bottom margin */
+}
+
+/* New styles for button container and buttons */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Ensure vertical alignment */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#next-button, #reset-button, #submit-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px; /* Add some space between buttons */
+    border-radius: 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+#next-button:hover, #reset-button:hover, #submit-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+#next-button:active, #reset-button:active, #submit-button:active {
+    background-color: #3e8e41; /* Even darker green on click */
+}
+
+/* Common button styles */
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 5px; /* Ensure consistent margin for all buttons */
+    border-radius: 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    display: inline-block; /* Ensure buttons are inline-block */
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+    height: 50px; /* Explicitly set the height for all buttons */
+    vertical-align: middle; /* Ensure vertical alignment */
+}
+
+.button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.button:active {
+    background-color: #3e8e41; /* Even darker green on click */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .game-container {
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 10px;
+    }
+
+    .column {
+        margin: 10px 0;
+        padding: 10px;
+    }
+
+    #result, #score {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+        padding: 5px;
+    }
+
+    h2 {
+        font-size: 18px;
+        margin-top: 20px;
+    }
+
+    .game-container {
+        margin-top: 20px;
+        padding: 10px;
+    }
+
+    .question {
+        flex-direction: column; /* Align elements vertically */
+    }
+
+    .column {
+        margin: 5px 0;
+        padding: 5px;
+    }
+
+    .column:nth-child(2) {
+        margin-bottom: 20px; /* Increase bottom margin after the second column */
+    }
+
+    .item, .dropzone {
+        padding: 5px;
+        margin-bottom: 5px;
+    }
+
+    #submit, .next, .reset {
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+
+    #result, #score {
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: 14px;
+    }
+
+    .next, .reset {
+        position: relative; /* Change position to relative */
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 5px auto;
+        display: block; /* Ensure the buttons are displayed */
+    }
+
+    .next {
+        margin-bottom: 10px; /* Add space between next and reset buttons */
+    }
+}
