@@ -135,7 +135,9 @@ def nigga():
 
 #Blueprints registration
 from cashierSim.cashierbackend import cashierSim
+from memoryGame.flashCards import flashCards
 app.register_blueprint(cashierSim,url_prefix="/cashierSim")
+app.register_blueprint(flashCards,url_prefix="/flashCards")
 
 
 if __name__ == "__main__":
