@@ -1,9 +1,7 @@
-// Function to generate random numbers for questions
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Game data: Levels with randomized questions and answers
 const levels = [
   {
     level: 1,
@@ -49,16 +47,14 @@ const levels = [
   },
 ];
 
-// Shuffle and select 3 random questions
 const selectedLevels = levels.sort(() => Math.random() - 0.5).slice(0, 3);
 
 let currentLevel = 0;
 let score = 0;
 let currentQuestion;
-let timeLeft = 300; // 5 minutes in seconds
+let timeLeft = 300;
 let timerInterval;
 
-// Function to load the current level
 function loadLevel() {
   if (currentLevel >= selectedLevels.length) {
     endGame();
@@ -72,7 +68,6 @@ function loadLevel() {
   document.getElementById("result").textContent = "";
 }
 
-// Function to check the answer
 function checkAnswer() {
   const userAnswer = parseInt(document.getElementById("answer").value);
   const resultElement = document.getElementById("result");
@@ -95,7 +90,6 @@ function checkAnswer() {
   }
 }
 
-// Function to skip the current question
 function skipQuestion() {
   currentLevel++;
   if (currentLevel < selectedLevels.length) {
@@ -105,7 +99,6 @@ function skipQuestion() {
   }
 }
 
-// Function to update the timer
 function updateTimer() {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
@@ -117,12 +110,11 @@ function updateTimer() {
   }
 }
 
-// Function to end the game
 function endGame() {
   clearInterval(timerInterval);
   document.getElementById("game-over-sound").play();
   setTimeout(() => {
-    window.location.href = `results.html?score=${score}`;
+    window.location.href = `/pictograph/results?score=${score}`;
   }, 2000);
 }
 
