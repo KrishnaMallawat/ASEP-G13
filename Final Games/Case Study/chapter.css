@@ -1,0 +1,144 @@
+* {
+    font-family: "geologica", sans-serif;
+  }
+  body {
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url(mcq.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #254fbd;
+  }
+
+  .container {
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .case-study {
+    background: #2bbce46a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ffcc00;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: bolder;
+  }
+
+  p{
+    color: #d4defe;
+  }
+  .case-study h1 {
+    color: hsl(232, 100%, 23%);
+    margin-bottom: 20px;
+  }
+
+  .case-study ul {
+    text-align: left;
+    margin: 20px 0;
+    color: #ffffff;
+  }
+
+  .case-study ul li {
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+
+  .mcq-section {
+    background: #4ac8d6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ffcc00;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+  }
+
+  .question {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #b43000;
+  }
+
+  .options {
+    list-style: none;
+    padding: 0;
+  }
+
+  .options li {
+    margin-bottom: 10px;
+  }
+
+  .options li label {
+    cursor: pointer;
+    display: block;
+    padding: 10px;
+    background: rgb(51, 218, 0);
+    border-radius: 5px;
+    transition: background 0.3s;
+    border: 2px solid rgb(170, 0, 255);
+  }
+
+  .options li label:hover {
+    background: #ffe36b;
+  }
+
+  .submit-button,
+  .nav-button {
+    display: inline-block;
+    margin: 20px 10px;
+    padding: 15px 30px;
+    background: #254fbd;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+
+  .submit-button:hover,
+  .nav-button:hover {
+    background: #254fbd;
+    transform: scale(1.05);
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .back-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: #001a6fba;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .back-button:hover {
+    background: #1976d2;
+  }
