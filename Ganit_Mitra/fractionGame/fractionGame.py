@@ -13,17 +13,21 @@ fractionBp = Blueprint (
 )
 
 @fractionBp.route('/')
+@login_required
 def loading():
     return render_template('fractionLoading.html')
 
 @fractionBp.route('/home')
+@login_required
 def home():
     return render_template('fractionHome.html')
 
 @fractionBp.route('/play')
+@login_required
 def play():
     return render_template('fractionGame.html')
 
 @fractionBp.route('/results')
+@login_required
 def results():
     return render_template('fractionResult.html')

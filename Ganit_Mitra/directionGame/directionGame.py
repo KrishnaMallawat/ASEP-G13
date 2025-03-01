@@ -14,22 +14,27 @@ directionBp = Blueprint (
 )
 
 @directionBp.route('/')
+@login_required
 def loading():
     return render_template('directionLoading.html')
 
 @directionBp.route('/home')
+@login_required
 def home():
     return render_template('directionHome.html')
 
 @directionBp.route('/play')
+@login_required
 def play():
     return render_template('directionGame.html')
 
 @directionBp.route('/how-to-play')
+@login_required
 def instructions():
     return render_template('directionInstructions.html')
 
 @directionBp.route('/results')
+@login_required
 def results():
     score = request.args.get('score', 0, type=int)
     results = request.args.get('results')

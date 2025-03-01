@@ -13,22 +13,27 @@ pictographBp = Blueprint (
 )
 
 @pictographBp.route('/')
+@login_required
 def loading():
     return redirect(url_for("pictographGame.home"))
 
 @pictographBp.route('/home')
+@login_required
 def home():
     return render_template('pictographHome.html')
 
 @pictographBp.route('/play')
+@login_required
 def play():
     return render_template('pictographGame.html')
 
 @pictographBp.route('/how-to-play')
+@login_required
 def instructions():
     return render_template('pictographInstructions.html')
 
 @pictographBp.route('/results')
+@login_required
 def results():
     score = request.args.get('score', 0, type=int)
     return render_template('pictographResults.html',score=score)
