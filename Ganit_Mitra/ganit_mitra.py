@@ -129,10 +129,6 @@ def logout():
     logout_user()  
     return redirect(url_for("login"))
 
-@app.route('/nigga')
-def nigga():
-    return ' wiwiwiwiwiw '
-
 #Blueprints registration
 from cashierSim.cashierbackend import cashierSim
 from memoryGame.flashCards import flashCards
