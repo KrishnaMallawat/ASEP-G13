@@ -139,11 +139,13 @@ from memoryGame.flashCards import flashCards
 from fractionGame.fractionGame import fractionBp
 from pictograpghGame.pictographGame import pictographBp
 from directionGame.directionGame import directionBp
+from clockGame.clockGame import clockBp
 app.register_blueprint(cashierSim,url_prefix="/cashierSim")
 app.register_blueprint(flashCards,url_prefix="/flashCards")
 app.register_blueprint(fractionBp,url_prefix="/fraction-field")
 app.register_blueprint(pictographBp,url_prefix="/pictograph")
 app.register_blueprint(directionBp,url_prefix="/direction")
+app.register_blueprint(clockBp,url_prefix="/samay")
 
 if __name__ == "__main__":
     with app.app_context():
