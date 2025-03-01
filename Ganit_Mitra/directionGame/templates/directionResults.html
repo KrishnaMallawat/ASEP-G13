@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIRECTION SENSE TEST</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="{{url_for('directionGame.static',filename='directionResultsStyle.css')}}">
+</head>
+<body>
+    <div class="container">
+        <div id="results-container">
+            <h2>Your Score: {{ score }}/{{ results|length }}</h2>
+            <table class="results-table">
+                <tr>
+                    <th>Question Number</th>
+                    <th>Status</th>
+                </tr>
+                {% for result in results %}
+                    <tr>
+                        <td>Question {{ result.questionNumber }}</td>
+                        <td class="{{ 'correct' if result.isCorrect else 'incorrect' }}">
+                            {{ 'Correct' if result.isCorrect else 'Incorrect' }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <button class="button" style="font-family: geologica;">
+            <a href="{{url_for('directionGame.loading')}}">
+            <i class="fa-solid fa-arrow-rotate-right"></i>
+            </a>
+        </button>
+        <button class="button" style="font-family: geologica;">
+            <a href="{{url_for('home')}}">
+                Menu  <i class="fa-solid fa-bars"></i>
+            </a>
+        </button>
+    </div>
+    
+</body>
+</html>

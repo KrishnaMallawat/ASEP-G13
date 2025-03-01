@@ -138,10 +138,12 @@ from cashierSim.cashierbackend import cashierSim
 from memoryGame.flashCards import flashCards
 from fractionGame.fractionGame import fractionBp
 from pictograpghGame.pictographGame import pictographBp
+from directionGame.directionGame import directionBp
 app.register_blueprint(cashierSim,url_prefix="/cashierSim")
 app.register_blueprint(flashCards,url_prefix="/flashCards")
 app.register_blueprint(fractionBp,url_prefix="/fraction-field")
 app.register_blueprint(pictographBp,url_prefix="/pictograph")
+app.register_blueprint(directionBp,url_prefix="/direction")
 
 if __name__ == "__main__":
     with app.app_context():
