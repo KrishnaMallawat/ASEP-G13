@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PictoQuest: The Lost Math Islands</title>
+  <link rel="stylesheet" href=" {{url_for('pictographGame.static', filename='pictographGameStyle.css')}} ">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Carme&family=Geologica:wght@100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+  <div class="game-container">
+    <p id="timer">Time Left: 05:00</p>
+    <p id="level-text">Level 1: Solve the puzzle to progress!</p>
+    <div class="pictograph" id="pictograph">
+
+    </div>
+    <div class="question" id="question">
+
+    </div>
+    <input type="number" id="answer" placeholder="Enter your answer">
+    <button onclick="checkAnswer()">Submit</button>
+    <button onclick="skipQuestion()" class="skip-button">Skip Question</button>
+    <p id="result"></p>
+    <p id="score">Score: 0</p>
+  </div>
+  <audio id="correct-sound" src="{{url_for('pictographGame.static', filename='audio/correct.mp3')}}"></audio>
+  <audio id="wrong-sound" src="{{url_for('pictographGame.static', filename='audio/wrong.mp3')}}"></audio>
+  <audio id="game-over-sound" src="{{url_for('pictographGame.static', filename='audio/game-over.mp3')}}"></audio>
+  <script src=" {{ url_for('pictographGame.static', filename='script.js') }} "></script>
+</body>
+</html>

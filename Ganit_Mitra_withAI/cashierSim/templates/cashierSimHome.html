@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashier Simulator</title>
+    <link rel="stylesheet" href="{{url_for('cashierSim.static',filename='cashierHomeStyle.css')}}">
+</head>
+<body>
+    <div class="left">CASHIER SIMULATOR</div>
+    <div class="right">
+        <a href="{{url_for('cashierSim.cashier_instructions')}}" class="button">How to play?</a>
+        <a href="{{url_for('cashierSim.cashier_game')}}" class="button">Start Game!</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+Rice
+50
+Wheat Flour
+45
+Lentils 
+80
+Sugar
+45
+Salt
+20
+Coffee
+150
+Tea
+120
+Juices
+90
+Bottled Water
+20
+Energy Drinks
+100
+Milk
+60
+Butter
+55
+Yogurt
+30
+Cheese
+100
+Cream
+75
+Biscuits
+40
+Chips
+30
+Popcorn
+50
+Dry Fruits
+800
+Protein Bars
+125
+Edible Oils
+150
+Spices
+60
+Sauces
+80
+Vinegar
+50
+Baking Powder
+40
+Candy
+5
