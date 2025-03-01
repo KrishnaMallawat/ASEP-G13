@@ -1,0 +1,110 @@
+body{ font-family: geologica, sans-serif;
+background-image: url(MatchBG\ \(2\).png);
+background-size: contain;
+background-color: #254fbd;
+background-repeat: no-repeat;
+background-attachment: fixed;
+margin: 0;
+padding: 0;
+}
+
+h2{
+    font-size: 40px;
+    color: #00288c;
+    text-align: center;
+    margin-top: 140px;
+    margin-left: 10dvh;
+    margin-bottom: 10px;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 65%;
+    margin-left: 37dvh;
+}
+
+.question {
+    display: none;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    width: 90%;
+    background-color: #f1f1f198;
+}
+
+.question.active {
+    display: flex;
+}
+
+.column {
+        display: inline-block;
+        flex-direction: column;
+        gap: 15px;
+        justify-content: space-between; 
+        align-items: center; 
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 100%;
+}
+
+.next, .reset, #submit-button {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    background-color: #3766dd;
+    color: white;
+    border: none;
+    transition: 0.3s ease-in-out; 
+    height: 6dvh;
+    margin-left: 200px;
+    padding: 10px 20px;
+    font-family: geologica, sans-serif;
+}
+
+.next{
+    margin-left: 480px;
+}
+#submit-button{
+    margin-left: 480px;
+}
+.next:hover, .reset:hover {
+    background-color: #060057;
+    transform: scale(1.05);
+}
+
+.item, .dropzone {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fef7d7;
+    border: 1px solid #c6a200;
+    border-radius: 3px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.item:hover {
+    background-color: #f1f1f1;
+}
+
+.item.dragging {
+    opacity: 0.5;
+}
+
+.dropzone {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#submit, .next, .reset {
+    margin-top: px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
