@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play - Case-Based Study of Maths</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{url_for('caseStudy.static',filename='chapterSelection.css')}}">
+</head>
+
+    <div class="container">
+        <h1>Select a Chapter</h1>
+        <div class="chapter-cards">
+            <div class="chapter-card" onclick="openChapter('{{ url_for('caseStudy.chapter1') }}')">
+                <h2>Chapter 1</h2>
+                <p>Area and Perimeter</p>
+            </div>
+
+            <div class="chapter-card" onclick="openChapter('c{{ url_for('caseStudy.chapter2') }}l')">
+                <h2>Chapter 2</h2>
+                <p>Fractions and Decimals</p>
+            </div>
+
+            <div class="chapter-card" onclick="openChapter('{{ url_for('caseStudy.chapter3') }}')">
+                <h2>Chapter 3</h2>
+                <p>Circle</p>
+            </div>
+
+            <div class="chapter-card" onclick="openChapter('{{ url_for('caseStudy.chapter4') }}')">
+                <h2>Chapter 4</h2>
+                <p>Algebra Basics</p>
+            </div>
+
+            <div class="chapter-card" onclick="openChapter('{{ url_for('caseStudy.chapter5') }}ml')">
+                <h2>Chapter 5</h2>
+                <p>Data Handling</p>
+            </div>
+
+            <div class="chapter-card" onclick="openChapter('{{ url_for('caseStudy.chapter6') }}l')">
+                <h2>Chapter 6</h2>
+                <p>Measurement</p>
+            </div>
+
+            <div class="chapter-card" onclick="openChapter('/menu.html')">
+                <h2>EXIT</h2>
+                <p>Exit the Game</p>
+            </div>
+        </div>
+
+    <script>
+        function openChapter(chapterUrl) {
+            console.log(chapterUrl)
+            window.location.href = chapterUrl;
+        }
+    </script>
+</body>
+
+</html>

@@ -3,37 +3,37 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from extension import db
-import json
 import random
 import os
 
-clockBp = Blueprint (
-    "clockGame", __name__,
+pictographBp = Blueprint (
+    "pictographGame", __name__,
     template_folder="templates",
     static_folder="static"
 )
 
-@clockBp.route('/')
+@pictographBp.route('/')
 @login_required
 def loading():
-    return render_template('clockLoading.html')
+    return redirect(url_for("pictographGame.home"))
 
-@clockBp.route('/home')
+@pictographBp.route('/home')
 @login_required
 def home():
-    return render_template('clockHome.html')
+    return render_template('pictographHome.html')
 
-@clockBp.route('/play')
+@pictographBp.route('/play')
 @login_required
 def play():
-    return render_template('clockGame.html')
+    return render_template('pictographGame.html')
 
-@clockBp.route('/how-to-play')
+@pictographBp.route('/how-to-play')
 @login_required
 def instructions():
-    return render_template('clockInstructions.html')
+    return render_template('pictographInstructions.html')
 
-@clockBp.route('/results')
+@pictographBp.route('/results')
 @login_required
 def results():
-    return render_template('clockResults.html')
+    score = request.args.get('score', 0, type=int)
+    return render_template('pictographResults.html',score=score)

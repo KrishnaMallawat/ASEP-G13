@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Over</title>
+    <link rel="stylesheet" href="{{url_for('cashierSim.static', filename='cashierEndGameStyle.css')}}">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <p>Game Over</p>
+        </div>
+        <div class="right">
+            <a href="{{url_for('home')}}" class="button">Back to Menu</a>
+            <a href="{{url_for('cashierSim.cashier_game')}}" class="button">Play Again</a>
+        </div>
+    </div>
+    <div class="results">
+        <p>Customers served: {{customers}}</p>
+        <p>Accuracy: {{accuracy}}</p>
+        <p>Average Speed: {{avg_speed}}</p>
+    </div>
+</body>
+</html>

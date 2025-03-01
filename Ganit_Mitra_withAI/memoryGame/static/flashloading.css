@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #2d62ff, #6aa2ff);
+    font-family: Arial, sans-serif;
+    background-image: url(images/Loading_BG.png);
+    background-size: cover;
+    font-family: geologica;
+}
+
+.loading-container {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    margin-top :59px;
+}
+
+.loading-bar {
+    width: 80%;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px auto;
+    position: relative;
+    border: 1px solid #a67701;
+}
+
+.loading-progress {
+    height: 100%;
+    width: 0%;
+    background: #ffcb42;
+    border-radius: 10px;
+    animation: load 3s linear forwards;
+}
+
+@keyframes load {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.loading-text {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
