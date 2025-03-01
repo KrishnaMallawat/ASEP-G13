@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Play - Case-Based Study of Maths</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="chapter.css">
+  </head>
+
+  <body class="fade-in">
+    <div class="container">
+      <!-- Case Study Section -->
+      <div class="case-study">
+        <h1>Case Study: Area and Perimeter</h1>
+        <p>
+          Ravi and Priya are classmates in Grade 5. One day, their teacher gave
+          them an activity to measure the area and perimeter of different
+          objects in their school. They started with the school garden, the
+          classroom floor, and the blackboard.
+        </p>
+        <ul>
+          <li>
+            School Garden: It is a rectangular shape with a length of 12 meters
+            and a width of 8 meters.
+          </li>
+          <li>
+            Classroom Floor: The floor is square-shaped with a side of 10
+            meters.
+          </li>
+          <li>
+            Blackboard: The blackboard has a length of 4 meters and a width of 1
+            meter.
+          </li>
+        </ul>
+      </div>
+
+      <!-- MCQ Section -->
+      <div class="mcq-section">
+        <h2>Multiple Choice Questions</h2>
+
+        <!-- Question 1 -->
+        <div id="question1" class="question-container">
+          <div class="question">1. What is the area of the school garden?</div>
+          <ul class="options">
+            <li>
+              <label>
+                <input type="radio" name="q1" value="A" /> A) 96 m²
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="q1" value="B" /> B) 80 m²
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="q1" value="C" /> C) 100 m²
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="q1" value="D" /> D) 120 m²
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Question 2 -->
+        <div id="question2" class="question-container hidden">
+          <div class="question">
+            2. What is the perimeter of the classroom floor?
+          </div>
+          <ul class="options">
+            <li>
+              <label>
+                <input type="radio" name="q2" value="A" /> A) 40 m
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="q2" value="B" /> B) 30 m
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="q2" value="C" /> C) 50 m
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="q2" value="D" /> D) 60 m
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Question 3 -->
+        <div id="question3" class="question-container hidden">
+          <div class="question">3. What is the area of the blackboard?</div>
+          <ul class="options">
+            <li>
+              <label>
+                <input type="radio" name="q3" value="A" /> A) 4 m²
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="q3" value="B" /> B) 5 m²
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="q3" value="C" /> C) 6 m²
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="q3" value="D" /> D) 7 m²
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <button id="prevButton" class="nav-button hidden">Previous</button>
+        <button id="nextButton" class="nav-button">Next</button>
+        <button id="submitButton" class="submit-button hidden">
+          Submit Answers
+        </button>
+      </div>
+      <button
+        class="back-button"
+        onclick="window.location.href='case based study.html'"
+      >
+        Back to Main Menu
+      </button>
+    </div>
+
+    <script>
+      let currentQuestion = 1;
+      const totalQuestions = 3;
+
+      function showQuestion(questionNumber) {
+        document.querySelectorAll(".question-container").forEach((q, index) => {
+          q.classList.toggle("hidden", index + 1 !== questionNumber);
+        });
+
+        document
+          .getElementById("prevButton")
+          .classList.toggle("hidden", questionNumber === 1);
+        document
+          .getElementById("nextButton")
+          .classList.toggle("hidden", questionNumber === totalQuestions);
+        document
+          .getElementById("submitButton")
+          .classList.toggle("hidden", questionNumber !== totalQuestions);
+      }
+
+      document.getElementById("nextButton").addEventListener("click", () => {
+        if (currentQuestion < totalQuestions) {
+          currentQuestion++;
+          showQuestion(currentQuestion);
+        }
+      });
+
+      document.getElementById("prevButton").addEventListener("click", () => {
+        if (currentQuestion > 1) {
+          currentQuestion--;
+          showQuestion(currentQuestion);
+        }
+      });
+
+      document
+        .getElementById("submitButton")
+        .addEventListener("click", submitAnswers);
+
+      function submitAnswers() {
+        const selectedAnswers = {
+          q1: document.querySelector('input[name="q1"]:checked'),
+          q2: document.querySelector('input[name="q2"]:checked'),
+          q3: document.querySelector('input[name="q3"]:checked'),
+        };
+
+        if (!selectedAnswers.q1 || !selectedAnswers.q2 || !selectedAnswers.q3) {
+          alert("Please answer all questions before submitting.");
+          return;
+        }
+
+        const correctAnswers = {
+          q1: "A",
+          q2: "A",
+          q3: "A",
+        };
+        let score = 0;
+        if (selectedAnswers.q1.value === correctAnswers.q1) score++;
+        if (selectedAnswers.q2.value === correctAnswers.q2) score++;
+        if (selectedAnswers.q3.value === correctAnswers.q3) score++;
+
+        window.location.href = `scorecard.html?score=${score}`;
+      }
+
+      showQuestion(currentQuestion);
+    </script>
+  </body>
+</html>

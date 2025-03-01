@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scorecard - Case-Based Study of Maths</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+        body {
+            background-image: url(Match\ Results.png);
+            background-size: cover;
+            font-family: geologica, sans-serif;
+            text-align: center;
+            margin: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 60%;
+            text-align: center;
+            margin-top: 14dvh;
+        }
+        
+        .scorecard {
+            background: #fff;
+            border-radius: 10px;
+            border: 3px solid #4caf50;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            padding-bottom: 20px;
+        }
+        
+        .scorecard h1 {
+            color: #000000;
+            margin-bottom: 20px;
+        }
+        
+        .scorecard p {
+            font-size: 1.2rem;
+            color: #333;
+        }
+        
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            background: #2196f3;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            background-color:#254fbd;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-family: geologica, sans-serif;
+        }
+        
+        .back-button:hover {
+            background: #ffe368;
+            color: #254fbd;
+        }
+        
+    </style>
+</head>
+
+    <div class="container">
+        <div class="scorecard">
+            <h1>Your Scorecard</h1>
+            <p id="scoreText"></p>
+            <button class="back-button" onclick="window.location.href='case based study.html'">Back to Play</button>
+        </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const score = urlParams.get('score');
+
+        const scoreText = document.getElementById("scoreText");
+        scoreText.innerHTML = `You scored ${score} out of 3!`;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play - Case-Based Study of Maths</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+        body {
+            font-family: 'geologica', cursive, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url(GAME\ 1\ BG.png);
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        .container {
+            width: 100%;
+            text-align: center;
+            margin-top: 5dvh;
+        }
+        
+        h1 {
+            color: #ffffff;
+            margin-bottom: 40px;
+            font-size: 48px;
+        }
+        
+        .chapter-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .chapter-card {
+            background: #5bd8f4;
+            padding: 20px;
+            border-radius: 10px;
+            border: 3px solid #ffcc00;
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .chapter-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .chapter-card h2 {
+            color: #d53900;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        
+        .chapter-card p {
+            font-size: 16px;
+            color: #555;
+        }
+
+    </style>
+</head>
+
+    <div class="container">
+        <h1>Select a Chapter</h1>
+        <div class="chapter-cards">
+            <div class="chapter-card" onclick="openChapter('chapter1.html')">
+                <h2>Chapter 1</h2>
+                <p>Area and Perimeter</p>
+            </div>
+
+            <div class="chapter-card" onclick="openChapter('chapter2.html')">
+                <h2>Chapter 2</h2>
+                <p>Fractions and Decimals</p>
+            </div>
+
+            <div class="chapter-card" onclick="openChapter('chapter3.html')">
+                <h2>Chapter 3</h2>
+                <p>Circle</p>
+            </div>
+
+            <div class="chapter-card" onclick="openChapter('chapter4.html')">
+                <h2>Chapter 4</h2>
+                <p>Algebra Basics</p>
+            </div>
+
+            <div class="chapter-card" onclick="openChapter('chapter5.html')">
+                <h2>Chapter 5</h2>
+                <p>Data Handling</p>
+            </div>
+
+            <div class="chapter-card" onclick="openChapter('chapter6.html')">
+                <h2>Chapter 6</h2>
+                <p>Measurement</p>
+            </div>
+
+            <div class="chapter-card" onclick="openChapter('/menu.html')">
+                <h2>EXIT</h2>
+                <p>Exit the Game</p>
+            </div>
+        </div>
+
+    <script>
+        function openChapter(chapterUrl) {
+            window.location.href = chapterUrl;
+        }
+    </script>
+</body>
+
+</html>
