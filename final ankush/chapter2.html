@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Case Study and MCQs on Fractions and Decimals</title>
     <style>
-        /* Your existing CSS styles */
+
         
         body {
             font-family: 'Arial', sans-serif;
@@ -146,19 +146,19 @@
         
         .disabled {
             pointer-events: none;
-            /* Disable further clicks */
+            
             opacity: 0.7;
-            /* Make it look disabled */
+
         }
     </style>
-    <!-- MathJax Script -->
+
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <!-- Case Study Section -->
+        
         <div class="case-study">
             <h1>Case Study: Fractions and Decimals</h1>
             <p>
@@ -168,11 +168,11 @@
 
         </div>
 
-        <!-- MCQ Section -->
+        
         <div class="mcq-section">
             <h2>Multiple Choice Questions</h2>
 
-            <!-- Question 1 -->
+          
             <div id="question1" class="question-container">
                 <div class="question">
                     1. What fraction of the chocolate bar did Ananya eat?
@@ -202,7 +202,7 @@
                 <div class="feedback" id="feedback1"></div>
             </div>
 
-            <!-- Question 2 -->
+           
             <div id="question2" class="question-container hidden">
                 <div class="question">
                     2.How many equal pieces was the chocolate bar divided into?
@@ -232,7 +232,7 @@
                 <div class="feedback" id="feedback2"></div>
             </div>
 
-            <!-- Question 3 -->
+            
             <div id="question3" class="question-container hidden">
                 <div class="question">
                     3. What is the fraction of the chocolate left?
@@ -318,7 +318,7 @@
                 <div class="feedback" id="feedback5"></div>
             </div>
 
-            <!-- Navigation Buttons -->
+            
             <button id="prevButton" class="nav-button hidden">Previous</button>
             <button id="nextButton" class="nav-button">Next</button>
             <button id="submitButton" class="submit-button hidden">Submit Answers</button>
@@ -331,11 +331,11 @@
         const totalQuestions = 5;
 
         const correctAnswers = {
-            q1: "B", // Simplified form of 12/18 is 2/3
-            q2: "B", // Decimal 0.75 as a fraction is 3/4
-            q3: "C", // Sum of 1/4 and 2/5 is 13/20
-            q4: "A", // Sum of 1/4 and 2/5 is 13/20
-            q5: "B" // Sum of 1/4 and 2/5 is 13/20
+            q1: "B", 
+            q2: "B", 
+            q3: "C", 
+            q4: "A", 
+            q5: "B" 
         };
 
         function showQuestion(questionNumber) {
@@ -388,12 +388,12 @@
             const correctAnswer = correctAnswers[`q${questionNumber}`];
             const options = document.querySelectorAll(`#question${questionNumber} .options li label`);
 
-            // Disable all radio buttons for this question
+          
             document.querySelectorAll(`#question${questionNumber} input[type="radio"]`).forEach(input => {
                 input.disabled = true;
             });
 
-            // Highlight correct and incorrect answers
+
             options.forEach(option => {
                 option.classList.remove('correct', 'incorrect');
                 if (option.querySelector('input').value === correctAnswer) {

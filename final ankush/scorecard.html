@@ -89,11 +89,11 @@
     </div>
 
     <script>
-        // Get Score from URL Parameter
+      
         const urlParams = new URLSearchParams(window.location.search);
         const score = urlParams.get('score');
 
-        // Display Score
+        
         const scoreText = document.getElementById("scoreText");
         scoreText.innerHTML = `You scored ${score} out of 5!`;
     </script>

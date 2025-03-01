@@ -92,12 +92,12 @@
         
         .options li label.correct {
             background: #4CAF50;
-            /* Green for correct answer */
+
         }
         
         .options li label.wrong {
             background: #F44336;
-            /* Red for wrong answer */
+            
         }
         
         .feedback {
@@ -171,16 +171,16 @@
         
         .disabled {
             pointer-events: none;
-            /* Disable further clicks */
+           
             opacity: 0.7;
-            /* Make it look disabled */
+         
         }
     </style>
 </head>
 
 <body class="fade-in">
     <div class="container">
-        <!-- Case Study Section -->
+        
         <div class="case-study">
             <h1>Case Study: Area and Perimeter</h1>
             <p>
@@ -188,11 +188,11 @@
             </p>
         </div>
 
-        <!-- MCQ Section -->
+        
         <div class="mcq-section">
             <h2>Multiple Choice Questions</h2>
 
-            <!-- Question 1 -->
+            
             <div id="question1" class="question-container">
                 <div class="question">
                     1.What is the total length of the fencing required around the playground?
@@ -222,7 +222,7 @@
                 <div class="feedback" id="feedback1"></div>
             </div>
 
-            <!-- Question 2 -->
+            
             <div id="question2" class="question-container hidden">
                 <div class="question">
                     2. What is the area of the playground?
@@ -252,7 +252,6 @@
                 <div class="feedback" id="feedback2"></div>
             </div>
 
-            <!-- Question 3 -->
             <div id="question3" class="question-container hidden">
                 <div class="question">
                     3. What are the new dimensions of the playing area after removing the walking track?
@@ -311,7 +310,7 @@
             </div>
 
 
-            <!-- Navigation Buttons -->
+            
             <button id="prevButton" class="nav-button hidden">Previous</button>
             <button id="nextButton" class="nav-button">Next</button>
             <button id="submitButton" class="submit-button hidden">Submit Answers</button>
@@ -345,14 +344,14 @@
             const feedback = document.getElementById(`feedback${questionNumber}`);
             const options = document.querySelectorAll(`#question${questionNumber} .options li label`);
 
-            if (!selectedOption) return; // No option selected
+            if (!selectedOption) return; 
 
-            // Disable all radio buttons for this question
+
             document.querySelectorAll(`#question${questionNumber} input[type="radio"]`).forEach(input => {
                 input.disabled = true;
             });
 
-            // Reset styles and feedback
+            
             options.forEach(option => {
                 option.classList.remove('correct', 'wrong');
             });
@@ -404,10 +403,10 @@
             window.location.href = `scorecard.html?score=${score}`;
         }
 
-        // Add event listeners to radio buttons for immediate feedback
+       
         document.querySelectorAll('input[type="radio"]').forEach(input => {
             input.addEventListener('change', (e) => {
-                const questionNumber = e.target.name.slice(1); // Extract question number from name (e.g., "q1" -> 1)
+                const questionNumber = e.target.name.slice(1); 
                 checkAnswer(questionNumber);
             });
         });

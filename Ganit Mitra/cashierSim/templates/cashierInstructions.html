@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('cashierSim.static',filename='cashierInstructionsStyle.css')}}">
+    <title>CASHIER SIMULATOR</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+    integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Carme&family=Geologica:wght@100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+    <h1>How to Play?</h1>
+
+    <div>
+        <p>Start by clicking the 'Billing' button on our cashier machine</p>
+        <img src="{{ url_for('cashierSim.static', filename='images/machine.jpg') }}">  
+    </div>
+
+    <div>
+        <p>Then we can see a list of items and their prices, calculate the total and enter it in the white box. After that click enter</p>
+        <img src="{{ url_for('cashierSim.static', filename='images/payment.jpg') }}">
+        <p>Correct input in total makes the Enter box green and the customer gives us some amount of Money.</p>
+        <img src="{{ url_for('cashierSim.static', filename='images/failedpayment.jpg') }}">
+        <p>Incorrect input in total makes the Enter box red, re-enter the correct amount to proceed!</p>
+    </div>
+
+    <div>
+        <p>Click on the images to give that amount of remainder cash return </p>
+        <img id="timer" src="{{ url_for('cashierSim.static', filename='images/cash.jpg') }}">
+    </div>
+
+    <div>
+        <p>Click Billing again to generate a ticket.</p>
+        <img src="{{ url_for('cashierSim.static', filename='images/greenticket.jpg') }}">
+        <p>If correct amount of remainder sum was given u generate a green ticket</p>
+        <img src="{{ url_for('cashierSim.static', filename='images/redticket.jpg') }}">
+        <p>If incorrect amount of remainder sum was given u generate a red ticket and have to re-do everything</p>
+    </div>
+
+    <div>
+        <p>The game ends in 5 minutes, and is visible in the form of the green time bar on left. Once the bar is all red, GAME OVER!</p>
+        <img id="timer" src="{{ url_for('cashierSim.static', filename='images/timer.jpg') }}">
+    </div>
+
+</body>
+</html>

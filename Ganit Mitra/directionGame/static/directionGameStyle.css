@@ -1,0 +1,82 @@
+body {
+    font-family: 'Geologica', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f8ff;
+    background-image: url(images/directionGameBG.png);
+    background-size: cover;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    width: 350px;
+    background-color: #ffffff;
+    margin-left: 30%;
+}
+
+.instructions {
+    margin-bottom: 20px;
+    background-color: #ffe46be2;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.instructions p {
+    font-size: 18px;
+}
+
+.arrow-container {
+    width: 150px;
+    height: 150px;
+    margin: 20px auto;
+    background-color: #e0f7fa;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 60px solid #007bff;
+    transition: transform 0.5s;
+    transform-origin: 50% 50%;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #254fbd;
+    color: #fff;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.3s;
+    font-family: 'Geologica', sans-serif;
+}
+
+button:hover {
+    background-color: #091e53;
+    transform: scale(1.05);
+}
+
+.scoreboard {
+    margin-top: 20px;
+}
+
+.scoreboard p {
+    background-color:#007bff50;
+    border-radius: 5px;
+    padding: 6px;
+    margin: 10px 5;
+}
