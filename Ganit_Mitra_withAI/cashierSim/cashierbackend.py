@@ -21,7 +21,7 @@ class cashier_results(db.Model,UserMixin):
     customers =db.Column(db.Integer, nullable=False)
     accuracy = db.Column(db.Float, nullable=False)
     avg_speed = db.Column(db.Float, nullable=False)
-    level = db.Column(db.Float, nullable=False)
+    usr_level = db.Column(db.Float, nullable=False,default=1)
 
 # file_path = os.path.join(os.getcwd(),"cashierSim","items_list.txt")
 file_path = os.path.join(os.path.dirname(__file__), "items_list.txt")
@@ -86,7 +86,7 @@ def store_customers():
         customers=data.get('customers', 0),
         accuracy=round(float(data.get('accuracy', 0.0)), 2), 
         avg_speed=round(float(data.get('avg_speed', 0.0)), 2),
-        level=level,
+        usr_level=level,
     )
     
     db.session.add(new_entry)
