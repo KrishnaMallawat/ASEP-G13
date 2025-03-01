@@ -1,36 +1,47 @@
 import sqlite3
+import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error, r2_score
 import joblib
 
-# Connect to train.db and fetch past user data
-conn = sqlite3.connect('../instance/cashier_results.db')
-query = "SELECT average_speed, accuracy, customers_served, level FROM players"  # Adjust table name if needed
+# Connect to train.db
+conn = sqlite3.connect('instances/cashier.db')
+cursor = conn.cursor()
+
+# Load data from the database
+query = "SELECT avg_speed, accuracy, customers, usr_level FROM cashier_results"
 df = pd.read_sql_query(query, conn)
+
+# Close the connection
 conn.close()
 
-# Ensure there is data to train
-if df.empty:
-    raise ValueError("No data found in train.db to train the model.")
+# Check if data is loaded
+print(df.head())
 
-# Define features and target
-X = df[['average_speed', 'accuracy', 'customers_served']]
-y = df['level']
+# Prepare features (X) and target (y)
+X = df[['avg_speed', 'accuracy', 'customers']].values
+y = df['usr_level'].values
 
-# Split data into training and testing sets
+# Split the data into training and testing sets (80% train, 20% test)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train the model
+# Train the linear regression model
 model = LinearRegression()
 model.fit(X_train, y_train)
 
-# Test the model
+# Predict on the test set
 y_pred = model.predict(X_test)
-mse = mean_squared_error(y_test, y_pred)
-print(f"Mean Squared Error: {mse}")
+
+# Evaluate the model
+mae = mean_absolute_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"Mean Absolute Error: {mae}")
+print(f"R² Score: {r2}")
 
 # Save the trained model
-joblib.dump(model, 'ganit_mitra/instances/level_predictor.pkl')
+joblib.dump(model, "instances/level_predictor.pkl")
+
 print("Model saved as level_predictor.pkl")
