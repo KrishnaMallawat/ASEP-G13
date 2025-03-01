@@ -36,6 +36,12 @@
       <button class="play-again-button" onclick="restartGame()"><i class="fa-solid fa-rotate-right" style="font-size: 4dvh;"></i></button>
     </div>
 
+    <button class="button" style="font-family: geologica;">
+      <a href="{{url_for('home')}}">
+          Menu  <i class="fa-solid fa-bars"></i>
+      </a>
+    </button>
+
     <script>
       const results = JSON.parse(localStorage.getItem("quizResults"));
       const totalQuestions = results.length;
