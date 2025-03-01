@@ -6,7 +6,7 @@ from extension import db
 import random
 import os
 
-level=1
+level=2
 
 cashierSim = Blueprint(
     "cashierSim", __name__ ,
