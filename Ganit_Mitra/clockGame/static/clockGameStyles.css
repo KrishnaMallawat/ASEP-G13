@@ -27,7 +27,7 @@ font-family: geologica;
     position: relative;
     width: 200px;
     height: 200px;
-    background-image: url(Clock.png);
+    background-image: url(images/Clock.png);
     background-size: cover;
     border: 5px solid black;
     border-radius: 50%;
