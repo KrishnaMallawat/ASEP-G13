@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study and MCQs on Measurement</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{url_for('cashestudyGame.static',filename='chapter.css')}}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Case Study Section -->
+        <div class="case-study">
+            <h1>Case Study: Measurement</h1>
+            <p>
+                In a math class, students were given a project to measure different objects and convert units. They were provided with the following information:
+            </p>
+            <ul>
+                <li><strong>Object 1:</strong> A rope is 5 meters long. Convert this length to centimeters.</li>
+                <li><strong>Object 2:</strong> A bag of rice weighs 2.5 kilograms. Convert this weight to grams.</li>
+                <li><strong>Object 3:</strong> A jug contains 3 liters of water. Convert this volume to milliliters.</li>
+            </ul>
+            <p>
+                The students were asked to perform the conversions and answer related questions.
+            </p>
+        </div>
+
+        <!-- MCQ Section -->
+        <div class="mcq-section">
+            <h2>Multiple Choice Questions</h2>
+
+            <!-- Question 1 -->
+            <div id="question1" class="question-container">
+                <div class="question">
+                    1. What is the length of the rope in centimeters?
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="A"> A) 500 cm
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="B"> B) 50 cm
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="C"> C) 5000 cm
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="D"> D) 5 cm
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Question 2 -->
+            <div id="question2" class="question-container hidden">
+                <div class="question">
+                    2. What is the weight of the bag of rice in grams?
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="A"> A) 2500 g
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="B"> B) 250 g
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="C"> C) 25 g
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="D"> D) 2000 g
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Question 3 -->
+            <div id="question3" class="question-container hidden">
+                <div class="question">
+                    3. What is the volume of the jug in milliliters?
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="A"> A) 3000 ml
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="B"> B) 300 ml
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="C"> C) 30 ml
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="D"> D) 3 ml
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button id="prevButton" class="nav-button hidden">Previous</button>
+            <button id="nextButton" class="nav-button">Next</button>
+            <button id="submitButton" class="submit-button hidden">Submit Answers</button>
+        </div>
+        <button class="back-button" onclick="window.location.href='{{url_for('casestudyGame.home')}}'">Back to Main Menu</button>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 3;
+
+        function showQuestion(questionNumber) {
+            document.querySelectorAll('.question-container').forEach((q, index) => {
+                q.classList.toggle('hidden', index + 1 !== questionNumber);
+            });
+
+            document.getElementById('prevButton').classList.toggle('hidden', questionNumber === 1);
+            document.getElementById('nextButton').classList.toggle('hidden', questionNumber === totalQuestions);
+            document.getElementById('submitButton').classList.toggle('hidden', questionNumber !== totalQuestions);
+        }
+
+        document.getElementById('nextButton').addEventListener('click', () => {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        document.getElementById('prevButton').addEventListener('click', () => {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        document.getElementById('submitButton').addEventListener('click', submitAnswers);
+
+        function submitAnswers() {
+            const selectedAnswers = {
+                q1: document.querySelector('input[name="q1"]:checked'),
+                q2: document.querySelector('input[name="q2"]:checked'),
+                q3: document.querySelector('input[name="q3"]:checked')
+            };
+
+            if (!selectedAnswers.q1 || !selectedAnswers.q2 || !selectedAnswers.q3) {
+                alert("Please answer all questions before submitting.");
+                return;
+            }
+
+            const correctAnswers = {
+                q1: "A", // 5 meters = 500 cm
+                q2: "A", // 2.5 kilograms = 2500 grams
+                q3: "A" // 3 liters = 3000 milliliters
+            };
+            let score = 0;
+            if (selectedAnswers.q1.value === correctAnswers.q1) score++;
+            if (selectedAnswers.q2.value === correctAnswers.q2) score++;
+            if (selectedAnswers.q3.value === correctAnswers.q3) score++;
+
+            window.location.href = `/casestudy/results?score=${score}`;
+        }
+
+        showQuestion(currentQuestion);
+    </script>
+</body>
+
+</html>
