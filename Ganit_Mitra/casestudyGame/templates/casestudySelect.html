@@ -24,32 +24,32 @@
     <div class="container">
         <h1>Select a Chapter</h1>
         <div class="chapter-cards">
-            <div class="chapter-card" onclick="openChapter('chapter1')">
+            <div class="chapter-card" onclick="openChapter('area-and-perimeter')">
                 <h2>Chapter 1</h2>
                 <p>Area and Perimeter</p>
             </div>
 
-            <div class="chapter-card" onclick="openChapter('chapter2')">
+            <div class="chapter-card" onclick="openChapter('fractions-and-decimals')">
                 <h2>Chapter 2</h2>
                 <p>Fractions and Decimals</p>
             </div>
 
-            <div class="chapter-card" onclick="openChapter('chapter3')">
+            <div class="chapter-card" onclick="openChapter('circle')">
                 <h2>Chapter 3</h2>
                 <p>Circle</p>
             </div>
 
-            <div class="chapter-card" onclick="openChapter('chapter4')">
+            <div class="chapter-card" onclick="openChapter('algebra-basics')">
                 <h2>Chapter 4</h2>
                 <p>Algebra Basics</p>
             </div>
 
-            <div class="chapter-card" onclick="openChapter('chapter5')">
+            <div class="chapter-card" onclick="openChapter('data-handling')">
                 <h2>Chapter 5</h2>
                 <p>Data Handling</p>
             </div>
 
-            <div class="chapter-card" onclick="openChapter('chapter6')">
+            <div class="chapter-card" onclick="openChapter('measurement')">
                 <h2>Chapter 6</h2>
                 <p>Measurement</p>
             </div>
@@ -59,6 +59,12 @@
                 <p>Exit the Game</p>
             </div>     
         </div>
+
+        <script>
+            function openChapter(chapterUrl) {
+                window.location.href = chapterUrl;
+            }
+        </script>
 </body>
 
 </html>
