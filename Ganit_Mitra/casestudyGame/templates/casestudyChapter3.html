@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study and MCQs on Circles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{url_for('casestudyGame.static',filename='chapter.css')}}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Case Study Section -->
+        <div class="case-study">
+            <h1>Case Study: Understanding Circles</h1>
+            <p>
+                In a math class, students were given a project to study the properties of circles. They were provided with the following information about three circular objects:
+            </p>
+            <ul>
+                <li><strong>Circular Park:</strong> The park has a radius of 14 meters.</li>
+                <li><strong>Circular Pond:</strong> The pond has a diameter of 10 meters.</li>
+                <li><strong>Circular Table:</strong> The table has a circumference of 3.14 meters.</li>
+            </ul>
+            <p>
+                The students were asked to calculate the area and circumference of each object and answer related questions.
+            </p>
+        </div>
+
+        <div class="mcq-section">
+            <h2>Multiple Choice Questions</h2>
+
+            <div id="question1" class="question-container">
+                <div class="question">
+                    1. What is the circumference of the circular park? (Use π = 22/7)
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="A"> A) 88 meters
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="B"> B) 44 meters
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="C"> C) 66 meters
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1" value="D"> D) 100 meters
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="question2" class="question-container hidden">
+                <div class="question">
+                    2. What is the area of the circular pond? (Use π = 3.14)
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="A"> A) 78.5 m²
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="B"> B) 31.4 m²
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="C"> C) 50.24 m²
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q2" value="D"> D) 100 m²
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="question3" class="question-container hidden">
+                <div class="question">
+                    3. What is the radius of the circular table? (Use π = 3.14)
+                </div>
+                <ul class="options">
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="A"> A) 0.5 meters
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="B"> B) 1 meter
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="C"> C) 1.5 meters
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q3" value="D"> D) 2 meters
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <button id="prevButton" class="nav-button hidden">Previous</button>
+            <button id="nextButton" class="nav-button">Next</button>
+            <button id="submitButton" class="submit-button hidden">Submit Answers</button>
+        </div>
+        <button class="back-button" onclick="window.location.href='{{url_for('casestudyGame.home')}}'">Back to Main Menu</button>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 3;
+
+        function showQuestion(questionNumber) {
+            document.querySelectorAll('.question-container').forEach((q, index) => {
+                q.classList.toggle('hidden', index + 1 !== questionNumber);
+            });
+
+            document.getElementById('prevButton').classList.toggle('hidden', questionNumber === 1);
+            document.getElementById('nextButton').classList.toggle('hidden', questionNumber === totalQuestions);
+            document.getElementById('submitButton').classList.toggle('hidden', questionNumber !== totalQuestions);
+        }
+
+        document.getElementById('nextButton').addEventListener('click', () => {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        document.getElementById('prevButton').addEventListener('click', () => {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        document.getElementById('submitButton').addEventListener('click', submitAnswers);
+
+        function submitAnswers() {
+            const selectedAnswers = {
+                q1: document.querySelector('input[name="q1"]:checked'),
+                q2: document.querySelector('input[name="q2"]:checked'),
+                q3: document.querySelector('input[name="q3"]:checked')
+            };
+
+            if (!selectedAnswers.q1 || !selectedAnswers.q2 || !selectedAnswers.q3) {
+                alert("Please answer all questions before submitting.");
+                return;
+            }
+
+            const correctAnswers = {
+                q1: "A",
+                q2: "A",
+                q3: "A"
+            };
+            let score = 0;
+            if (selectedAnswers.q1.value === correctAnswers.q1) score++;
+            if (selectedAnswers.q2.value === correctAnswers.q2) score++;
+            if (selectedAnswers.q3.value === correctAnswers.q3) score++;
+
+            window.location.href = `/casestudy/results?score=${score}`;
+        }
+
+        showQuestion(currentQuestion);
+    </script>
+</body>
+
+</html>
