@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Game Profile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: #e8f5e9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: radial-gradient(circle, #c8e6c9 10%, transparent 10%), radial-gradient(circle, #c8e6c9 10%, transparent 10%);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+        }
+        
+        .profile-container {
+            display: flex;
+            width: 900px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 10px 10px 0 #81c784, 20px 20px 0 rgba(129, 199, 132, 0.5);
+            border: 4px solid #5d4037;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .character-section {
+            width: 45%;
+            background-color: #a5d6a7;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 4px dashed #81c784;
+            position: relative;
+        }
+        
+        .character-section::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%2381c784" d="M30,50 Q50,30 70,50 Q50,70 30,50 Z"/></svg>');
+            background-size: contain;
+            opacity: 0.3;
+        }
+        
+        .character-display {
+            width: 270px;
+            height: 360px;
+            background-color: #f1f8e9;
+            border-radius: 15px;
+            border: 4px solid #5d4037;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .character-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .character-display::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 30%;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        
+        .character-name-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .character-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #5d4037;
+            padding: 5px 15px;
+            background-color: #e8f5e9;
+            border-radius: 50px;
+            border: 3px solid #5d4037;
+            box-shadow: 3px 3px 0 #81c784;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            max-width: 100%;
+            word-break: break-word;
+            margin: 0;
+            padding-right: 40px;
+            /* Space for edit button */
+        }
+        
+        .character-name:hover {
+            background-color: #dcedc8;
+            box-shadow: 5px 5px 0 #81c784;
+        }
+        
+        .edit-name-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #5d4037;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        
+        .edit-name-btn:hover {
+            background-color: #81c784;
+            color: white;
+        }
+        
+        .upload-container {
+            margin-top: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .upload-btn {
+            background-color: #81c784;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            border: 3px solid #5d4037;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 3px 3px 0 #5d4037;
+        }
+        
+        .upload-btn:hover {
+            background-color: #6ab06d;
+        }
+        
+        #imageUpload {
+            display: none;
+        }
+        
+        .info-section {
+            width: 55%;
+            padding: 30px;
+            background-color: #fff;
+            position: relative;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #81c784;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 15px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            border: 3px solid #5d4037;
+            box-shadow: 3px 3px 0 #5d4037;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .back-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 #5d4037;
+        }
+        
+        .info-field {
+            margin-bottom: 25px;
+        }
+        
+        .info-field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2e7d32;
+            font-size: 18px;
+        }
+        
+        .info-field input,
+        .info-field select {
+            width: 100%;
+            padding: 12px;
+            border: 3px solid #5d4037;
+            border-radius: 10px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 16px;
+            background-color: #f1f8e9;
+            box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-field input:disabled {
+            background-color: #eee;
+            color: #888;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .action-button {
+            padding: 12px 20px;
+            border: 3px solid #5d4037;
+            border-radius: 50px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 3px 3px 0 #5d4037;
+        }
+        
+        .action-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 #5d4037;
+        }
+        
+        .change-password {
+            background-color: #64b5f6;
+            color: #333;
+        }
+        
+        .logout {
+            background-color: #e57373;
+            color: white;
+        }
+        
+        .leaf {
+            position: absolute;
+            font-size: 20px;
+            color: #81c784;
+            opacity: 0.5;
+        }
+        
+        .leaf-1 {
+            top: 15%;
+            right: 15%;
+            transform: rotate(20deg);
+        }
+        
+        .leaf-2 {
+            bottom: 20%;
+            left: 20%;
+            transform: rotate(-10deg);
+        }
+        
+        .acorn {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #8d6e63;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+        
+        .acorn-1 {
+            top: 10%;
+            left: 10%;
+        }
+        
+        .acorn-2 {
+            bottom: 15%;
+            right: 15%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="profile-container">
+        <div class="leaf leaf-1">🍃</div>
+        <div class="leaf leaf-2">🍂</div>
+        <div class="acorn acorn-1"></div>
+        <div class="acorn acorn-2"></div>
+
+        <div class="character-section">
+            <div class="character-display">
+                <img src="https://i.imgur.com/J7l5o9t.png" alt="Forest Guardian" class="character-image" id="characterImage">
+            </div>
+            <div class="upload-container">
+                <label for="imageUpload" class="upload-btn">Upload Image</label>
+                <input type="file" id="imageUpload" accept="image/*">
+            </div>
+            <div class="character-name-container">
+                <div class="character-name" id="characterName">Forest Guardian</div>
+                <button class="edit-name-btn" onclick="editName()">✏️</button>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <button class="back-button" onclick="goBack()">← Back</button>
+
+            <div class="info-field">
+                <label>Name</label>
+                <input type="text" value="abc" id="playerName">
+            </div>
+
+            <div class="info-field">
+                <label>Email</label>
+                <input type="email" value="dogs.gmail.com" disabled>
+            </div>
+
+            <div class="info-field">
+                <label>School name </label>
+                <input type="text" value="vit" id="schoolName">
+            </div>
+
+            <div class="info-field">
+                <label>Select Class</label>
+                <select id="classSelection">
+                    <option>Grade 1</option>
+                    <option>Grade 2</option>    
+                    <option>Grade 3</option>
+                    <option>Grade 4</option>
+                    <option>Grade 5</option>
+                    <option>Grade 6</option>
+                    <option>Grade 7</option>
+                    <option>Grade 8</option>
+                </select>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-button change-password" onclick="changePassword()">🔒 Change password</button>
+                <button class="action-button logout" onclick="logout()">🚪 Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load saved data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load character image
+            const savedImage = localStorage.getItem('characterImage');
+            if (savedImage) {
+                document.getElementById('characterImage').src = savedImage;
+            }
+
+            // Load character name
+            const savedName = localStorage.getItem('characterName');
+            if (savedName) {
+                document.getElementById('characterName').textContent = savedName;
+            }
+
+            // Load other form data
+            const savedPlayerName = localStorage.getItem('playerName');
+            const savedSchoolName = localStorage.getItem('schoolName');
+            const savedClassSelection = localStorage.getItem('classSelection');
+
+            if (savedPlayerName) {
+                document.getElementById('playerName').value = savedPlayerName;
+            }
+            if (savedSchoolName) {
+                document.getElementById('schoolName').value = savedSchoolName;
+            }
+            if (savedClassSelection) {
+                document.getElementById('classSelection').value = savedClassSelection;
+            }
+        });
+
+        // Image upload functionality
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageData = e.target.result;
+                    document.getElementById('characterImage').src = imageData;
+                    localStorage.setItem('characterImage', imageData);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function editName() {
+            const nameElement = document.getElementById('characterName');
+            const currentName = nameElement.textContent;
+
+            // Create a bouncing effect
+            nameElement.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                nameElement.style.transform = 'scale(1)';
+            }, 200);
+
+            const newName = prompt("Give your guardian a new name:", currentName);
+            if (newName && newName.trim() !== '') {
+                nameElement.textContent = newName.trim();
+                localStorage.setItem('characterName', newName.trim());
+
+                // Add leaf effect
+                for (let i = 0; i < 5; i++) {
+                    createFallingLeaf();
+                }
+            }
+        }
+
+        // Save form data when changed
+        document.getElementById('playerName').addEventListener('change', function() {
+            localStorage.setItem('playerName', this.value);
+        });
+
+        document.getElementById('schoolName').addEventListener('change', function() {
+            localStorage.setItem('schoolName', this.value);
+        });
+
+        document.getElementById('classSelection').addEventListener('change', function() {
+            localStorage.setItem('classSelection', this.value);
+        });
+
+        function createFallingLeaf() {
+            const leaf = document.createElement('div');
+            leaf.innerHTML = ['🍃', '🍂', '🌱'][Math.floor(Math.random() * 3)];
+            leaf.style.position = 'absolute';
+            leaf.style.fontSize = '20px';
+            leaf.style.left = `${Math.random() * 100}%`;
+            leaf.style.top = '-30px';
+            leaf.style.zIndex = '100';
+            leaf.style.opacity = '0';
+            leaf.style.transform = 'rotate(0deg)';
+
+            document.querySelector('.character-section').appendChild(leaf);
+
+            // Animate
+            setTimeout(() => {
+                leaf.style.opacity = '1';
+                leaf.style.top = `${Math.random() * 100}%`;
+                leaf.style.left = `${Math.random() * 100}%`;
+                leaf.style.transform = `rotate(${Math.random() * 360}deg)`;
+                leaf.style.transition = 'all 1.5s ease-out';
+            }, 10);
+
+            // Remove after animation
+            setTimeout(() => {
+                leaf.remove();
+            }, 1600);
+        }
+
+        function changePassword() {
+            alert("🌿 A magical rune change window would appear here! 🌿");
+        }
+
+        function logout() {
+            if (confirm("Are you sure you want to leave the sacred grove?")) {
+                alert("The forest whispers farewell... Until we meet again!");
+                // In a real implementation, this would redirect to logout
+            }
+        }
+
+        function goBack() {
+            alert("Whoosh! Returning to the forest path!");
+            // In a real implementation, this would navigate back
+        }
+
+        // Make fields editable on click
+        document.getElementById('playerName').addEventListener('click', function() {
+            this.select();
+        });
+
+        document.getElementById('schoolName').addEventListener('click', function() {
+            this.select();
+        });
+
+        // Add some random movement to leaves
+        setInterval(() => {
+            const leaves = document.querySelectorAll('.leaf');
+            leaves.forEach(leaf => {
+                const currentLeft = parseFloat(leaf.style.left || getComputedStyle(leaf).left);
+                const currentTop = parseFloat(leaf.style.top || getComputedStyle(leaf).top);
+
+                leaf.style.left = `${currentLeft + (Math.random() * 0.2 - 0.1)}%`;
+                leaf.style.top = `${currentTop + (Math.random() * 0.2 - 0.1)}%`;
+            });
+        }, 100);
+    </script>
+</body>
+
+</html>
