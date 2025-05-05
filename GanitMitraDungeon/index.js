@@ -9,7 +9,7 @@ c.fillStyle='white'
 c.fillRect(0,0,canvas.width,canvas.height)
 
 const image = new Image()
-image.src='Map.png' 
+image.src='ASEP 22.png' 
 
 const playerImg= new Image()
 playerImg.src='playerDown.png'
@@ -25,7 +25,7 @@ class Sprite{
     }
 }
 
-const bacground= new Sprite({x:-1000,y:-720},image)
+const bacground= new Sprite({x:-2030,y:-432},image)
 
 window.addEventListener('keydown',(e)=>{
     // console.log(e.key)
