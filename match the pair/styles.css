@@ -5,6 +5,11 @@ body {
     background-color: #f0f8ff;
     background-image: url('Triangles.jpg');
     background-size: cover;
+<<<<<<< Updated upstream
+=======
+    /* background-position: center; */
+    background-repeat: no-repeat; /* Ensure the image does not repeat */
+>>>>>>> Stashed changes
     margin: 0;
     padding: 0;
     box-sizing: border-box;
