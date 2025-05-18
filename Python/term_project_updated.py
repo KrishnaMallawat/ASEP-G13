@@ -7,6 +7,8 @@ from sklearn.pipeline import make_pipeline
 # Sample training data: (command, intent, name)
 data = [
     ("make a folder xyz", "create_folder", "xyz"),
+    ("rename file old.txt to new.txt", "rename_file", "old.txt to new.txt"),
+    ("rename folder oldfolder to newfolder", "rename_folder", "oldfolder to newfolder"),
     ("create new folder project", "create_folder", "project"),
     ("add a file notes.txt", "create_file", "notes.txt"),
     ("create file test.py", "create_file", "test.py"),
@@ -32,6 +34,13 @@ intent_model.fit(commands, intents)
 
 # Simple extractor for file/folder names
 def extract_name(command):
+    # For rename, extract both old and new names
+    if " to " in command:
+        parts = command.split(" to ")
+        before = parts[0].split()[-1]
+        after = parts[1].strip()
+        return before + " to " + after
+
     keywords = ["named", "name", "folder", "file"]
     tokens = command.split()
 
@@ -76,6 +85,13 @@ def to_do_commands(intent, name):
             print(f"🗑️ File '{name}' deleted.")
         except Exception as e:
             print(f"❌ Could not delete file '{name}': {e}")
+    elif intent == "rename_file" or intent == "rename_folder":
+        try:
+            old_name, new_name = [n.strip() for n in name.split(" to ")]
+            os.rename(old_name, new_name)
+            print(f"🔄 Renamed '{old_name}' to '{new_name}'.")
+        except Exception as e:
+            print(f"❌ Could not rename: {e}")
 
 # Basic shell commands allowed
 command_list = ["cd", "ls", "mkdir", "echo", "touch", "cat", "dir", "type"]
