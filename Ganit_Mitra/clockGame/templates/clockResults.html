@@ -71,6 +71,20 @@
         "final-score"
       ).innerText = `Final Score: ${correctAnswers} / ${totalQuestions}`;
 
+      // Save score to backend using fetch
+      fetch('/samay/save_result', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          score: correctAnswers,
+          total_questions: totalQuestions
+        })
+      }).then(res => {
+        // Optionally handle response
+      });
+
       function restartGame() {
         localStorage.removeItem("quizResults");
         window.location.href = "{{url_for('clockGame.play')}}";
