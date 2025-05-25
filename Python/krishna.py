@@ -127,45 +127,27 @@ history = []
 command_history = []
 
 INSTRUCTIONS = (
-    "[b yellow]Supported Commands (case-insensitive, flexible):[/b yellow]\n"
-    "- create/make/add/generate a file/folder named <name>\n"
-    "- delete/remove/erase/eliminate a file/folder named <name>\n"
-    "- rename/change/move/switch file/folder <oldname> to <newname>\n"
-    "- rename all <ext1> files to <ext2> (e.g., rename all .txt files to .md)\n"
-    "- search/find/look for <text> in <file> (e.g., search hello in notes.txt)\n"
-    "- show/display disk usage\n"
-    "- show/display command history\n"
-    "- list/show/display all files/folders\n"
-    "- undo (reverts last create/delete)\n"
-    "\n[b yellow]Examples:[/b yellow]\n"
-    "  create folder test123\n"
-    "  create file data.csv\n"
-    "  add a file notes.txt\n"
-    "  make directory backups\n"
-    "  delete file old.txt\n"
-    "  remove folder temp\n"
-    "  erase file trash.py\n"
-    "  eliminate directory music\n"
-    "  rename file old.txt to new.txt\n"
-    "  change folder docs to docs_old\n"
-    "  move file a.txt to b.txt\n"
-    "  switch script.py to script_v2.py\n"
-    "  rename all .txt files to .md\n"
-    "  search hello in notes.txt\n"
-    "  find error in log.txt\n"
-    "  look for password in config.txt\n"
-    "  show disk usage\n"
-    "  show history\n"
-    "  display files\n"
-    "  list folders\n"
-    "  undo\n"
-    "\n[b yellow]Tips:[/b yellow]\n"
-    "- You can use natural language, e.g., 'please create a new file called data.csv'.\n"
-    "- All commands are case-insensitive.\n"
-    "- For batch rename, use: rename all .ext1 files to .ext2\n"
-    "- For searching, you can use: search/find/look for <text> in <file>\n"
-    "- Undo only works for the last create/delete action.\n"
-    "- Command log is saved to [b]command_log.txt[/b].\n"
+    "[b]Supported Commands:[/b]\n"
+    "- [#87CEEB]create[/#87CEEB]/[#87CEEB]make[/#87CEEB]/[#87CEEB]add[/#87CEEB]/[#87CEEB]generate[/#87CEEB] a [#DDA0DD]file[/#DDA0DD]/[#98FB98]folder[/#98FB98] named [#FFA07A]<name>[/#FFA07A]\n"
+    "- [#FF9999]delete[/#FF9999]/[#FF9999]remove[/#FF9999]/[#FF9999]erase[/#FF9999]/[#FF9999]eliminate[/#FF9999] a [#DDA0DD]file[/#DDA0DD]/[#98FB98]folder[/#98FB98] named [#FFA07A]<name>[/#FFA07A]\n"
+    "- [#B8860B]rename[/#B8860B]/[#B8860B]change[/#B8860B]/[#B8860B]move[/#B8860B]/[#B8860B]switch[/#B8860B] [#DDA0DD]file[/#DDA0DD]/[#98FB98]folder[/#98FB98] [#FFA07A]<oldname>[/#FFA07A] to [#FFA07A]<newname>[/#FFA07A]\n"
+    "- [#B8860B]rename all[/#B8860B] [#FFA07A]<ext1>[/#FFA07A] files to [#FFA07A]<ext2>[/#FFA07A]\n"
+    "- [#4682B4]search[/#4682B4]/[#4682B4]find[/#4682B4]/[#4682B4]look for[/#4682B4] [#FFA07A]<text>[/#FFA07A] in [#DDA0DD]<file>[/#DDA0DD]\n"
+    "- [#9370DB]show[/#9370DB]/[#9370DB]display[/#9370DB] disk usage\n"
+    "- [#9370DB]show[/#9370DB]/[#9370DB]display[/#9370DB] command history\n"
+    "- [#9370DB]list[/#9370DB]/[#9370DB]show[/#9370DB]/[#9370DB]display[/#9370DB] all [#DDA0DD]files[/#DDA0DD]/[#98FB98]folders[/#98FB98]\n"
+    "- [#CD853F]undo[/#CD853F] (reverts last action)\n"
+    "\n[b]Examples:[/b]\n"
+    "  [#87CEEB]create[/#87CEEB] [#98FB98]folder[/#98FB98] [#FFA07A]test123[/#FFA07A]\n"
+    "  [#87CEEB]create[/#87CEEB] [#DDA0DD]file[/#DDA0DD] [#FFA07A]data.csv[/#FFA07A]\n"
+    "  [#FF9999]delete[/#FF9999] [#DDA0DD]file[/#DDA0DD] [#FFA07A]old.txt[/#FFA07A]\n"
+    "  [#B8860B]rename[/#B8860B] [#DDA0DD]file[/#DDA0DD] [#FFA07A]old.txt[/#FFA07A] to [#FFA07A]new.txt[/#FFA07A]\n"
+    "  [#B8860B]rename all[/#B8860B] [#FFA07A].txt[/#FFA07A] files to [#FFA07A].md[/#FFA07A]\n"
+    "  [#4682B4]search[/#4682B4] [#FFA07A]hello[/#FFA07A] in [#DDA0DD]notes.txt[/#DDA0DD]\n"
+    "  [#9370DB]show[/#9370DB] disk usage\n"
+    "  [#9370DB]list[/#9370DB] [#DDA0DD]files[/#DDA0DD]\n"
+    "  [#CD853F]undo[/#CD853F]\n"
+    "\n[dim]Note: All commands are case-insensitive. Command log is saved to command_log.txt[/dim]"
 )
 def extract_name(command):
     # For search in file: "search hello in file.txt"
@@ -333,21 +315,18 @@ def predict_intent(command):
 class CommandLogApp(App):
     CSS = """
     Screen { align: center middle; }
-    #main { width: 90%; height: 90%; }
+    #main { width: 90%; height: 70%; }
     #table-panel { border: round green; padding: 1; height: 100%; }
     #button-panel { border: round red; width: 24; align: center middle; padding: 1; }
     Button { height: 3; min-width: 16; content-align: center middle; }
     #enter-btn { background: #7ed957; color: black !important; border: round #7ed957; }
-    #instr-btn { background: #ffd966; color: black !important; border: round #ffd966; }
-    #clear-btn { background: #e06666; color: white !important; border: round #e06666; }
     TabbedContent { min-height: 10; }
     TabPane { padding: 1; }
-    DataTable { height: 100%; }
     #header { content-align: center middle; height: 3; width: 90%; }
     #command_input { width: 90%; border: round blue; margin-bottom: 1; }
     """
 
-    TITLE = "AI Terminal and Command Log"
+    TITLE = "AI Terminal"
 
     def compose(self) -> ComposeResult:
         yield Static(self.TITLE, id="header")
@@ -355,42 +334,24 @@ class CommandLogApp(App):
         with Horizontal(id="main"):
             with Vertical(id="table-panel"):
                 with TabbedContent(id="main-tabs"):
-                    with TabPane("Commands", id="cmd-tab"):
-                        yield DataTable(id="cmd-table")
                     with TabPane("Instructions", id="help-tab"):
                         yield Static(INSTRUCTIONS, markup=True)
             with Vertical(id="button-panel"):
                 yield Button("Enter", id="enter-btn")
-                yield Button("Instructions", id="instr-btn")
-                yield Button("Clear Log", id="clear-btn")
 
     def on_mount(self):
-        table = self.query_one("#cmd-table", DataTable)
-        table.add_columns("Command", "Result")
-        table.styles.height = "100%"
-        table.cursor_type = "row"
-        table.zebra_stripes = True
         self.query_one(Input).focus()
-        self.query_one(TabbedContent).active = "cmd-tab"
+        self.query_one(TabbedContent).active = "help-tab"
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         btn_id = event.button.id
         input_box = self.query_one(Input)
-        tabs = self.query_one("#main-tabs", TabbedContent)
-        table = self.query_one("#cmd-table", DataTable)
         
         if btn_id == "enter-btn":
             if input_box.value.strip():
                 self.handle_command(input_box.value)
                 input_box.value = ""
             input_box.focus()
-        elif btn_id == "instr-btn":
-            tabs.active = "help-tab"
-            table.add_row("Instructions", "Switched to instructions tab")
-        elif btn_id == "clear-btn":
-            table.clear()
-            table.add_columns("Command", "Result")
-            tabs.active = "cmd-tab"
 
     def on_input_submitted(self, event: Input.Submitted) -> None:
         if event.value.strip():
@@ -403,18 +364,12 @@ class CommandLogApp(App):
         if not command:
             return
 
-        table = self.query_one("#cmd-table", DataTable)
-        tabs = self.query_one("#main-tabs", TabbedContent)
-
         if command.lower() == "help":
-            tabs.active = "help-tab"
-            table.add_row("help", "Switched to instructions tab")
+            self.query_one("#main-tabs", TabbedContent).active = "help-tab"
             return
 
         if command.lower() == "undo":
             result = undo_last()
-            table.add_row("undo", result)
-            tabs.active = "cmd-tab"
             with open("command_log.txt", "a", encoding="utf-8") as f:
                 f.write(f"Command: undo\nResult: {result}\n\n")
             return
@@ -423,12 +378,6 @@ class CommandLogApp(App):
         intent = predict_intent(command)
         result = to_do_commands(intent, name)
         command_history.append(command)
-        
-        # Add the command and result to the table
-        table.add_row(command, result)
-        
-        # Ensure we're on the commands tab
-        tabs.active = "cmd-tab"
         
         # Log the command
         with open("command_log.txt", "a", encoding="utf-8") as f:
