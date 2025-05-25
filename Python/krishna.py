@@ -1,38 +1,95 @@
 import os
+import re
 import subprocess
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
+from textual.app import App, ComposeResult
+from textual.widgets import DataTable, Button, Static, Input, TabbedContent, TabPane
+from textual.containers import Horizontal, Vertical
 
-# Sample training data: (command, intent, name)
-data = [
-    ("make a folder xyz", "create_folder", "xyz"),
-    ("rename file old.txt to new.txt", "rename_file", "old.txt to new.txt"),
-    ("rename folder oldfolder to newfolder", "rename_folder", "oldfolder to newfolder"),
-    ("create new folder project", "create_folder", "project"),
-    ("add a file notes.txt", "create_file", "notes.txt"),
-    ("create file test.py", "create_file", "test.py"),
-    ("delete folder old_project", "delete_folder", "old_project"),
-    ("remove file trash.py", "delete_file", "trash.py"),
-    ("erase folder backup", "delete_folder", "backup"),
-    ("need a new folder f1/f2", "create_folder", "f1/f2"),
-    ("need a new file mydoc.txt", "create_file", "mydoc.txt"),
-    ("make a folder named xyz abc", "create_folder", "xyz abc"),
-    ("delete file named creative stuff.txt", "delete_file", "creative stuff.txt"),
-    ("create folder named delete these", "create_folder", "delete these"),
-    ("delete folder named create jobs", "delete_folder", "create jobs"),
-    ("create file named stuff.py", "create_file", "stuff.py"),
+# Expanded training data for better natural language support
+sentences = [
+    # Rename file/folder
+    "rename file old.txt to new.txt", "rename folder oldfolder to newfolder",
+    "rename old.txt to new.txt", "rename oldfolder to newfolder",
+    "change file a.txt to b.txt", "change folder a to b",
+    "move file a.txt to b.txt", "move folder a to b",
+    "rename notes.md as notes_final.md", "switch script.py to script_v2.py",
+    "rename backups as backups_archive", "switch music to music_collection",
+    # Create file/folder
+    "make a folder xyz", "create new folder project", "add a file notes.txt",
+    "create file test.py", "new file report.txt", "create a new file called data.csv",
+    "make file notes.md", "generate file summary.docx", "add file script.py",
+    "new folder images", "create a new folder called docs", "make directory backups",
+    "add folder music", "generate folder videos",
+    # Delete file/folder
+    "delete folder old_project", "remove file trash.py", "erase folder backup",
+    "need a new folder", "need a new file", "delete all text files",
+    "delete file named creative stuff", "create folder named delete these",
+    "delete folder named create jobs", "create file named stuff",
+    "remove directory temp", "delete the file called report.docx",
+    "make directory logs", "generate a file output.txt", "eliminate folder test_data",
+    "remove report.txt", "delete the file data.csv", "erase file notes.md",
+    "eliminate script.py", "trash file summary.docx",
+    "remove images", "delete the folder docs", "erase folder backups",
+    "eliminate directory music", "trash folder videos",
+    # List files/folders
+    "list all files in current directory", "show me all folders",
+    "show files", "show all files", "list files", "display files",
+    "show folders", "show all folders", "list folders", "display folders",
+    # Undo
+    "undo last action", "revert last change", "go back", "undo"
+]
+labels = [
+    # Rename file/folder
+    "rename_file", "rename_folder",
+    "rename_file", "rename_folder",
+    "rename_file", "rename_folder",
+    "rename_file", "rename_folder",
+    "rename_file", "rename_file",
+    "rename_folder", "rename_folder",
+    # Create file/folder
+    "create_folder", "create_folder", "create_file",
+    "create_file", "create_file", "create_file",
+    "create_file", "create_file", "create_file",
+    "create_folder", "create_folder", "create_folder",
+    "create_folder", "create_folder",
+    # Delete file/folder
+    "delete_folder", "delete_file", "delete_folder",
+    "create_folder", "create_file", "delete_file",
+    "delete_file", "create_folder", "delete_folder", "create_file",
+    "delete_folder", "delete_file", "create_folder", "create_file", "delete_folder",
+    "delete_file", "delete_file", "delete_file", "delete_file", "delete_file",
+    "delete_folder", "delete_folder", "delete_folder", "delete_folder", "delete_folder",
+    # List files/folders
+    "list_files", "list_folders",
+    "list_files", "list_files", "list_files", "list_files",
+    "list_folders", "list_folders", "list_folders", "list_folders",
+    # Undo
+    "undo", "undo", "undo", "undo"
 ]
 
-# Split into inputs and labels
-commands = [item[0] for item in data]
-intents = [item[1] for item in data]
+model = make_pipeline(CountVectorizer(ngram_range=(1, 3)), LogisticRegression(max_iter=1000))
+model.fit(sentences, labels)
+history = []
 
-# Train intent classification model
-intent_model = make_pipeline(CountVectorizer(ngram_range=(1, 3)), LogisticRegression())
-intent_model.fit(commands, intents)
+INSTRUCTIONS = (
+    "[b yellow]Supported Commands:[/b yellow]\n"
+    "- create/make/add/generate a file/folder named <name>\n"
+    "- delete/remove/erase/eliminate a file/folder named <name>\n"
+    "- rename/change/move/switch file/folder oldname to newname\n"
+    "- list/show/display all files/folders\n"
+    "- undo (reverts last create/delete)\n"
+    "\n[b yellow]Examples:[/b yellow]\n"
+    "  create folder test123\n"
+    "  delete file old.txt\n"
+    "  rename file old.txt to new.txt\n"
+    "  change folder docs to docs_old\n"
+    "  show files\n"
+    "  undo"
+)
 
-# Simple extractor for file/folder names
 def extract_name(command):
     # For rename, extract both old and new names
     if " to " in command:
@@ -40,78 +97,181 @@ def extract_name(command):
         before = parts[0].split()[-1]
         after = parts[1].strip()
         return before + " to " + after
+    if " as " in command:
+        parts = command.split(" as ")
+        before = parts[0].split()[-1]
+        after = parts[1].strip()
+        return before + " to " + after
+    if " switch " in command:
+        parts = command.split(" switch ")
+        before = parts[0].split()[-1]
+        after = parts[1].strip()
+        return before + " to " + after
+    match = re.search(r"(?:named|called|name)\s+([^\s]+)", command)
+    if match:
+        return match.group(1)
+    match = re.search(r"(?:file|folder|directory)\s+([^\s]+)$", command)
+    if match:
+        return match.group(1)
+    bits = command.strip().split()
+    if len(bits) > 2:
+        return bits[-1]
+    return "unnamed"
 
-    keywords = ["named", "name", "folder", "file"]
-    tokens = command.split()
-
-    for kw in ["named", "name"]:
-        if kw in tokens:
-            idx = tokens.index(kw)
-            return " ".join(tokens[idx + 1:])
-    
-    for kw in ["folder", "file"]:
-        if kw in tokens:
-            idx = tokens.index(kw)
-            return " ".join(tokens[idx + 1:])
-    
-    return " ".join(tokens[-2:]) if len(tokens) >= 2 else tokens[-1]
-
-# Perform action
 def to_do_commands(intent, name):
-    if intent == "create_folder":
-        os.makedirs(name, exist_ok=True)
-        print(f"✅ Folder '{name}' created.")
-    elif intent == "create_file":
-        parent_dir = os.path.dirname(name)
-        if parent_dir:
-            os.makedirs(parent_dir, exist_ok=True)
-        open(name, 'w').close()
-        print(f"✅ File '{name}' created.")
-    elif intent == "delete_folder":
-        try:
-            if os.name == 'nt':
-                subprocess.run(["rmdir", "/s", "/q", name], shell=True, check=True)
+    try:
+        if intent == "create_folder":
+            os.makedirs(name, exist_ok=True)
+            history.append(('delete_folder', name))
+            return f"[green] Folder '{name}' created.[/green]"
+        elif intent == "create_file":
+            open(name, 'w').close()
+            history.append(('delete_file', name))
+            return f"[green] File '{name}' created.[/green]"
+        elif intent == "delete_folder":
+            if os.path.isdir(name):
+                os.system(f"rm -rf {name}")
+                history.append(('create_folder', name))
+                return f"[red] Folder '{name}' deleted.[/red]"
             else:
-                subprocess.run(["rm", "-r", name], check=True)
-            print(f"🗑️ Folder '{name}' deleted.")
-        except Exception as e:
-            print(f"❌ Could not delete folder '{name}': {e}")
-    elif intent == "delete_file":
-        try:
-            if os.name == 'nt':
-                subprocess.run(["del", name], shell=True, check=True)
+                return f"[yellow] Folder '{name}' does not exist.[/yellow]"
+        elif intent == "delete_file":
+            if os.path.isfile(name):
+                os.remove(name)
+                history.append(('create_file', name))
+                return f"[red] File '{name}' deleted.[/red]"
             else:
-                subprocess.run(["rm", name], check=True)
-            print(f"🗑️ File '{name}' deleted.")
-        except Exception as e:
-            print(f"❌ Could not delete file '{name}': {e}")
-    elif intent == "rename_file" or intent == "rename_folder":
-        try:
-            old_name, new_name = [n.strip() for n in name.split(" to ")]
-            os.rename(old_name, new_name)
-            print(f"🔄 Renamed '{old_name}' to '{new_name}'.")
-        except Exception as e:
-            print(f"❌ Could not rename: {e}")
+                return f"[yellow] File '{name}' does not exist.[/yellow]"
+        elif intent == "rename_file" or intent == "rename_folder":
+            if " to " in name:
+                old_name, new_name = [n.strip() for n in name.split(" to ")]
+                if not os.path.exists(old_name):
+                    return f"[yellow] '{old_name}' does not exist.[/yellow]"
+                os.rename(old_name, new_name)
+                return f"[cyan] Renamed '{old_name}' to '{new_name}'.[/cyan]"
+            else:
+                return "[yellow] Please use the format: rename file old.txt to new.txt [/yellow]"
+        elif intent == "list_files":
+            files = [f for f in os.listdir('.') if os.path.isfile(f)]
+            return "[b]Files:[/b]\n" + ("\n".join(files) if files else "[dim]No files found.[/dim]")
+        elif intent == "list_folders":
+            folders = [f for f in os.listdir('.') if os.path.isdir(f)]
+            return "[b]Folders:[/b]\n" + ("\n".join(folders) if folders else "[dim]No folders found.[/dim]")
+        elif intent == "undo":
+            return undo_last()
+        else:
+            return "[magenta] Unknown or unsupported intent.[/magenta]"
+    except Exception as e:
+        return f"[red] Error: {str(e)}[/red]"
 
-# Basic shell commands allowed
-command_list = ["cd", "ls", "mkdir", "echo", "touch", "cat", "dir", "type"]
+def undo_last():
+    if not history:
+        return "[yellow]Nothing to undo.[/yellow]"
+    last_action, name = history.pop()
+    try:
+        if last_action == 'delete_folder':
+            os.system(f"rm -rf {name}")
+            return f"[red] Undo: Folder '{name}' deleted.[/red]"
+        elif last_action == 'delete_file':
+            os.remove(name)
+            return f"[red] Undo: File '{name}' deleted.[/red]"
+        elif last_action == 'create_folder':
+            os.makedirs(name, exist_ok=True)
+            return f"[green] Undo: Folder '{name}' re-created.[/green]"
+        elif last_action == 'create_file':
+            open(name, 'w').close()
+            return f"[green] Undo: File '{name}' re-created.[/green]"
+    except Exception as e:
+        return f"[red] Undo failed: {str(e)}[/red]"
+    return "[yellow]Undo not supported for this action.[/yellow]"
 
-# Terminal loop
-while True:
-    print("$ ", end="")
-    command = input().strip()
+class CommandLogApp(App):
+    CSS = """
+    Screen { align: center middle; }
+    #main { width: 90%; height: 90%; }
+    #table-panel { border: round green; padding: 1; height: 100%; }
+    #button-panel { border: round red; width: 24; align: center middle; padding: 1; }
+    Button { height: 3; min-width: 16; content-align: center middle; }
+    #enter-btn { background: #7ed957; color: black !important; border: round #7ed957; }
+    #instr-btn { background: #ffd966; color: black !important; border: round #ffd966; }
+    #clear-btn { background: #e06666; color: white !important; border: round #e06666; }
+    TabbedContent { min-height: 10; }
+    TabPane { padding: 1; }
+    DataTable { height: 100%; }
+    #header { content-align: center middle; height: 3; width: 90%; }
+    #command_input { width: 90%; border: round blue; margin-bottom: 1; }
+    """
 
-    if command.lower() == "quit":
-        break
+    TITLE = "AI Terminal and Command Log"
 
-    if command.startswith("do"):
-        intent = intent_model.predict([command])[0]
+    def compose(self) -> ComposeResult:
+        yield Static(self.TITLE, id="header")
+        yield Input(placeholder="Enter command here...", id="command_input")
+        with Horizontal(id="main"):
+            with Vertical(id="table-panel"):
+                with TabbedContent(id="main-tabs"):
+                    with TabPane("Commands", id="cmd-tab"):
+                        table = DataTable(zebra_stripes=True)
+                        table.add_columns("Command", "Result")
+                        yield table
+                    with TabPane("Instructions", id="help-tab"):
+                        yield Static(INSTRUCTIONS, markup=True)
+            with Vertical(id="button-panel"):
+                yield Button("Enter", id="enter-btn")
+                yield Button("Instructions", id="instr-btn")
+                yield Button("Clear Log", id="clear-btn")
+
+    def on_mount(self):
+        self.query_one(Input).focus()
+        self.query_one(TabbedContent).active = "cmd-tab"
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        btn_id = event.button.id
+        input_box = self.query_one(Input)
+        tabs = self.query_one("#main-tabs", TabbedContent)
+        table = self.query_one(DataTable)
+        
+        if btn_id == "enter-btn":
+            self.handle_command(input_box.value)
+            input_box.value = ""
+            input_box.focus()
+        elif btn_id == "instr-btn":
+            tabs.active = "help-tab"
+        elif btn_id == "clear-btn":
+            table.clear(columns=False)
+            tabs.active = "cmd-tab"
+
+    def on_input_submitted(self, event: Input.Submitted) -> None:
+        self.handle_command(event.value)
+        event.input.value = ""
+        event.input.focus()
+
+    def handle_command(self, command):
+        command = command.strip()
+        tabs = self.query_one("#main-tabs", TabbedContent)
+        table = self.query_one(DataTable)
+
+        if not command:
+            table.add_row("[yellow]No command entered[/yellow]", "")
+            return
+        if command.lower() == "help":
+            tabs.active = "help-tab"
+            return
+        if command.lower() == "undo":
+            result = undo_last()
+            table.add_row("[cyan]undo[/cyan]", result)
+            tabs.active = "cmd-tab"
+            with open("command_log.txt", "a", encoding="utf-8") as f:
+                f.write(f"Command: undo\nResult: {result}\n\n")
+            return
+
         name = extract_name(command)
-        to_do_commands(intent, name)
-    elif command.split(" ")[0] in command_list:
-        try:
-            subprocess.run(command, shell=True)
-        except Exception as e:
-            print(f"⚠️ Command error: {e}")
-    else:
-        print("❓ Unknown command. Try using 'do create file xyz.txt' or 'do delete folder abc'")
+        intent = model.predict([command])[0]
+        result = to_do_commands(intent, name)
+        table.add_row(f"[green]{command}[/green]", result)
+        tabs.active = "cmd-tab"
+        with open("command_log.txt", "a", encoding="utf-8") as f:
+            f.write(f"Command: {command}\nResult: {result}\n\n")
+
+if __name__ == "__main__":
+    CommandLogApp().run()
