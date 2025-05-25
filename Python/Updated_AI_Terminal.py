@@ -8,27 +8,68 @@ from textual.app import App, ComposeResult
 from textual.widgets import DataTable, Button, Static, Input, TabbedContent, TabPane
 from textual.containers import Horizontal, Vertical
 
+# Expanded training data for better natural language support
 sentences = [
+    # Rename file/folder
+    "rename file old.txt to new.txt", "rename folder oldfolder to newfolder",
+    "rename old.txt to new.txt", "rename oldfolder to newfolder",
+    "change file a.txt to b.txt", "change folder a to b",
+    "move file a.txt to b.txt", "move folder a to b",
+    "rename notes.md as notes_final.md", "switch script.py to script_v2.py",
+    "rename backups as backups_archive", "switch music to music_collection",
+    # Create file/folder
     "make a folder xyz", "create new folder project", "add a file notes.txt",
-    "create file test.py", "delete folder old_project", "remove file trash.py",
-    "erase folder backup", "need a new folder", "need a new file",
-    "make a folder named xyz", "delete all text files",
+    "create file test.py", "new file report.txt", "create a new file called data.csv",
+    "make file notes.md", "generate file summary.docx", "add file script.py",
+    "new folder images", "create a new folder called docs", "make directory backups",
+    "add folder music", "generate folder videos",
+    # Delete file/folder
+    "delete folder old_project", "remove file trash.py", "erase folder backup",
+    "need a new folder", "need a new file", "delete all text files",
     "delete file named creative stuff", "create folder named delete these",
     "delete folder named create jobs", "create file named stuff",
     "remove directory temp", "delete the file called report.docx",
     "make directory logs", "generate a file output.txt", "eliminate folder test_data",
-    "copy file data.csv to backup.csv", "move folder images to archive",
-    "rename file old.txt to new.txt", "list all files in current directory",
-    "show me all folders"
+    "remove report.txt", "delete the file data.csv", "erase file notes.md",
+    "eliminate script.py", "trash file summary.docx",
+    "remove images", "delete the folder docs", "erase folder backups",
+    "eliminate directory music", "trash folder videos",
+    # List files/folders
+    "list all files in current directory", "show me all folders",
+    "show files", "show all files", "list files", "display files",
+    "show folders", "show all folders", "list folders", "display folders",
+    # Undo
+    "undo last action", "revert last change", "go back", "undo"
 ]
 labels = [
-    "create_folder", "create_folder", "create_file", "create_file",
-    "delete_folder", "delete_file", "delete_folder", "create_folder",
-    "create_file", "create_folder", "delete_file", "delete_file",
-    "create_folder", "delete_folder", "create_file", "delete_folder",
-    "delete_file", "create_folder", "create_file", "delete_folder",
-    "copy_file", "move_folder", "rename_file", "list_files", "list_folders"
+    # Rename file/folder
+    "rename_file", "rename_folder",
+    "rename_file", "rename_folder",
+    "rename_file", "rename_folder",
+    "rename_file", "rename_folder",
+    "rename_file", "rename_file",
+    "rename_folder", "rename_folder",
+    # Create file/folder
+    "create_folder", "create_folder", "create_file",
+    "create_file", "create_file", "create_file",
+    "create_file", "create_file", "create_file",
+    "create_folder", "create_folder", "create_folder",
+    "create_folder", "create_folder",
+    # Delete file/folder
+    "delete_folder", "delete_file", "delete_folder",
+    "create_folder", "create_file", "delete_file",
+    "delete_file", "create_folder", "delete_folder", "create_file",
+    "delete_folder", "delete_file", "create_folder", "create_file", "delete_folder",
+    "delete_file", "delete_file", "delete_file", "delete_file", "delete_file",
+    "delete_folder", "delete_folder", "delete_folder", "delete_folder", "delete_folder",
+    # List files/folders
+    "list_files", "list_folders",
+    "list_files", "list_files", "list_files", "list_files",
+    "list_folders", "list_folders", "list_folders", "list_folders",
+    # Undo
+    "undo", "undo", "undo", "undo"
 ]
+
 model = make_pipeline(CountVectorizer(ngram_range=(1, 3)), LogisticRegression(max_iter=1000))
 model.fit(sentences, labels)
 history = []
@@ -37,17 +78,35 @@ INSTRUCTIONS = (
     "[b yellow]Supported Commands:[/b yellow]\n"
     "- create/make/add/generate a file/folder named <name>\n"
     "- delete/remove/erase/eliminate a file/folder named <name>\n"
-    "- list all files\n"
-    "- show me all folders\n"
+    "- rename/change/move/switch file/folder oldname to newname\n"
+    "- list/show/display all files/folders\n"
     "- undo (reverts last create/delete)\n"
     "\n[b yellow]Examples:[/b yellow]\n"
     "  create folder test123\n"
     "  delete file old.txt\n"
-    "  list files\n"
+    "  rename file old.txt to new.txt\n"
+    "  change folder docs to docs_old\n"
+    "  show files\n"
     "  undo"
 )
 
 def extract_name(command):
+    # For rename, extract both old and new names
+    if " to " in command:
+        parts = command.split(" to ")
+        before = parts[0].split()[-1]
+        after = parts[1].strip()
+        return before + " to " + after
+    if " as " in command:
+        parts = command.split(" as ")
+        before = parts[0].split()[-1]
+        after = parts[1].strip()
+        return before + " to " + after
+    if " switch " in command:
+        parts = command.split(" switch ")
+        before = parts[0].split()[-1]
+        after = parts[1].strip()
+        return before + " to " + after
     match = re.search(r"(?:named|called|name)\s+([^\s]+)", command)
     if match:
         return match.group(1)
@@ -83,12 +142,23 @@ def to_do_commands(intent, name):
                 return f"[red] File '{name}' deleted.[/red]"
             else:
                 return f"[yellow] File '{name}' does not exist.[/yellow]"
+        elif intent == "rename_file" or intent == "rename_folder":
+            if " to " in name:
+                old_name, new_name = [n.strip() for n in name.split(" to ")]
+                if not os.path.exists(old_name):
+                    return f"[yellow] '{old_name}' does not exist.[/yellow]"
+                os.rename(old_name, new_name)
+                return f"[cyan] Renamed '{old_name}' to '{new_name}'.[/cyan]"
+            else:
+                return "[yellow] Please use the format: rename file old.txt to new.txt [/yellow]"
         elif intent == "list_files":
             files = [f for f in os.listdir('.') if os.path.isfile(f)]
             return "[b]Files:[/b]\n" + ("\n".join(files) if files else "[dim]No files found.[/dim]")
         elif intent == "list_folders":
             folders = [f for f in os.listdir('.') if os.path.isdir(f)]
             return "[b]Folders:[/b]\n" + ("\n".join(folders) if folders else "[dim]No folders found.[/dim]")
+        elif intent == "undo":
+            return undo_last()
         else:
             return "[magenta] Unknown or unsupported intent.[/magenta]"
     except Exception as e:
@@ -196,7 +266,7 @@ class CommandLogApp(App):
             return
 
         name = extract_name(command)
-        intent = model.predict([command])
+        intent = model.predict([command])[0]
         result = to_do_commands(intent, name)
         table.add_row(f"[green]{command}[/green]", result)
         tabs.active = "cmd-tab"
