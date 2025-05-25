@@ -7,17 +7,20 @@ from sklearn.pipeline import make_pipeline
 from textual.app import App, ComposeResult
 from textual.widgets import DataTable, Button, Static, Input, TabbedContent, TabPane
 from textual.containers import Horizontal, Vertical
+from textual import events
 
 # Expanded training data for better natural language support
-# Search operations
+
+# Expanded training data for better natural language support
 sentences = [
+    # Search in file commands
     "search hello in file.txt", "find error in log.txt", "look for world in notes.md",
     "search for text in file.txt", "find the word hello in test.txt",
     "search 'hello world' in file.txt", "find \"error message\" in log.txt",
     "look up debug in app.log", "search for password in config.txt",
     "find the phrase hello world in doc.txt",
-
-    # Rename operations (file and folder)
+    
+    # Rename file/folder
     "rename file old.txt to new.txt", "rename folder oldfolder to newfolder",
     "rename old.txt to new.txt", "rename oldfolder to newfolder",
     "change file a.txt to b.txt", "change folder a to b",
@@ -25,19 +28,17 @@ sentences = [
     "rename notes.md as notes_final.md", "switch script.py to script_v2.py",
     "rename backups as backups_archive", "switch music to music_collection",
     "rename all .txt files to .md", "rename all .log files to .bak",
-
-    # Create file/folder operations
+    
+    # Create file/folder
     "make a folder xyz", "create new folder project", "add a file notes.txt",
     "create file test.py", "new file report.txt", "create a new file called data.csv",
     "make file notes.md", "generate file summary.docx", "add file script.py",
     "new folder images", "create a new folder called docs", "make directory backups",
     "add folder music", "generate folder videos",
-
-    # Repetitive variants (testing robustness)
     "make fil.txt", "create fil.txt", "add fil.txt", "generate fil.txt", "new fil.txt",
     "make file fil.txt", "create file fil.txt", "add file fil.txt", "generate file fil.txt", "new file fil.txt",
-
-    # Delete operations
+    
+    # Delete file/folder
     "delete folder old_project", "remove file trash.py", "erase folder backup",
     "delete file named creative stuff", "create folder named delete these",
     "delete folder named create jobs", "create file named stuff",
@@ -47,35 +48,33 @@ sentences = [
     "eliminate script.py", "trash file summary.docx",
     "remove images", "delete the folder docs", "erase folder backups",
     "eliminate directory music", "trash folder videos",
-
-    # Listing files and folders
+    
+    # List files/folders
     "list all files in current directory", "show me all folders",
     "show files", "show all files", "list files", "display files",
     "show folders", "show all folders", "list folders", "display folders",
-
+    
     # Disk usage
     "show disk usage", "how much space is left", "display disk usage",
     "check disk space", "show space usage", "display storage info",
-
+    
     # History
     "show history", "display history", "command history",
     "show command log", "display command log", "show previous commands",
-
+    
     # Undo
     "undo last action", "revert last change", "go back", "undo",
     "undo last command", "revert previous action"
-
 ]
-
 labels = [
-    # Search
+    # Search in file commands
     "search_in_file", "search_in_file", "search_in_file",
     "search_in_file", "search_in_file",
     "search_in_file", "search_in_file",
     "search_in_file", "search_in_file",
     "search_in_file",
-
-    # Rename (file/folder)
+    
+    # Rename file/folder
     "rename_file", "rename_folder",
     "rename_file", "rename_folder",
     "rename_file", "rename_folder",
@@ -83,19 +82,17 @@ labels = [
     "rename_file", "rename_file",
     "rename_folder", "rename_folder",
     "rename_multiple_files", "rename_multiple_files",
-
+    
     # Create file/folder
     "create_folder", "create_folder", "create_file",
     "create_file", "create_file", "create_file",
     "create_file", "create_file", "create_file",
     "create_folder", "create_folder", "create_folder",
     "create_folder", "create_folder",
-
-    # Repetitive (fil.txt variants)
     "create_file", "create_file", "create_file", "create_file", "create_file",
     "create_file", "create_file", "create_file", "create_file", "create_file",
-
-    # Delete operations
+    
+    # Delete file/folder
     "delete_folder", "delete_file", "delete_folder",
     "delete_file", "create_folder",
     "delete_folder", "create_file",
@@ -105,25 +102,24 @@ labels = [
     "delete_file", "delete_file",
     "delete_folder", "delete_folder", "delete_folder",
     "delete_folder", "delete_folder",
-
-    # List
+    
+    # List files/folders
     "list_files", "list_folders",
     "list_files", "list_files", "list_files", "list_files",
     "list_folders", "list_folders", "list_folders", "list_folders",
-
+    
     # Disk usage
     "disk_usage", "disk_usage", "disk_usage",
     "disk_usage", "disk_usage", "disk_usage",
-
+    
     # History
     "history", "history", "history",
     "history", "history", "history",
-
+    
     # Undo
     "undo", "undo", "undo", "undo",
     "undo", "undo"
 ]
-
 
 model = make_pipeline(
     CountVectorizer(ngram_range=(1, 3), analyzer='char_wb'),
@@ -314,17 +310,17 @@ class CommandLogApp(App):
     CSS = """
     Screen { align: center middle; }
     #main { width: 90%; height: 70%; }
-    #table-panel { border: round green; padding: 1; height: 100%; }
-    #button-panel { border: round red; width: 24; align: center middle; padding: 1; }
+    #table-panel { border: round #87CEEB; padding: 1; height: 100%; }
+    #button-panel { border: round #9370DB; width: 24; align: center middle; padding: 1; }
     Button { height: 3; min-width: 16; content-align: center middle; }
-    #enter-btn { background: #7ed957; color: black !important; border: round #7ed957; }
+    #enter-btn { background: green; color: black !important; border: heavy darkgreen; }
     TabbedContent { min-height: 10; }
     TabPane { padding: 1; }
     #header { content-align: center middle; height: 3; width: 90%; }
-    #command_input { width: 90%; border: round blue; margin-bottom: 1; }
+    #command_input { width: 90%; border: round black; margin-bottom: 1; }
     """
 
-    TITLE = "NLP BASED COMMAND LOGGING"
+    TITLE = "NLP INTEGRATED COMMAND LOG"
 
     def compose(self) -> ComposeResult:
         yield Static(self.TITLE, id="header")
@@ -344,6 +340,42 @@ class CommandLogApp(App):
     def on_mount(self):
         self.query_one(Input).focus()
         self.query_one(TabbedContent).active = "cmd-tab"
+        self.history_index = -1 
+        self.current_input = "" 
+
+    def on_key(self, event: events.Key) -> None:
+        input_box = self.query_one(Input)
+        
+        if event.key == "up":
+            if not command_history:
+                return
+            
+            if self.history_index == -1:
+                self.current_input = input_box.value
+ 
+            if self.history_index < len(command_history) - 1:
+                self.history_index += 1
+                input_box.value = command_history[-(self.history_index + 1)]
+                input_box.cursor_position = len(input_box.value)
+ 
+        elif event.key == "down":
+            if self.history_index == -1:
+                return
+                
+            if self.history_index > 0:
+                self.history_index -= 1
+                input_box.value = command_history[-(self.history_index + 1)]
+                input_box.cursor_position = len(input_box.value)
+            else:
+                self.history_index = -1
+                input_box.value = self.current_input
+                input_box.cursor_position = len(input_box.value)
+        
+        elif event.key == "escape":
+            if self.history_index != -1:
+                self.history_index = -1
+                input_box.value = self.current_input
+                input_box.cursor_position = len(input_box.value)
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         btn_id = event.button.id
@@ -368,6 +400,12 @@ class CommandLogApp(App):
         if command.lower() == "help":
             self.query_one("#main-tabs", TabbedContent).active = "help-tab"
             return
+        if command.lower() == "undo":
+            result = undo_last()
+            with open("command_log.txt", "a", encoding="utf-8") as f:
+                f.write(f"Command: undo\nResult: {result}\n\n")
+            return
+        
         name = extract_name(command)
         intent = predict_intent(command)
         result = to_do_commands(intent, name, self)
