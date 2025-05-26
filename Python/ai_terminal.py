@@ -65,6 +65,12 @@ sentences = [
     # Undo
     "undo last action", "revert last change", "go back", "undo",
     "undo last command", "revert previous action"
+    
+     # Copy file/folder
+    "copy file demo.txt to test.txt", "copy file test.txt to demo.txt",
+    "copy folder project to project_backup", "copy folder demo to demo_backup",
+    "duplicate file a.txt as b.txt", "duplicate folder foo as bar"
+
 ]
 labels = [
     # Search in file commands
@@ -119,6 +125,12 @@ labels = [
     # Undo
     "undo", "undo", "undo", "undo",
     "undo", "undo"
+    
+     # Copy file/folder
+    "copy_file", "copy_file",
+    "copy_folder", "copy_folder",
+    "copy_file", "copy_folder"
+    
 ]
 
 model = make_pipeline(
@@ -136,6 +148,7 @@ INSTRUCTIONS = (
     "- [#B8860B]rename[/#B8860B]/[#B8860B]change[/#B8860B]/[#B8860B]move[/#B8860B]/[#B8860B]switch[/#B8860B] [#DDA0DD]file[/#DDA0DD]/[#98FB98]folder[/#98FB98] [#FFA07A]<oldname>[/#FFA07A] to [#FFA07A]<newname>[/#FFA07A]\n"
     "- [#B8860B]rename all[/#B8860B] [#FFA07A]<ext1>[/#FFA07A] files to [#FFA07A]<ext2>[/#FFA07A]\n"
     "- [#4682B4]search[/#4682B4]/[#4682B4]find[/#4682B4]/[#4682B4]look for[/#4682B4] [#FFA07A]<text>[/#FFA07A] in [#DDA0DD]<file>[/#DDA0DD]\n"
+    "- [#4682B4]copy[/#4682B4]/[#4682B4]duplicate[/#4682B4] [#DDA0DD]file[/#DDA0DD]/[#98FB98]folder[/#98FB98] [#FFA07A]<source>[/#FFA07A] to [#FFA07A]<destination>[/#FFA07A]\n"
     "- [#9370DB]show[/#9370DB]/[#9370DB]display[/#9370DB] disk usage\n"
     "- [#9370DB]show[/#9370DB]/[#9370DB]display[/#9370DB] command history\n"
     "- [#9370DB]list[/#9370DB]/[#9370DB]show[/#9370DB]/[#9370DB]display[/#9370DB] all [#DDA0DD]files[/#DDA0DD]/[#98FB98]folders[/#98FB98]\n"
@@ -147,6 +160,8 @@ INSTRUCTIONS = (
     "  [#B8860B]rename[/#B8860B] [#DDA0DD]file[/#DDA0DD] [#FFA07A]old.txt[/#FFA07A] to [#FFA07A]new.txt[/#FFA07A]\n"
     "  [#B8860B]rename all[/#B8860B] [#FFA07A].txt[/#FFA07A] files to [#FFA07A].md[/#FFA07A]\n"
     "  [#4682B4]search[/#4682B4] [#FFA07A]hello[/#FFA07A] in [#DDA0DD]notes.txt[/#DDA0DD]\n"
+    "  [#4682B4]copy[/#4682B4] [#DDA0DD]file[/#DDA0DD] [#FFA07A]demo.txt[/#FFA07A] to [#FFA07A]test.txt[/#FFA07A]\n"
+    "  [#4682B4]copy[/#4682B4] [#98FB98]folder[/#98FB98] [#FFA07A]project[/#FFA07A] to [#FFA07A]project_backup[/#FFA07A]\n"
     "  [#9370DB]show[/#9370DB] disk usage\n"
     "  [#9370DB]list[/#9370DB] [#DDA0DD]files[/#DDA0DD]\n"
     "  [#CD853F]undo[/#CD853F]\n"
@@ -269,6 +284,30 @@ def to_do_commands(intent, name, self):
                  return "[dim]No folders found.[/dim]"
         elif intent == "undo":
             return undo_last()
+        elif intent == "copy_file":
+            try:
+                source, destination = [s.strip() for s in name.split(" to ")] if " to " in name else [s.strip() for s in name.split(" as ")]
+                if not os.path.isfile(source):
+                    return f"[yellow]Source file '{source}' does not exist.[/yellow]"
+                if os.path.exists(destination):
+                    return f"[red] Error: Destination '{destination}' already exists.[/red]"
+                shutil.copy2(source, destination)
+                history.append(('delete_file', destination))
+                return f"[green]File copied from '{source}' to '{destination}'.[/green]"
+            except Exception as e:
+                return f"[red]Error copying file: {str(e)}[/red]"
+        elif intent == "copy_folder":
+            try:
+                source, destination = [s.strip() for s in name.split(" to ")] if " to " in name else [s.strip() for s in name.split(" as ")]
+                if not os.path.isdir(source):
+                    return f"[yellow]Source folder '{source}' does not exist.[/yellow]"
+                if os.path.exists(destination):
+                    return f"[red] Error: Destination folder '{destination}' already exists.[/red]"
+                shutil.copytree(source, destination)
+                history.append(('delete_folder', destination))
+                return f"[green]Folder copied from '{source}' to '{destination}'.[/green]"
+            except Exception as e:
+                return f"[red]Error copying folder: {str(e)}[/red]"
         else:
             return "[magenta]Unknown or unsupported intent.[/magenta]"
     except Exception as e:
