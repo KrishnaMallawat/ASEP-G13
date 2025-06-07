@@ -100,6 +100,19 @@ async function submitForm() {
     const code = document.getElementById('code').value.trim();
     const name = document.getElementById('name').value.trim();
 
+    // Show confirmation dialog with registration details
+    const confirmMessage = `Please confirm your registration details:\n\n` +
+        `Name: ${name}\n` +
+        `Email: ${email}\n` +
+        `School: ${school}\n` +
+        `Class: ${classNumber}\n` +
+        `Roll Number: ${roll}\n\n` +
+        `Do you want to proceed with registration?`;
+
+    if (!confirm(confirmMessage)) {
+        return;
+    }
+
     const submitButton = document.querySelector('button[onclick="submitForm()"]');
     const originalText = submitButton.textContent;
     submitButton.disabled = true;
