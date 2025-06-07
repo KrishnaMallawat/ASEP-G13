@@ -16,9 +16,13 @@
       <input type="text" id="username" placeholder="Enter your name here" />
       <label for="secretCode">Enter Secret Code</label>
       <input type="password" id="secretCode" placeholder="Code" />
+      <div id="login-error" class="login-error"></div>
       <div class="button">
         <button id="loginBtn" type="button">Start</button>
         <a href="{{ url_for('signup') }}"><button type="button">Sign Up</button></a>
+      </div>
+      <div id="register-prompt" class="register-prompt">
+        New to the game? <a href="{{ url_for('signup') }}">Register here</a> to start your adventure!
       </div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
