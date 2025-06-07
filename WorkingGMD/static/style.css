@@ -81,7 +81,7 @@ label {
 .signup-password-toggle {
     position: absolute;
     right: 39%;
-    transform: translateY(152px);
+    transform: translateY(28px);
     background: none;
     border: none;
     cursor: pointer;
@@ -167,4 +167,20 @@ label {
 .scroll input.error {
     border-color: #d32f2f;
     background-color: rgba(211, 47, 47, 0.05);
+}
+
+.progress-container {
+    width: 80%;
+    height: 4px;
+    background-color: rgba(135, 90, 45, 0.2);
+    border-radius: 2px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 50%;
+    height: 100%;
+    background-color: #875a2d;
+    transition: width 0.3s ease;
 }

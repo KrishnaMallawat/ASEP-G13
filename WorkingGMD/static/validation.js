@@ -1,0 +1,85 @@
+// Utility functions for form validation
+function showError(inputId, message) {
+    const input = document.getElementById(inputId);
+    let errorDiv = document.getElementById(`${inputId}-error`);
+    
+    if (!errorDiv) {
+        errorDiv = document.createElement('div');
+        errorDiv.id = `${inputId}-error`;
+        errorDiv.className = 'error-message';
+        input.parentNode.insertBefore(errorDiv, input.nextSibling);
+    }
+    
+    input.classList.toggle('error', Boolean(message));
+    errorDiv.textContent = message;
+    errorDiv.style.display = message ? 'block' : 'none';
+}
+
+function clearError(inputId) {
+    showError(inputId, '');
+}
+
+// Email validation function
+async function validateEmail(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailPattern.test(email)) {
+        showError('email', "Please enter a valid email address");
+        return false;
+    }
+
+    try {
+        const emailInput = document.getElementById('email');
+        emailInput.style.opacity = '0.7';
+
+        const response = await fetch('/api/check-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        });
+        const data = await response.json();
+
+        emailInput.style.opacity = '1';
+
+        if (!data.success) {
+            showError('email', data.message || 'Email already registered');
+            return false;
+        }
+
+        clearError('email');
+        return true;
+    } catch (error) {
+        console.error('Email check error:', error);
+        showError('email', 'Failed to check email availability');
+        return false;
+    } finally {
+        const emailInput = document.getElementById('email');
+        emailInput.style.opacity = '1';
+    }
+}
+
+// Initialize email validation
+function initializeEmailValidation() {
+    const emailInput = document.getElementById('email');
+    if (!emailInput) return;
+
+    // Clear any error when user starts typing
+    emailInput.addEventListener('input', () => {
+        clearError('email');
+    });
+
+    // Validate only when user leaves the field
+    emailInput.addEventListener('blur', async (e) => {
+        const value = e.target.value.trim();
+        if (value) {
+            await validateEmail(value);
+        }
+    });
+}
+
+// Export functions
+window.showError = showError;
+window.clearError = clearError;
+window.validateEmail = validateEmail;
+window.initializeEmailValidation = initializeEmailValidation; 

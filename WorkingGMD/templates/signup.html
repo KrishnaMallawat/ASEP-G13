@@ -4,50 +4,62 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up</title>
-    <link rel="stylesheet" href="/static/style.css" />
-    <script src="/static/script.js"></script>
-    <script src="/static/database.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=MedievalSharp&family=Tagesschrift&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="scroll">
-
-      <div class="form-section active" id="step1">
-        <h1>Sign Up</h1>
-        <label for="email">Enter Your Email</label>
-        <input type="text" id="email" placeholder="Email" />
-  
-        <label for="code">Set Your Code</label>
-        <input type="password" id="code" placeholder="Code" />
-  
-        <label for="name">Enter Your Name</label>
-        <input type="text" id="name" placeholder="Name" />
-  
+      <h1>Join the Adventure</h1>
+      <div class="progress-container">
+        <div id="signup-progress" class="progress-bar"></div>
+      </div>
+      <div id="step1" class="form-section active">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" />
+        </div>
+        <div class="input-group">
+          <label for="code">Secret Code</label>
+          <input type="password" id="code" placeholder="Enter your secret code" />
+        </div>
+        <div class="input-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Enter your name" />
+        </div>
         <div class="button">
-          <button onclick="goToStep2()">Next</button>
+          <button type="button" onclick="goToStep2()">Next</button>
+          <a href="{{ url_for('login') }}"><button type="button">Back to Login</button></a>
         </div>
       </div>
-  
-      <div class="form-section" id="step2">
-        <h1>More Info</h1>
-        <label for="school">Enter Your School</label>
-        <input type="text" id="school" placeholder="School" />
-
-        <label for="class">Enter Your Class</label>
-        <input type="text" id="class" placeholder="4/5/6/7" />
-  
-        <label for="roll">Enter Your Roll Number</label>
-        <input type="text" id="roll" placeholder="Roll Number" />
-  
+      <div id="step2" class="form-section">
+        <div class="input-group">
+          <label for="school">School Name</label>
+          <input type="text" id="school" placeholder="Enter your school name" />
+        </div>
+        <div class="input-group">
+          <label for="class">Class</label>
+          <input type="number" id="class" placeholder="Enter your class (4-7)" min="4" max="7" />
+        </div>
+        <div class="input-group">
+          <label for="roll">Roll Number</label>
+          <input type="text" id="roll" placeholder="Enter your roll number" />
+        </div>
         <div class="button">
-          <button onclick="goBack()">Back</button>
-          <button onclick="submitForm()">Submit</button>
+          <button type="button" onclick="goBack()">Back</button>
+          <button type="button" onclick="submitForm()">Submit</button>
         </div>
       </div>
-  
     </div>
-  
+    <script src="{{ url_for('static', filename='validation.js') }}"></script>
+    <script src="{{ url_for('static', filename='auth.js') }}"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        initializeEmailValidation();
+        initializePasswordToggles();
+        document.getElementById('signup-progress').style.width = '50%';
+      });
+    </script>
   </body>
 </html>
