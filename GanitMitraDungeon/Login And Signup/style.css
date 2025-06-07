@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('Login_Page_BG.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Tagesschrift", system-ui;
+}
+
+.scroll {
+  width: 55vh;
+  height: 80dvh;
+  background-image: url('scroll.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.scroll h1 {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  font-size: 2.1em;
+  color: #4b2e0f;
+  font-family: "MedievalSharp", system-ui;
+}
+
+label {
+  font-size: 1.2em;
+  color: #4b2e0f;
+  font-family: "Tagesschrift", system-ui;
+  margin-bottom: 5px;
+}
+
+.scroll input {
+  width: 80%;
+  padding: 6px 10px;
+  margin-bottom: 20px;
+  font-size: 1.1em;
+  border: 1px solid #a98989;
+  border-radius: 5px;
+  font-family: "Tagesschrift", system-ui;
+}
+
+.scroll button {
+  padding: 7.5px 15px;
+  font-size: 1.2em;
+  background-color: #875a2d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 2.5px;
+  font-weight: lighter;
+  font-family: "Tagesschrift", system-ui;
+}
+
+.scroll button:hover {
+  background-color: #4b2e0f;
+}
+.form-section {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-section.active {
+  display: flex;
+}

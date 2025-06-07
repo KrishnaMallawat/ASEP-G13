@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=MedievalSharp&family=Tagesschrift&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="scroll">
+
+      <div class="form-section active" id="step1">
+        <h1>Sign Up</h1>
+        <label for="email">Enter Your Email</label>
+        <input type="text" id="email" placeholder="Email" />
+  
+        <label for="code">Set Your Code</label>
+        <input type="password" id="code" placeholder="Code" />
+  
+        <label for="school">Enter Your Name</label>
+        <input type="text" id="school" placeholder="Name" />
+  
+        <div class="button">
+          <button onclick="goToStep2()">Next</button>
+        </div>
+      </div>
+  
+      <div class="form-section" id="step2">
+        <h1>More Info</h1>
+        <label for="name">Enter Your School</label>
+        <input type="text" id="name" placeholder="School" />
+
+        <label for="class">Enter Your Class</label>
+        <input type="text" id="class" placeholder="4/5/6/7" />
+  
+        <label for="name">Enter Your Roll Number</label>
+        <input type="text" id="name" placeholder="Roll Number" />
+  
+        <div class="button">
+          <button onclick="goBack()">Back</button>
+          <button onclick="submitForm()">Submit</button>
+        </div>
+      </div>
+  
+    </div>
+  
+  </body>
+</html>
