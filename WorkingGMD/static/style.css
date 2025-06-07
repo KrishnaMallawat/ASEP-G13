@@ -48,10 +48,11 @@ label {
   border: 1px solid #a98989;
   border-radius: 5px;
   font-family: "Tagesschrift", system-ui;
+  transition: opacity 0.3s ease;
 }
 
 .scroll button {
-  padding: 7.5px 15px;
+  padding: 4.5px 15px;
   font-size: 1.2em;
   background-color: #875a2d;
   color: white;
@@ -74,4 +75,59 @@ label {
 
 .form-section.active {
   display: flex;
+}
+
+/* Password toggle button styles - Signup page */
+.signup-password-toggle {
+    position: absolute;
+    right: 39%;
+    transform: translateY(152px);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1.2em;
+}
+
+/* Password toggle button styles - Login page */
+.login-password-toggle {
+    position: absolute;
+    right: 35%;
+    transform: translateY(47px);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1.2em;
+}
+
+.signup-password-toggle:hover,
+.login-password-toggle:hover {
+    opacity: 0.8;
+}
+
+.error-message {
+    color: #d32f2f;
+    font-size: 0.9em;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    width: 80%;
+    text-align: left;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: rgba(211, 47, 47, 0.1);
+    border-left: 3px solid #d32f2f;
+}
+
+.input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.scroll input.error {
+    border-color: #d32f2f;
+    background-color: rgba(211, 47, 47, 0.05);
 }

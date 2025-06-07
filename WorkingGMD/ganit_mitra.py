@@ -120,6 +120,27 @@ def api_signup():
         db.commit()
         return jsonify({'success': True})
 
+@app.route('/api/check-email', methods=['POST'])
+def check_email():
+    if not request.is_json:
+        return jsonify({'success': False, 'message': 'Invalid request format'})
+    
+    data = request.get_json()
+    email = data.get('email')
+    
+    if not email:
+        return jsonify({'success': False, 'message': 'Email is required'})
+        
+    with closing(get_db()) as db:
+        if not db:
+            return jsonify({'success': False, 'message': 'Database error'})
+        
+        user = db.execute('SELECT 1 FROM users WHERE email = ?', (email,)).fetchone()
+        if user:
+            return jsonify({'success': False, 'message': 'Email already registered'})
+        
+        return jsonify({'success': True})
+
 @app.route('/logout')
 def logout():
     session.pop('username', None)
