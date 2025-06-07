@@ -89,6 +89,12 @@ async function submitForm() {
         return;
     }
 
+    // Validate roll number is numeric
+    if (!/^\d+$/.test(roll)) {
+        showError('roll', "Roll number must contain only digits");
+        return;
+    }
+
     // Get the values from step 1
     const email = document.getElementById('email').value.trim();
     const code = document.getElementById('code').value.trim();
@@ -139,8 +145,73 @@ async function submitForm() {
     }
 }
 
+// Add real-time validation for roll number
+function initializeRollNumberValidation() {
+    const rollInput = document.getElementById('roll');
+    if (!rollInput) return;
+
+    rollInput.addEventListener('input', () => {
+        clearError('roll');
+        const value = rollInput.value.trim();
+        
+        if (value && !/^\d+$/.test(value)) {
+            showError('roll', "Roll number must contain only digits");
+        }
+    });
+}
+
+// Handle Enter key navigation
+function handleEnterKey(event) {
+    if (event.key !== 'Enter') return;
+    
+    const currentStep = document.querySelector('.form-section.active');
+    const inputs = currentStep.querySelectorAll('input');
+    const currentInput = document.activeElement;
+    
+    // Find the index of the current input
+    const currentIndex = Array.from(inputs).indexOf(currentInput);
+    
+    if (currentIndex === -1) return;
+    
+    event.preventDefault();
+    
+    // If we're on step 1
+    if (currentStep.id === 'step1') {
+        // If we're on the last input of step 1, try to go to step 2
+        if (currentIndex === inputs.length - 1) {
+            goToStep2();
+        } else {
+            // Focus the next input
+            inputs[currentIndex + 1].focus();
+        }
+    }
+    // If we're on step 2
+    else if (currentStep.id === 'step2') {
+        // If we're on the last input of step 2, submit the form
+        if (currentIndex === inputs.length - 1) {
+            submitForm();
+        } else {
+            // Focus the next input
+            inputs[currentIndex + 1].focus();
+        }
+    }
+}
+
+// Initialize keyboard navigation
+function initializeKeyboardNavigation() {
+    const form = document.querySelector('.scroll');
+    if (!form) return;
+    
+    const inputs = form.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.addEventListener('keypress', handleEnterKey);
+    });
+}
+
 // Export functions
 window.goToStep2 = goToStep2;
 window.goBack = goBack;
 window.submitForm = submitForm;
-window.initializePasswordToggles = initializePasswordToggles; 
+window.initializePasswordToggles = initializePasswordToggles;
+window.initializeKeyboardNavigation = initializeKeyboardNavigation;
+window.initializeRollNumberValidation = initializeRollNumberValidation; 
