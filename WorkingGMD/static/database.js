@@ -1,8 +1,8 @@
-// Database operations and enhanced form navigation for signup
+// Enhanced form navigation for signup
 document.addEventListener('DOMContentLoaded', function() {
     // Add keypress event listeners for form navigation
     const step1Fields = ['email', 'code', 'school'];
-    const step2Fields = ['name', 'class'];
+    const step2Fields = ['name', 'class', 'rollNumber'];
 
     // Add enter key support for step 1
     step1Fields.forEach(fieldId => {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         );
                         if (emptyField) {
                             document.getElementById(emptyField).focus();
-                            alert(`Please fill in the ${emptyField} field`);
+                            alert(`Please fill in the ${emptyField.replace('school', 'name')} field`);
                         }
                     }
                 }
@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     );
                     
                     if (allFilled) {
-                        // If all fields are filled, submit the form
-                        submitFormToDatabase();
+                        // If all fields are filled, submit the form using the main submit function
+                        submitForm();
                     } else {
                         // Find the first empty field and focus it
                         const emptyField = step2Fields.find(id => 
