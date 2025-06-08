@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: url('Login_Page_BG.png');
+  background-image: url('images/Login_Page_BG.png');
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -14,7 +14,7 @@ body {
 .scroll {
   width: 58vh;
   height: 110dvh;
-  background-image: url('scroll.png');
+  background-image: url('images/scroll.png');
   background-size: cover;
   background-position: center;
   display: flex;
