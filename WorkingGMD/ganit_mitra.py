@@ -4,6 +4,7 @@ import os
 import sqlite3
 from contextlib import closing
 from functools import wraps
+import re
 
 app = Flask(__name__)
 app.secret_key = 'NiceTryButYouWillNotMakeIt'
@@ -24,6 +25,18 @@ SCHEMA = '''
         roll_number TEXT NOT NULL
     )
 '''
+
+# Password validation function
+def validate_password(password):
+    if len(password) < 8:
+        return False, "Secret code must be at least 8 characters long"
+    if not re.search(r'[A-Z]', password):
+        return False, "Secret code must have at least one capital letter"
+    if not re.search(r'[0-9]', password):
+        return False, "Secret code must have at least one number"
+    if not re.search(r'[!@#$%^&*]', password):
+        return False, "Secret code must have at least one special character (!@#$%^&*)"
+    return True, "Valid password"
 
 def get_db():
     try:
@@ -104,6 +117,11 @@ def api_signup():
     
     if not all(field in data for field in required_fields):
         return jsonify({'success': False, 'message': 'Missing required fields'})
+
+    # Validate password
+    is_valid_password, password_message = validate_password(data['code'])
+    if not is_valid_password:
+        return jsonify({'success': False, 'message': password_message})
 
     with closing(get_db()) as db:
         if not db:

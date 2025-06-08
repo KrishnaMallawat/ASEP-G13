@@ -23,6 +23,21 @@
         <div class="input-group">
           <label for="code">Secret Code</label>
           <input type="password" id="code" placeholder="Enter your secret code" />
+          <div class="password-helper">
+            <h3>Your Secret Code Should:</h3>
+            <ul id="password-requirements">
+              <li id="req-length">✨ Be at least 8 letters long</li>
+              <li id="req-capital">🌟 Have one BIG letter</li>
+              <li id="req-number">🔢 Have one number</li>
+              <li id="req-special">🎯 Have one special character (!@#$%^&*)</li>
+            </ul>
+            <div class="password-strength">
+              <div id="strength-bar"></div>
+              <span id="strength-text">Password Strength</span>
+            </div>
+            <p class="password-tip">Tip: Try making a secret code using your favorite things!</p>
+            <p class="password-example">Example: Pizza2023!</p>
+          </div>
         </div>
         <div class="input-group">
           <label for="name">Name</label>
@@ -57,6 +72,7 @@
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         initializeEmailValidation();
+        initializePasswordValidation();
         initializePasswordToggles();
         initializeKeyboardNavigation();
         initializeRollNumberValidation();

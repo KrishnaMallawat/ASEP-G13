@@ -78,8 +78,70 @@ function initializeEmailValidation() {
     });
 }
 
+// Password validation functions
+function validatePassword(password) {
+    const requirements = {
+        length: password.length >= 8,
+        capital: /[A-Z]/.test(password),
+        number: /[0-9]/.test(password),
+        special: /[!@#$%^&*]/.test(password)
+    };
+
+    // Update requirement indicators
+    Object.keys(requirements).forEach(req => {
+        const element = document.getElementById(`req-${req}`);
+        if (element) {
+            element.classList.toggle('valid', requirements[req]);
+        }
+    });
+
+    // Update strength bar
+    const strengthBar = document.getElementById('strength-bar');
+    const strengthText = document.getElementById('strength-text');
+    
+    const validCount = Object.values(requirements).filter(Boolean).length;
+    
+    if (validCount === 0) {
+        strengthBar.className = '';
+        strengthText.textContent = 'Password Strength';
+    } else if (validCount <= 2) {
+        strengthBar.className = 'weak';
+        strengthText.textContent = 'Not Strong Enough';
+    } else if (validCount === 3) {
+        strengthBar.className = 'medium';
+        strengthText.textContent = 'Getting Better!';
+    } else {
+        strengthBar.className = 'strong';
+        strengthText.textContent = 'Perfect! ⭐';
+    }
+
+    return Object.values(requirements).every(Boolean);
+}
+
+function initializePasswordValidation() {
+    const passwordInput = document.getElementById('code');
+    if (!passwordInput) return;
+
+    passwordInput.addEventListener('input', (e) => {
+        const isValid = validatePassword(e.target.value);
+        clearError('code');
+        
+        if (e.target.value && !isValid) {
+            showError('code', 'Please make your secret code stronger');
+        }
+    });
+
+    passwordInput.addEventListener('blur', (e) => {
+        if (e.target.value && !validatePassword(e.target.value)) {
+            showError('code', 'Your secret code needs to meet all the requirements');
+        }
+    });
+}
+
 // Export functions
 window.showError = showError;
 window.clearError = clearError;
 window.validateEmail = validateEmail;
-window.initializeEmailValidation = initializeEmailValidation; 
+window.initializeEmailValidation = initializeEmailValidation;
+window.validatePassword = validatePassword;
+window.initializePasswordValidation = initializePasswordValidation; 

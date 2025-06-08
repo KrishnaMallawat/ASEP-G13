@@ -12,8 +12,8 @@ body {
 }
 
 .scroll {
-  width: 55vh;
-  height: 80dvh;
+  width: 58vh;
+  height: 110dvh;
   background-image: url('scroll.png');
   background-size: cover;
   background-position: center;
@@ -183,4 +183,98 @@ label {
     height: 100%;
     background-color: #875a2d;
     transition: width 0.3s ease;
+}
+
+.password-helper {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.password-helper h3 {
+    color: #4a4a4a;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+#password-requirements {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+#password-requirements li {
+    margin: 8px 0;
+    color: #666;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+#password-requirements li.valid {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.password-strength {
+    margin: 15px 0;
+}
+
+#strength-bar {
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+#strength-bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background-color: #dc3545;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+#strength-bar.weak::after {
+    width: 33%;
+    background-color: #dc3545;
+}
+
+#strength-bar.medium::after {
+    width: 66%;
+    background-color: #ffc107;
+}
+
+#strength-bar.strong::after {
+    width: 100%;
+    background-color: #28a745;
+}
+
+#strength-text {
+    display: block;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.password-tip {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 10px 0;
+    font-style: italic;
+}
+
+.password-example {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
 }
