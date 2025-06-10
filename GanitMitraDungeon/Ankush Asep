@@ -1,1 +1,1168 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter Cartoon Café</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Fredoka One', 'Comic Sans MS', cursive, sans-serif;
+            background-color: #FDF6E3;
+            background-image: url('https://img.freepik.com/free-vector/children-s-cartoon-park-background_1308-41031.jpg');
+            background-size: cover;
+            min-height: 100vh;
+            width: 100vw;
+            overflow-x: hidden;
+        }
+        
+        .weight-blocks {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 18px;
+            gap: 10px;
+        }
+        
+        .weight-block-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .weight-block {
+            background: #FFD700;
+            color: #FF6347;
+            border: 2px solid #FFB347;
+            border-radius: 10px;
+            font-size: 1.2vw;
+            font-family: 'Fredoka One', cursive;
+            padding: 10px 18px;
+            margin: 4px;
+            cursor: pointer;
+            box-shadow: 0 1px 4px #FFD700;
+            transition: background 0.2s, color 0.2s;
+        }
+        
+        .weight-block:active {
+            background: #FFB347;
+            color: #fff;
+        }
+        
+        .selected-weight {
+            font-weight: bold;
+            color: #43A047;
+            font-size: 1.2em;
+        }
+        
+        .submit-weight,
+        .reset-weight {
+            background: #FFD700;
+            color: #FF6347;
+            border: 2px solid #FFB347;
+            border-radius: 8px;
+            font-size: 1vw;
+            font-family: 'Fredoka One', cursive;
+            padding: 6px 12px;
+            cursor: pointer;
+            box-shadow: 0 1px 4px #FFD700;
+            transition: background 0.2s, color 0.2s;
+        }
+        
+        .submit-weight:active,
+        .reset-weight:active {
+            background: #FFB347;
+            color: #fff;
+        }
+        
+        .quit-btn {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            z-index: 2001;
+            background: #FFD700;
+            color: #FF6347;
+            border: 3px solid #FFB347;
+            border-radius: 12px;
+            font-size: 2vw;
+            font-family: 'Fredoka One', cursive;
+            padding: 10px 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px #FFD700;
+            transition: background 0.2s, color 0.2s;
+        }
+        
+        .quit-btn:hover {
+            background: #FFB347;
+            color: #fff;
+        }
+        
+        .quit-confirm-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 4000;
+        }
+        
+        .quit-confirm-box {
+            background: #fffbe6;
+            border: 5px solid #FF6347;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px #FFD700;
+            padding: 40px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .quit-confirm-box p {
+            color: #FF6347;
+            font-size: 1.7vw;
+            margin-bottom: 28px;
+            font-family: 'Fredoka One', cursive;
+        }
+        
+        .quit-confirm-box .quit-yes,
+        .quit-confirm-box .quit-no {
+            background: #FFD700;
+            color: #FF6347;
+            border: 3px solid #FFB347;
+            border-radius: 14px;
+            font-size: 1.3vw;
+            font-family: 'Fredoka One', cursive;
+            padding: 12px 34px;
+            margin: 0 18px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px #FFD700;
+            transition: background 0.2s, color 0.2s;
+        }
+        
+        .quit-confirm-box .quit-yes:hover,
+        .quit-confirm-box .quit-no:hover {
+            background: #FFB347;
+            color: #fff;
+        }
+        
+        .game-container {
+            width: 100vw;
+            height: 100vh;
+            min-height: 100vh;
+            min-width: 100vw;
+            background: rgba(255, 255, 255, 0.85);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .header {
+            width: 100vw;
+            background: linear-gradient(90deg, #FFB347, #FFD700);
+            color: #fff;
+            padding: 32px 0 18px 0;
+            text-align: center;
+            font-size: 3.5vw;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 2px 2px #FF6347;
+            border-bottom: 8px solid #FF6347;
+            letter-spacing: 2px;
+        }
+        
+        .cafe-scene {
+            width: 100vw;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .counter {
+            width: 100vw;
+            height: 5vh;
+            background: repeating-linear-gradient(135deg, #FFD700, #FFD700 20px, #FFB347 20px, #FFB347 40px);
+            position: absolute;
+            bottom: 0;
+            border-top: 12px solid #FF6347;
+            z-index: 1;
+        }
+        
+        .customer {
+            position: absolute;
+            bottom: 22vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 220px;
+            z-index: 2;
+            filter: drop-shadow(0 2px 8px #FFD700);
+        }
+        
+        .customer img {
+            position: absolute;
+            bottom: 200px;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 4px solid #FFB347;
+            background: #fffbe6;
+        }
+        
+        .speech-bubble {
+            position: absolute;
+            bottom: 700px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            padding: 35px 40px;
+            border-radius: 30px;
+            min-width: 500px;
+            min-height: 80px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 0 18px rgba(0, 0, 0, 0.13);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+        }
+        
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            margin-left: -18px;
+            border-width: 18px 18px 0;
+            border-style: solid;
+            border-color: white transparent transparent;
+        }
+        
+        .conversion-tools {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px 20px 20px 20px;
+            border-radius: 18px;
+            width: 80%;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .answer-options {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 38px;
+            flex-wrap: wrap;
+        }
+        
+        .food-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.15s cubic-bezier(.68, -0.55, .27, 1.55), box-shadow 0.15s, background 0.2s;
+            border: 4px solid #FFD700;
+            border-radius: 20px;
+            background: #fffbe6;
+            box-shadow: 0 2px 8px #FFD700;
+            padding: 12px 22px 10px 22px;
+            font-size: 1.5vw;
+            min-width: 110px;
+            min-height: 150px;
+            user-select: none;
+            position: relative;
+        }
+        
+        .food-option:hover:not(.disabled) {
+            background: #FFF176;
+            transform: scale(1.08) rotate(-2deg);
+            box-shadow: 0 6px 24px #FFD700;
+            z-index: 2;
+        }
+        
+        .food-option.selected {
+            background: #FFD700;
+            border: 4px solid #43A047;
+            animation: bounce 0.4s;
+            box-shadow: 0 0 24px #43A047;
+        }
+        
+        .food-option.incorrect {
+            background: #FFCDD2;
+            border: 4px solid #E53935;
+            animation: shake 0.4s;
+            box-shadow: 0 0 24px #E53935;
+        }
+        
+        .food-option.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        
+        @keyframes bounce {
+            0% {
+                transform: scale(1);
+            }
+            40% {
+                transform: scale(1.18);
+            }
+            60% {
+                transform: scale(0.95);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            20% {
+                transform: translateX(-8px);
+            }
+            40% {
+                transform: translateX(8px);
+            }
+            60% {
+                transform: translateX(-5px);
+            }
+            80% {
+                transform: translateX(5px);
+            }
+        }
+        
+        .food-img {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 10px;
+        }
+        
+        .feedback {
+            position: absolute;
+            bottom: 45vh;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            background-color: #fffbe6;
+            padding: 18px 28px;
+            border-radius: 18px;
+            font-size: 2vw;
+            font-family: 'Fredoka One', cursive;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.5s;
+            border: 4px solid #FFD700;
+            box-shadow: 0 2px 8px #FFD700;
+            z-index: 100;
+        }
+        
+        .positive-feedback {
+            color: #2E8B57;
+            text-shadow: 1px 1px #FFD700;
+        }
+        
+        .negative-feedback {
+            color: #FF6347;
+            text-shadow: 1px 1px #FFD700;
+        }
+        
+        .score-display,
+        .timer {
+            position: absolute;
+            top: 18px;
+            background-color: #FFFACD;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 1.3vw;
+            border: 3px solid #FFD700;
+            box-shadow: 0 1px 4px #FFD700;
+            font-family: 'Fredoka One', cursive;
+            z-index: 10;
+        }
+        
+        .score-display {
+            right: 18px;
+        }
+        
+        .timer {
+            left: 18px;
+        }
+        
+        .conversion-chart {
+            position: absolute;
+            top: 80px;
+            right: 18px;
+            background-color: #FFFACD;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 1vw;
+            border: 3px dashed #FFB347;
+            font-family: 'Fredoka One', cursive;
+            box-shadow: 0 1px 4px #FFD700;
+            z-index: 10;
+        }
+        
+        .start-screen,
+        .level-complete {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(255, 236, 179, 0.97);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .start-btn,
+        .next-level-btn {
+            background-color: #FFB347;
+            color: #fff;
+            border: 4px solid #FFD700;
+            padding: 18px 36px;
+            border-radius: 18px;
+            font-size: 2vw;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Fredoka One', cursive;
+            box-shadow: 0 2px 8px #FFD700;
+        }
+        
+        .start-btn:hover,
+        .next-level-btn:hover {
+            background-color: #FFD700;
+            color: #FF6347;
+            transform: scale(1.1) rotate(-2deg);
+        }
+        
+        h1 {
+            color: #FF6347;
+            font-size: 3vw;
+            text-align: center;
+            margin-bottom: 18px;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 2px 2px #FFD700;
+        }
+        
+        .instructions {
+            max-width: 80vw;
+            text-align: center;
+            font-size: 1.5vw;
+            margin-bottom: 18px;
+            color: #FF6347;
+            font-family: 'Fredoka One', cursive;
+        }
+        
+        .confetti {
+            position: absolute;
+            pointer-events: none;
+            z-index: 2000;
+        }
+        
+        @media (max-width: 900px) {
+            .header {
+                font-size: 6vw;
+            }
+            .speech-bubble,
+            .feedback {
+                font-size: 3vw;
+            }
+            .conversion-tools {
+                width: 94vw;
+            }
+            .conversion-chart {
+                font-size: 2vw;
+            }
+            .score-display,
+            .timer {
+                font-size: 2vw;
+            }
+            .weight-block {
+                font-size: 2vw;
+                padding: 8px 14px;
+            }
+            .submit-weight,
+            .reset-weight {
+                font-size: 1.8vw;
+            }
+        }
+        
+        .length-blocks {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 18px;
+            gap: 10px;
+        }
+        
+        .length-block {
+            background: #FFD700;
+            color: #FF6347;
+            border: 2px solid #FFB347;
+            border-radius: 10px;
+            font-size: 1.2vw;
+            font-family: 'Fredoka One', cursive;
+            padding: 10px 18px;
+            margin: 4px;
+            cursor: pointer;
+            box-shadow: 0 1px 4px #FFD700;
+            transition: background 0.2s, color 0.2s;
+        }
+        
+        .length-block:active {
+            background: #FFB347;
+            color: #fff;
+        }
+        
+        .selected-length {
+            font-weight: bold;
+            color: #43A047;
+            font-size: 1.2em;
+        }
+        
+        .submit-length,
+        .reset-length {
+            background: #FFD700;
+            color: #FF6347;
+            border: 2px solid #FFB347;
+            border-radius: 8px;
+            font-size: 1vw;
+            font-family: 'Fredoka One', cursive;
+            padding: 6px 12px;
+            cursor: pointer;
+            box-shadow: 0 1px 4px #FFD700;
+            transition: background 0.2s, color 0.2s;
+        }
+        
+        .submit-length:active,
+        .reset-length:active {
+            background: #FFB347;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game-container" id="game-container">
+        <!-- Quit Button -->
+        <button class="quit-btn" onclick="openQuitConfirm()">Quit</button>
+        <div class="header">Unit Converter Cartoon Café</div>
+        <div class="cafe-scene">
+            <div class="counter"></div>
+            <div class="customer">
+                <img src="https://img.freepik.com/free-vector/cute-cat-chef-cartoon-vector-icon-illustration_138676-6181.jpg" alt="Customer">
+            </div>
+            <div class="speech-bubble"></div>
+            <div class="feedback"></div>
+            <div class="conversion-tools">
+                <div class="answer-options"></div>
+                <!-- Weight blocks UI (initially hidden) -->
+                <div class="weight-blocks" style="display:none;">
+                    <div class="weight-block-row">
+                        <button class="weight-block" data-weight="1000">1 kg</button>
+                        <button class="weight-block" data-weight="500">500 g</button>
+                    </div>
+                    <div class="weight-block-row">
+                        <button class="weight-block" data-weight="100">100 g</button>
+                        <button class="weight-block" data-weight="50">50 g</button>
+                    </div>
+                    <div style="margin-top:10px;">
+                        Selected: <span class="selected-weight">0</span> g
+                        <button class="submit-weight" style="margin-left:15px;">Submit</button>
+                        <button class="reset-weight" style="margin-left:5px;">Reset</button>
+                    </div>
+                </div>
+                <div class="length-blocks" style="display:none;">
+                    <div class="weight-block-row">
+                        <button class="length-block" data-length="10000">10 m</button>
+                        <button class="length-block" data-length="100">100 cm</button>
+                        <button class="length-block" data-length="10">10 cm</button>
+                        <button class="length-block" data-length="1">1 cm</button>
+                    </div>
+                    <div style="margin-top:10px;">
+                        Selected: <span class="selected-length">0</span> cm
+                        <button class="submit-length" style="margin-left:15px;">Submit</button>
+                        <button class="reset-length" style="margin-left:5px;">Reset</button>
+                    </div>
+                </div>
+            </div>
+            <div class="score-display">
+                Score: <span class="score">0</span> | Orders: <span class="orders-completed">0</span>/10
+            </div>
+            <div class="conversion-chart">
+                <h3>Conversion Chart</h3>
+                <p>1 km = 1000 m</p>
+                <p>1 m = 100 cm</p>
+                <p>1 cm = 10 mm</p>
+                <p>1 kg = 1000 g</p>
+            </div>
+            <div class="timer">Time: <span class="time">60</span>s</div>
+            <div class="start-screen">
+                <h1>Welcome to the Cartoon Café!</h1>
+                <div class="instructions">
+                    <p>You're the new manager of this fun café in Math City!</p>
+                    <p>Cartoon customers will ask you to convert measurements like kilograms to grams or meters to centimeters.</p>
+                    <p>Pick the correct bag or food with the answer to complete their order and earn stars!</p>
+                    <p>Be quick - you have limited time for each order!</p>
+                    <p><b>For mass questions, use the weight blocks to build the correct weight!</b></p>
+                </div>
+                <button class="start-btn">Start Serving!</button>
+            </div>
+            <div class="level-complete" style="display: none;">
+                <h1>Level Complete!</h1>
+                <div class="instructions">
+                    <p>You completed <span class="completed-orders">0</span> orders!</p>
+                    <p>Your accuracy: <span class="accuracy">0</span>%</p>
+                    <p>Stars earned: <span class="stars-earned">0</span>/5</p>
+                </div>
+                <button class="next-level-btn">Next Level</button>
+            </div>
+        </div>
+    </div>
+    <!-- Quit Confirmation Overlay -->
+    <div class="quit-confirm-overlay" id="quit-confirm-overlay">
+        <div class="quit-confirm-box">
+            <p>Are you sure you want to quit?</p>
+            <div>
+                <button class="quit-yes" onclick="quitGame()">Yes, Quit</button>
+                <button class="quit-no" onclick="closeQuitConfirm()">No, Resume</button>
+            </div>
+        </div>
+    </div>
+    <canvas class="confetti" style="display:none;"></canvas>
+    <audio id="success-sound" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae3e5.mp3"></audio>
+    <audio id="fail-sound" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae3e5.mp3"></audio>
+    <script>
+        // Game variables
+        let score = 0;
+        let ordersCompleted = 0;
+        let correctAnswers = 0;
+        let currentQuestion = {};
+        let timeLeft = 60;
+        let timer;
+        let gameActive = false;
+        let starsEarned = 0;
+        let selectedWeight = 0;
+        let weightBlocksVisible = false;
+        let selectedLength = 0;
+        let lengthBlocksVisible = false;
+
+        // DOM elements
+        const speechBubble = document.querySelector('.speech-bubble');
+        const customer = document.querySelector('.customer');
+        const answerOptions = document.querySelector('.answer-options');
+        const feedback = document.querySelector('.feedback');
+        const scoreDisplay = document.querySelector('.score');
+        const ordersDisplay = document.querySelector('.orders-completed');
+        const timeDisplay = document.querySelector('.time');
+        const startScreen = document.querySelector('.start-screen');
+        const levelCompleteScreen = document.querySelector('.level-complete');
+        const completedOrdersDisplay = document.querySelector('.completed-orders');
+        const accuracyDisplay = document.querySelector('.accuracy');
+        const starsEarnedDisplay = document.querySelector('.stars-earned');
+        const confettiCanvas = document.querySelector('.confetti');
+        const successSound = document.getElementById('success-sound');
+        const failSound = document.getElementById('fail-sound');
+        const weightBlocksContainer = document.querySelector('.weight-blocks');
+        const weightBlockButtons = document.querySelectorAll('.weight-block');
+
+        const selectedWeightDisplay = document.querySelector('.selected-weight');
+        const submitWeightButton = document.querySelector('.submit-weight');
+        const resetWeightButton = document.querySelector('.reset-weight');
+        // Fix: Use correct selectors for length blocks
+        const lengthBlocksContainer = document.querySelector('.length-blocks');
+        const lengthBlockButtons = document.querySelectorAll('.length-block');
+        const selectedLengthDisplay = document.querySelector('.selected-length');
+        const submitLengthButton = document.querySelector('.submit-length');
+        const resetLengthButton = document.querySelector('.reset-length');
+
+        // Cartoon customer images
+        const customerImages = [
+            'https://img.freepik.com/free-vector/cute-cat-chef-cartoon-vector-icon-illustration_138676-6181.jpg',
+            'https://img.freepik.com/free-vector/cute-rabbit-cartoon-vector-icon-illustration_138676-5723.jpg',
+            'https://img.freepik.com/free-vector/cute-fox-cartoon-vector-icon-illustration_138676-5558.jpg',
+            'https://img.freepik.com/free-vector/cute-owl-cartoon-vector-icon-illustration_138676-5640.jpg'
+        ];
+
+        // Cartoon food images for options
+        const foodImages = [
+            'https://img.icons8.com/color/96/000000/cupcake.png',
+            'https://img.icons8.com/color/96/000000/pizza.png',
+            'https://img.icons8.com/color/96/000000/doughnut.png',
+            'https://img.icons8.com/color/96/000000/apple.png',
+            'https://img.icons8.com/color/96/000000/banana.png',
+            'https://img.icons8.com/color/96/000000/cheese.png',
+            'https://img.icons8.com/color/96/000000/broccoli.png',
+            'https://img.icons8.com/color/96/000000/carrot.png'
+        ];
+
+        // Questions for 5th grade level
+        const questions = [{
+            question: "Can I have 2 kilograms of flour in grams?",
+            fromUnit: "kg",
+            toUnit: "g",
+            value: 2,
+            answer: 2000
+        }, {
+            question: "I need 3 kilograms of sugar in grams.",
+            fromUnit: "kg",
+            toUnit: "g",
+            value: 3,
+            answer: 3000
+        }, {
+            question: "Please give me 1.5 kilograms of rice in grams.",
+            fromUnit: "kg",
+            toUnit: "g",
+            value: 1.5,
+            answer: 1500
+        }, {
+            question: "I'd like 0.75 kilograms of butter in grams.",
+            fromUnit: "kg",
+            toUnit: "g",
+            value: 0.75,
+            answer: 750
+        }, {
+            question: "Can you prepare 0.5 kilograms of tea in grams?",
+            fromUnit: "kg",
+            toUnit: "g",
+            value: 0.5,
+            answer: 500
+        }, {
+            question: "How many centimeters are in 2 kilometers?",
+            fromUnit: "km",
+            toUnit: "cm",
+            value: 2,
+            answer: 200000
+        }, {
+            question: "Convert 3 kilometers to centimeters.",
+            fromUnit: "km",
+            toUnit: "cm",
+            value: 3,
+            answer: 300000
+        }, {
+            question: "How many centimeters are in 0.8 kilometers?",
+            fromUnit: "km",
+            toUnit: "cm",
+            value: 0.8,
+            answer: 80000
+        }, {
+            question: "I'd like 1.25 kilometers in centimeters.",
+            fromUnit: "km",
+            toUnit: "cm",
+            value: 1.25,
+            answer: 125000
+        }, {
+            question: "Can you prepare 0.5 kilometers in centimeters?",
+            fromUnit: "km",
+            toUnit: "cm",
+            value: 0.5,
+            answer: 50000
+        }, {
+            question: "How many centimeters are in 2 meters?",
+            fromUnit: "m",
+            toUnit: "cm",
+            value: 2,
+            answer: 200
+        }, {
+            question: "Convert 3.5 meters to centimeters.",
+            fromUnit: "m",
+            toUnit: "cm",
+            value: 3.5,
+            answer: 350
+        }, {
+            question: "How many centimeters are in 0.75 meters?",
+            fromUnit: "m",
+            toUnit: "cm",
+            value: 0.75,
+            answer: 75
+        }, {
+            question: "I'd like 1.2 meters in centimeters.",
+            fromUnit: "m",
+            toUnit: "cm",
+            value: 1.2,
+            answer: 120
+        }, {
+            question: "Can you prepare 0.6 meters in centimeters?",
+            fromUnit: "m",
+            toUnit: "cm",
+            value: 0.6,
+            answer: 60
+        }];
+
+        // --- Quit Button Logic ---
+        function openQuitConfirm() {
+            document.getElementById('quit-confirm-overlay').style.display = 'flex';
+        }
+
+        function closeQuitConfirm() {
+            document.getElementById('quit-confirm-overlay').style.display = 'none';
+        }
+
+        function quitGame() {
+            document.getElementById('game-container').style.display = 'none';
+            document.getElementById('quit-confirm-overlay').style.display = 'none';
+            let bye = document.createElement('div');
+            bye.style.position = 'fixed';
+            bye.style.top = '0';
+            bye.style.left = '0';
+            bye.style.width = '100vw';
+            bye.style.height = '100vh';
+            bye.style.background = 'linear-gradient(120deg,#FFD700,#FFB347,#fffbe6)';
+            bye.style.display = 'flex';
+            bye.style.flexDirection = 'column';
+            bye.style.alignItems = 'center';
+            bye.style.justifyContent = 'center';
+            bye.style.zIndex = '9999';
+            bye.innerHTML = `<h1 style="color:#FF6347;font-size:3vw;font-family:'Fredoka One',cursive;text-shadow:2px 2px #FFD700;">Thanks for playing!</h1>
+            <p style="color:#FF6347;font-size:2vw;font-family:'Fredoka One',cursive;">You have quit the Unit Converter Cartoon Café.</p>`;
+            document.body.appendChild(bye);
+        }
+
+        // --- Weight Block Logic ---
+        function handleWeightBlockClick(weight) {
+            selectedWeight += parseInt(weight);
+            updateSelectedWeightDisplay();
+        }
+
+        function updateSelectedWeightDisplay() {
+            selectedWeightDisplay.textContent = selectedWeight;
+        }
+
+        function resetWeightSelection() {
+            selectedWeight = 0;
+            updateSelectedWeightDisplay();
+        }
+
+        function submitWeightAnswer() {
+            if (!gameActive) return;
+            checkAnswer(selectedWeight, false);
+            hideWeightBlocks();
+        }
+
+        function showWeightBlocks() {
+            weightBlocksContainer.style.display = 'flex';
+            weightBlocksVisible = true;
+            resetWeightSelection();
+        }
+
+        function hideWeightBlocks() {
+            weightBlocksContainer.style.display = 'none';
+            weightBlocksVisible = false;
+        }
+
+        // Add event listeners for weight blocks
+        weightBlockButtons.forEach(button => {
+            button.addEventListener('click', () => handleWeightBlockClick(button.dataset.weight));
+        });
+
+        submitWeightButton.addEventListener('click', submitWeightAnswer);
+        resetWeightButton.addEventListener('click', resetWeightSelection);
+        // Fix: Use correct data attribute for length blocks
+        lengthBlockButtons.forEach(button => {
+            button.addEventListener('click', () => handleLengthBlockClick(button.dataset.length));
+        });
+        submitLengthButton.addEventListener('click', submitLengthAnswer);
+        resetLengthButton.addEventListener('click', resetLengthSelection);
+
+
+        // Utility: shuffle array
+        function shuffle(array) {
+            let currentIndex = array.length,
+                randomIndex;
+            while (currentIndex !== 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        function handleLengthBlockClick(length) {
+            selectedLength += parseInt(length);
+            updateSelectedLengthDisplay();
+        }
+
+        function updateSelectedLengthDisplay() {
+            selectedLengthDisplay.textContent = selectedLength;
+        }
+
+        function resetLengthSelection() {
+            selectedLength = 0;
+            updateSelectedLengthDisplay();
+        }
+
+        function submitLengthAnswer() {
+            if (!gameActive) return;
+            checkAnswer(selectedLength, false);
+            hideLengthBlocks();
+        }
+
+        function showLengthBlocks() {
+            lengthBlocksContainer.style.display = 'flex';
+            lengthBlocksVisible = true;
+            resetLengthSelection();
+        }
+
+        function hideLengthBlocks() {
+            lengthBlocksContainer.style.display = 'none';
+            lengthBlocksVisible = false;
+        }
+
+        // Start game
+        document.querySelector('.start-btn').addEventListener('click', startGame);
+        document.querySelector('.next-level-btn').addEventListener('click', startGame);
+
+        function startGame() {
+            score = 0;
+            ordersCompleted = 0;
+            correctAnswers = 0;
+            timeLeft = 60;
+            starsEarned = 0;
+            scoreDisplay.textContent = score;
+            ordersDisplay.textContent = `${ordersCompleted}/10`;
+            timeDisplay.textContent = timeLeft;
+            startScreen.style.display = 'none';
+            levelCompleteScreen.style.display = 'none';
+            gameActive = true;
+            clearInterval(timer);
+            timer = setInterval(updateTimer, 1000);
+            showNextCustomer();
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            timeDisplay.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                endGame();
+            }
+        }
+
+        function showNextCustomer() {
+            hideWeightBlocks();
+            const randomCustomer = customerImages[Math.floor(Math.random() * customerImages.length)];
+            customer.querySelector('img').src = randomCustomer;
+            customer.classList.add('customer-enter');
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            currentQuestion = questions[randomIndex];
+            speechBubble.textContent = currentQuestion.question;
+            generateOptions();
+            setTimeout(() => {
+                speechBubble.style.opacity = '1';
+                customer.classList.remove('customer-enter');
+            }, 500);
+        }
+
+        function isLengthQuestion(q) {
+            return ['km', 'm', 'cm', 'mm'].includes(q.fromUnit) || ['km', 'm', 'cm', 'mm'].includes(q.toUnit);
+        }
+
+        function generateOptions() {
+            answerOptions.innerHTML = '';
+            const isMass = ['kg', 'g'].includes(currentQuestion.fromUnit) || ['kg', 'g'].includes(currentQuestion.toUnit);
+            const isLength = isLengthQuestion(currentQuestion);
+
+            if (isMass) {
+                showWeightBlocks();
+                hideLengthBlocks();
+            } else if (isLength) {
+                hideWeightBlocks();
+                showLengthBlocks();
+            } else {
+                hideWeightBlocks();
+                hideLengthBlocks();
+                // ... (existing option generation logic for other unit types)
+            }
+        }
+
+        function pickOption(opt, div) {
+            if (!gameActive) return;
+            if (answerOptions.classList.contains('locked')) return; // Prevent double click
+            answerOptions.classList.add('locked');
+            document.querySelectorAll('.food-option').forEach(el => {
+                el.classList.remove('selected', 'incorrect', 'disabled');
+            });
+            let correct = Math.abs(opt - currentQuestion.answer) < 0.01;
+            if (correct) {
+                div.classList.add('selected');
+                playConfetti();
+                successSound.currentTime = 0;
+                successSound.play();
+            } else {
+                div.classList.add('incorrect');
+                failSound.currentTime = 0;
+                failSound.play();
+                setTimeout(() => {
+                    document.querySelectorAll('.food-option').forEach(el => {
+                        if (Math.abs(parseFloat(el.innerText) - currentQuestion.answer) < 0.01) {
+                            el.classList.add('selected');
+                        }
+                    });
+                }, 350);
+            }
+            document.querySelectorAll('.food-option').forEach(el => el.classList.add('disabled'));
+            setTimeout(() => {
+                answerOptions.classList.remove('locked');
+                checkAnswer(opt, true);
+            }, 900);
+        }
+
+        function checkAnswer(userAnswer, isOption) {
+            if (!gameActive) return;
+            let correct = Math.abs(userAnswer - currentQuestion.answer) < 0.01;
+            if (correct) {
+                feedback.textContent = "🎉 Perfect! Thank you! 🎉";
+                feedback.className = "feedback positive-feedback";
+                score += 10;
+                correctAnswers++;
+                timeLeft += 5;
+                if (timeLeft > 60) timeLeft = 60;
+                timeDisplay.textContent = timeLeft;
+                scoreDisplay.textContent = score;
+            } else {
+                feedback.textContent = `😅 Oops! It's ${currentQuestion.answer} ${currentQuestion.toUnit}.`;
+                feedback.className = "feedback negative-feedback";
+                score = Math.max(0, score - 5);
+                timeLeft = Math.max(0, timeLeft - 5);
+                timeDisplay.textContent = timeLeft;
+                scoreDisplay.textContent = score;
+            }
+            ordersCompleted++;
+            ordersDisplay.textContent = `${ordersCompleted}/10`;
+            feedback.style.opacity = '1';
+            setTimeout(() => {
+                feedback.style.opacity = '0';
+                if (ordersCompleted >= 10) {
+                    endGame();
+                } else {
+                    customer.classList.add('customer-exit');
+                    speechBubble.style.opacity = '0';
+                    setTimeout(() => {
+                        customer.classList.remove('customer-exit');
+                        showNextCustomer();
+                    }, 1000);
+                }
+            }, 1700);
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(timer);
+            starsEarned = Math.min(5, Math.floor(correctAnswers / 2));
+            completedOrdersDisplay.textContent = ordersCompleted;
+            accuracyDisplay.textContent = ordersCompleted > 0 ? Math.round((correctAnswers / ordersCompleted) * 100) : 0;
+            starsEarnedDisplay.textContent = starsEarned;
+            levelCompleteScreen.style.display = 'flex';
+            showStars();
+        }
+
+        function showStars() {
+            let starsContainer = document.querySelector('.level-complete .instructions');
+            let existing = starsContainer.querySelector('.progress-bar');
+            if (existing) existing.remove();
+            let starsDiv = document.createElement('div');
+            starsDiv.className = 'progress-bar';
+            for (let i = 0; i < 5; i++) {
+                let star = document.createElement('span');
+                star.className = 'star';
+                star.textContent = i < starsEarned ? '★' : '☆';
+                if (i < starsEarned) star.classList.add('filled');
+                starsDiv.appendChild(star);
+            }
+            starsContainer.appendChild(starsDiv);
+        }
+
+        function playConfetti() {
+            let canvas = confettiCanvas;
+            let W = window.innerWidth,
+                H = window.innerHeight;
+            canvas.width = W;
+            canvas.height = H;
+            canvas.style.display = 'block';
+            let ctx = canvas.getContext('2d');
+            let pieces = [];
+            for (let i = 0; i < 120; i++) {
+                pieces.push({
+                    x: Math.random() * W,
+                    y: Math.random() * -H,
+                    r: 6 + Math.random() * 10,
+                    d: Math.random() * 100,
+                    color: `hsl(${Math.random()*360},90%,60%)`,
+                    tilt: Math.random() * 20 - 10,
+                    tiltAngle: 0,
+                    tiltAngleIncremental: (Math.random() * 0.07) + .05
+                });
+            }
+            let angle = 0;
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                for (let i = 0; i < pieces.length; i++) {
+                    let p = pieces[i];
+                    ctx.beginPath();
+                    ctx.lineWidth = p.r;
+                    ctx.strokeStyle = p.color;
+                    ctx.moveTo(p.x + p.tilt + (p.r / 3), p.y);
+                    ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r);
+                    ctx.stroke();
+                }
+                update();
+            }
+
+            function update() {
+                angle += 0.01;
+                for (let i = 0; i < pieces.length; i++) {
+                    let p = pieces[i];
+                    p.y += (Math.cos(angle + p.d) + 3 + p.r / 2) / 2;
+                    p.x += Math.sin(angle);
+                    p.tiltAngle += p.tiltAngleIncremental;
+                    p.tilt = Math.sin(p.tiltAngle) * 15;
+                    if (p.y > H) {
+                        p.x = Math.random() * W;
+                        p.y = -10;
+                    }
+                }
+            }
+            let count = 0;
+
+            function animate() {
+                draw();
+                count++;
+                if (count < 60) requestAnimationFrame(animate);
+                else canvas.style.display = 'none';
+            }
+            animate();
+        }
+        showStars();
+    </script>
+</body>
+
+</html>
