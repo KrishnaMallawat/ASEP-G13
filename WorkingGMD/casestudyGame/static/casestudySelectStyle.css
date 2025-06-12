@@ -1,0 +1,58 @@
+body {
+    font-family: 'geologica', cursive, sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(images/selectBG.png);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.container {
+    width: 100%;
+    text-align: center;
+    margin-top: 5dvh;
+}
+
+h1 {
+    color: #ffffff;
+    margin-bottom: 40px;
+    font-size: 48px;
+}
+
+.chapter-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.chapter-card {
+    background: #5bd8f4;
+    padding: 20px;
+    border-radius: 10px;
+    border: 3px solid #ffcc00;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.chapter-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.chapter-card h2 {
+    color: #d53900;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.chapter-card p {
+    font-size: 16px;
+    color: #555;
+}

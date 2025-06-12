@@ -1,0 +1,134 @@
+body {
+    text-align: center;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+    background-image: url(images/SamaySudhaarBG.png);
+    background-size: cover;
+}
+
+*{
+font-family: geologica;
+}
+
+.game-container {
+    margin-top: 95px;
+    margin-left: 50dvh;
+}
+
+.clock-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.clock {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background-image: url(images/Clock.png);
+    background-size: cover;
+    border: 5px solid black;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px gray;
+}
+
+.hour-hand, .minute-hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    background: black;
+    transform-origin: bottom;
+    transform: translateX(-50%) rotate(0deg);
+}
+
+.hour-hand {
+    width: 6px;
+    height: 50px;
+}
+
+.minute-hand {
+    width: 5px;
+    height: 70px;
+    background: rgb(255, 30, 30);
+}
+
+.center-circle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* --- Align Hour and Minute Buttons Side by Side --- */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    width: 30%;
+    margin-left: 35%;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-pair {
+    display: flex;
+    gap: 10px;
+}
+
+/* --- Styling Buttons --- */
+button {
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    background-color: #254fbd;
+    color: white;
+    border-radius: 5px;
+    transition: 0.3s;
+    width: 105px;
+}
+
+button:hover {
+    background-color: #99b6ff;
+    color: black;
+}
+
+.check-btn {
+    background-color: #feaa2b;
+    color: black;
+    border: #eea93a solid 1px;
+}
+
+.check-btn:hover {
+    background-color: #dc8400;
+    transform: scale(1.1);
+    color: rgb(0, 0, 0);
+}
+
+
+/* --- Message Styling --- */
+#result-message {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+@media (max-width: 1024px) {
+.game-container{
+    margin-top: 20dvh;
+    margin-left: 450px;
+}
+  }
+

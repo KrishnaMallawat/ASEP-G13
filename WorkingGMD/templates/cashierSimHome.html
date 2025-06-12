@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashier Simulation Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Cashier Simulation</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('cashierSim.cashier_home') }}">Home</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Available Actions</h2>
+            <ul>
+                <li><a href="{{ url_for('cashierSim.cashier_game') }}">Start Simulation</a></li>
+                <li><a href="{{ url_for('cashierSim.cashier_history') }}">View Reports</a></li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Cashier Simulation. All rights reserved.</p>
+    </footer>
+</body>
+</html>

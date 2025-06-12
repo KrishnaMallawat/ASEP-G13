@@ -5,9 +5,32 @@ import sqlite3
 from contextlib import closing
 from functools import wraps
 import re
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 
 app = Flask(__name__)
 app.secret_key = 'NiceTryButYouWillNotMakeIt'
+
+# Initialize Flask-Login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+# User class for Flask-Login
+class User(UserMixin):
+    def __init__(self, id, email):
+        self.id = id
+        self.email = email
+
+# User loader callback for Flask-Login
+@login_manager.user_loader
+def load_user(user_id):
+    # You must fetch the user from your DB using the user_id
+    with closing(get_db()) as db:
+        if db:
+            user = db.execute('SELECT * FROM users WHERE email = ?', (user_id,)).fetchone()
+            if user:
+                return User(user['email'], user['email'])
+    return None
 
 # Create directories
 for directory in ['templates', 'static']:
@@ -82,7 +105,7 @@ def signup():
 @app.route('/game')
 @login_required
 def game():
-    return render_template('game.html')
+    return render_template('home.html')
 
 @app.route('/api/login', methods=['POST'])
 def api_login():
@@ -103,10 +126,10 @@ def api_login():
         user = db.execute('SELECT * FROM users WHERE email = ?', (username,)).fetchone()
         
         if user and check_password_hash(user['code'], secret_code):
+            login_user(User(username, username))
             session['username'] = username
-            return jsonify({'success': True})
+            return jsonify({'success': True, 'redirect': url_for('game')})
         return jsonify({'success': False, 'message': 'Invalid credentials'})
-
 @app.route('/api/signup', methods=['POST'])
 def api_signup():
     if not request.is_json:
@@ -163,6 +186,22 @@ def check_email():
 def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
+
+from cashierSim.cashierbackend import cashierSim
+from memoryGame.memorybackend import memoryBp
+from fractionGame.fractionbackend import fractionBp
+from pictograpghGame.pictographbackend import pictographBp
+from directionGame.directionbackend import directionBp
+from clockGame.clockbackend import clockBp
+from casestudyGame.casestudybackend import casestudyBp
+
+app.register_blueprint(cashierSim, url_prefix="/cashier")
+app.register_blueprint(memoryBp, url_prefix="/memory")
+app.register_blueprint(fractionBp, url_prefix="/fraction")
+app.register_blueprint(pictographBp, url_prefix="/pictograph")
+app.register_blueprint(directionBp, url_prefix="/direction")
+app.register_blueprint(clockBp, url_prefix="/samay")
+app.register_blueprint(casestudyBp, url_prefix="/casestudy")
 
 if __name__ == '__main__':
     init_db()

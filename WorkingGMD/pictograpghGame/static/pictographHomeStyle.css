@@ -1,0 +1,103 @@
+body {
+    font-family: geologica;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url(images/startBG.png);
+    background-size: cover;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    margin-left: 31.5%;
+    margin-top: 18%;
+    width: 40dvh;
+}
+
+.results-table {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+.results-table,
+.results-table th,
+.results-table td {
+    border: 1px solid #ddd;
+}
+
+.results-table th,
+.results-table td {
+    padding: 8px;
+    text-align: center;
+}
+
+.results-table th {
+    background-color: #f2f2f2;
+}
+
+.correct {
+    background-color: #d4edda;
+}
+
+.incorrect {
+    background-color: #f8d7da;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #0027b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #01104a;
+    color: black;
+}
+.rainbow-button {
+    background: linear-gradient(
+        90deg,
+        red,
+        rgb(255, 145, 0),
+        rgb(255, 204, 0),
+        green,
+        blue,
+        indigo,
+        violet
+    );
+    background-size: 400% 400%;
+    animation: rainbow 3s infinite linear;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: transform 0.2s;
+    border: #01104a solid 1px;
+    margin-bottom: 20px;
+}
+
+@keyframes rainbow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.rainbow-button:hover {
+    transform: scale(1.1);
+}

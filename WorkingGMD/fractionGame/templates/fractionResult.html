@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRACTION FIELD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('fractionGame.static', filename='fractionResultStyle.css') }}">
+</head>
+
+<body>
+    <h1 style="padding-top: 9.9dvh; margin-bottom: -1.5dvh;">Your Results</h1>
+    <table id="resultsTable">
+        <thead>
+            <tr>
+                <th>Your Answer</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div class="summary" id="summary"></div>
+    <button style="margin-left: 5px;"><a href="Start.html" style="text-decoration: none; color: white;" id="th"> <i
+                class="fa-solid fa-arrow-rotate-right"></i></a></button>
+    <a href="{{url_for('home')}}"><button>Menu <i class="fa-solid fa-bars"></i></button></a>
+
+
+
+    <script>
+        function loadResults() {
+            const results = JSON.parse(localStorage.getItem('results')) || [];
+            const score = localStorage.getItem('score') || 0;
+            const totalQuestions = results.length;
+
+            // Save result to backend
+            fetch('/fraction-field/save_result', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    score: parseInt(score),
+                    total_questions: totalQuestions
+                })
+            }).then(res => {
+                // Optionally handle response
+            });
+
+            const tableBody = document.querySelector('#resultsTable tbody');
+            tableBody.innerHTML = '';
+
+            results.forEach((result, index) => {
+                const row = document.createElement('tr');
+                const questionCell = document.createElement('td');
+                questionCell.textContent = result.question;
+
+                const answerCell = document.createElement('td');
+                answerCell.textContent = result.isCorrect ? 'Correct' : 'Incorrect';
+
+                const statusCell = document.createElement('td');
+                statusCell.textContent = result.isCorrect ? '✔️' : '❌';
+                statusCell.className = result.isCorrect ? 'correct' : 'incorrect';
+
+                row.appendChild(answerCell);
+                row.appendChild(statusCell);
+                tableBody.appendChild(row);
+            });
+
+            const summary = document.getElementById('summary');
+            summary.textContent = `You scored ${score} out of ${totalQuestions}`;
+        }
+
+        function goBack() {
+            window.location.href = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', loadResults);
+    </script>
+</body>
+
+</html>
