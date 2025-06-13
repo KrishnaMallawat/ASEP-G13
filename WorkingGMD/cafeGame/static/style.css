@@ -1,0 +1,552 @@
+ body {
+     height: 100%;
+     margin: 0;
+     padding: 0;
+ }
+ 
+ body {
+     font-family: 'Fredoka One', 'Comic Sans MS', cursive, sans-serif;
+     background-color: #FDF6E3;
+     background-image: url('https://img.freepik.com/free-vector/children-s-cartoon-park-background_1308-41031.jpg');
+     background-size: cover;
+     min-height: 100vh;
+     width: 100vw;
+     overflow-x: hidden;
+ }
+ 
+ .weight-blocks {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     margin-top: 18px;
+     gap: 10px;
+ }
+ 
+ .weight-block {
+     background: #FFD700;
+     color: #FF6347;
+     border: 2px solid #FFB347;
+     border-radius: 10px;
+     font-size: 1.2vw;
+     font-family: 'Fredoka One', cursive;
+     padding: 5px 8px;
+     margin: 4px;
+     cursor: pointer;
+     box-shadow: 0 1px 4px #FFD700;
+     transition: background 0.2s, color 0.2s;
+ }
+ 
+ .weight-block:active {
+     background: #FFB347;
+     color: #fff;
+ }
+ 
+ .selected-weight {
+     font-weight: bold;
+     color: #43A047;
+     font-size: 1.2em;
+ }
+ 
+ .submit-weight,
+ .reset-weight {
+     background: #FFD700;
+     color: #FF6347;
+     border: 2px solid #FFB347;
+     border-radius: 8px;
+     font-size: 1vw;
+     font-family: 'Fredoka One', cursive;
+     padding: 6px 12px;
+     cursor: pointer;
+     box-shadow: 0 1px 4px #FFD700;
+     transition: background 0.2s, color 0.2s;
+ }
+ 
+ .submit-weight:active,
+ .reset-weight:active {
+     background: #FFB347;
+     color: #fff;
+ }
+ 
+ .quit-btn {
+     position: absolute;
+     top: 18px;
+     right: 18px;
+     z-index: 2001;
+     background: #FFD700;
+     color: #FF6347;
+     border: 3px solid #FFB347;
+     border-radius: 12px;
+     font-size: 2vw;
+     font-family: 'Fredoka One', cursive;
+     padding: 10px 24px;
+     cursor: pointer;
+     box-shadow: 0 2px 6px #FFD700;
+     transition: background 0.2s, color 0.2s;
+ }
+ 
+ .quit-btn:hover {
+     background: #FFB347;
+     color: #fff;
+ }
+ 
+ .quit-confirm-overlay {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100vw;
+     height: 100vh;
+     background: rgba(0, 0, 0, 0.55);
+     display: none;
+     align-items: center;
+     justify-content: center;
+     z-index: 4000;
+ }
+ 
+ .quit-confirm-box {
+     background: #fffbe6;
+     border: 5px solid #FF6347;
+     border-radius: 24px;
+     box-shadow: 0 8px 32px #FFD700;
+     padding: 40px 50px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
+ 
+ .quit-confirm-box p {
+     color: #FF6347;
+     font-size: 1.7vw;
+     margin-bottom: 28px;
+     font-family: 'Fredoka One', cursive;
+ }
+ 
+ .quit-confirm-box .quit-yes,
+ .quit-confirm-box .quit-no {
+     background: #FFD700;
+     color: #FF6347;
+     border: 3px solid #FFB347;
+     border-radius: 14px;
+     font-size: 1.3vw;
+     font-family: 'Fredoka One', cursive;
+     padding: 12px 34px;
+     margin: 0 18px;
+     cursor: pointer;
+     box-shadow: 0 2px 6px #FFD700;
+     transition: background 0.2s, color 0.2s;
+ }
+ 
+ .quit-confirm-box .quit-yes:hover,
+ .quit-confirm-box .quit-no:hover {
+     background: #FFB347;
+     color: #fff;
+ }
+ 
+ .game-container {
+     width: 100vw;
+     height: 100vh;
+     min-height: 100vh;
+     min-width: 100vw;
+     background: rgba(255, 255, 255, 0.85);
+     position: absolute;
+     top: 0;
+     left: 0;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: flex-start;
+ }
+ 
+ .header {
+     width: 100vw;
+     background: linear-gradient(90deg, #FFB347, #FFD700);
+     color: #fff;
+     padding: 32px 0 18px 0;
+     text-align: center;
+     font-size: 3.5vw;
+     font-family: 'Fredoka One', cursive;
+     text-shadow: 2px 2px #FF6347;
+     border-bottom: 8px solid #FF6347;
+     letter-spacing: 2px;
+ }
+ 
+ .cafe-scene {
+     width: 100vw;
+     flex: 1;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     position: relative;
+ }
+ 
+ .counter {
+     width: 100vw;
+     height: 3vh;
+     background: repeating-linear-gradient(135deg, #FFD700, #FFD700 20px, #FFB347 20px, #FFB347 40px);
+     position: absolute;
+     bottom: 0;
+     border-top: 12px solid #FF6347;
+     z-index: 1;
+ }
+ 
+ .customer {
+     position: absolute;
+     top: 30%;
+     left: 42%;
+     transform: translateX(-50%, -50%);
+     width: 180px;
+     height: 220px;
+     z-index: 2;
+     filter: drop-shadow(0 2px 8px #FFD700);
+ }
+ 
+ .customer img {
+     position: absolute;
+     bottom: 100px;
+     width: 100%;
+     height: 100%;
+     object-fit: contain;
+     border-radius: 50%;
+     border: 4px solid #FFB347;
+     background: #fffbe6;
+ }
+ 
+ .speech-bubble {
+     position: absolute;
+     bottom: 500px;
+     left: 50%;
+     transform: translateX(-50%);
+     background-color: white;
+     padding: 25px 20px;
+     border-radius: 30px;
+     min-width: 500px;
+     min-height: 80px;
+     text-align: center;
+     font-size: 28px;
+     font-weight: bold;
+     box-shadow: 0 0 18px rgba(0, 0, 0, 0.13);
+     opacity: 0;
+     transition: opacity 0.5s ease;
+     z-index: 2;
+ }
+ 
+ .speech-bubble:after {
+     content: '';
+     position: absolute;
+     bottom: -18px;
+     left: 50%;
+     margin-left: -18px;
+     border-width: 18px 18px 0;
+     border-style: solid;
+     border-color: white transparent transparent;
+ }
+ 
+ .conversion-tools {
+     position: absolute;
+     bottom: 40px;
+     left: 50%;
+     transform: translateX(-50%);
+     background-color: rgba(255, 255, 255, 0.9);
+     padding: 30px 20px 35px 20px;
+     border-radius: 18px;
+     width: 80%;
+     text-align: center;
+     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .answer-options {
+     display: flex;
+     justify-content: center;
+     gap: 25px;
+     margin-top: 38px;
+     flex-wrap: wrap;
+ }
+ 
+ .food-option {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     cursor: pointer;
+     transition: transform 0.15s cubic-bezier(.68, -0.55, .27, 1.55), box-shadow 0.15s, background 0.2s;
+     border: 4px solid #FFD700;
+     border-radius: 20px;
+     background: #fffbe6;
+     box-shadow: 0 2px 8px #FFD700;
+     padding: 12px 22px 10px 22px;
+     font-size: 1.5vw;
+     min-width: 110px;
+     min-height: 150px;
+     user-select: none;
+     position: relative;
+ }
+ 
+ .food-option:hover:not(.disabled) {
+     background: #FFF176;
+     transform: scale(1.08) rotate(-2deg);
+     box-shadow: 0 6px 24px #FFD700;
+     z-index: 2;
+ }
+ 
+ .food-option.selected {
+     background: #FFD700;
+     border: 4px solid #43A047;
+     animation: bounce 0.4s;
+     box-shadow: 0 0 24px #43A047;
+ }
+ 
+ .food-option.incorrect {
+     background: #FFCDD2;
+     border: 4px solid #E53935;
+     animation: shake 0.4s;
+     box-shadow: 0 0 24px #E53935;
+ }
+ 
+ .food-option.disabled {
+     pointer-events: none;
+     opacity: 0.6;
+ }
+ 
+ @keyframes bounce {
+     0% {
+         transform: scale(1);
+     }
+     40% {
+         transform: scale(1.18);
+     }
+     60% {
+         transform: scale(0.95);
+     }
+     100% {
+         transform: scale(1);
+     }
+ }
+ 
+ @keyframes shake {
+     0%,
+     100% {
+         transform: translateX(0);
+     }
+     20% {
+         transform: translateX(-8px);
+     }
+     40% {
+         transform: translateX(8px);
+     }
+     60% {
+         transform: translateX(-5px);
+     }
+     80% {
+         transform: translateX(5px);
+     }
+ }
+ 
+ .food-img {
+     width: 70px;
+     height: 70px;
+     margin-bottom: 10px;
+ }
+ 
+ .feedback {
+     position: absolute;
+     bottom: 45vh;
+     left: 50%;
+     transform: translateX(-50%) rotate(-2deg);
+     background-color: #fffbe6;
+     padding: 18px 28px;
+     border-radius: 18px;
+     font-size: 2vw;
+     font-family: 'Fredoka One', cursive;
+     font-weight: bold;
+     opacity: 0;
+     transition: opacity 0.5s;
+     border: 4px solid #FFD700;
+     box-shadow: 0 2px 8px #FFD700;
+     z-index: 100;
+ }
+ 
+ .positive-feedback {
+     color: #2E8B57;
+     text-shadow: 1px 1px #FFD700;
+ }
+ 
+ .negative-feedback {
+     color: #FF6347;
+     text-shadow: 1px 1px #FFD700;
+ }
+ 
+ .score-display,
+ .timer {
+     position: absolute;
+     top: 18px;
+     background-color: #FFFACD;
+     padding: 14px;
+     border-radius: 14px;
+     font-size: 1.3vw;
+     border: 3px solid #FFD700;
+     box-shadow: 0 1px 4px #FFD700;
+     font-family: 'Fredoka One', cursive;
+     z-index: 10;
+ }
+ 
+ .score-display {
+     right: 18px;
+ }
+ 
+ .timer {
+     left: 18px;
+ }
+ 
+ .conversion-chart {
+     position: absolute;
+     top: 80px;
+     right: 18px;
+     background-color: #FFFACD;
+     padding: 16px;
+     border-radius: 14px;
+     font-size: 1vw;
+     border: 3px dashed #FFB347;
+     font-family: 'Fredoka One', cursive;
+     box-shadow: 0 1px 4px #FFD700;
+     z-index: 10;
+ }
+ 
+ .start-screen,
+ .level-complete {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100vw;
+     height: 100vh;
+     background-color: rgba(255, 236, 179, 0.97);
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     z-index: 1000;
+ }
+ 
+ .start-btn,
+ .next-level-btn {
+     background-color: #FFB347;
+     color: #fff;
+     border: 4px solid #FFD700;
+     padding: 18px 36px;
+     border-radius: 18px;
+     font-size: 2vw;
+     margin-top: 30px;
+     cursor: pointer;
+     transition: all 0.3s;
+     font-family: 'Fredoka One', cursive;
+     box-shadow: 0 2px 8px #FFD700;
+ }
+ 
+ .start-btn:hover,
+ .next-level-btn:hover {
+     background-color: #FFD700;
+     color: #FF6347;
+     transform: scale(1.1) rotate(-2deg);
+ }
+ 
+ h1 {
+     color: #FF6347;
+     font-size: 3vw;
+     text-align: center;
+     margin-bottom: 18px;
+     font-family: 'Fredoka One', cursive;
+     text-shadow: 2px 2px #FFD700;
+ }
+ 
+ .instructions {
+     max-width: 80vw;
+     text-align: center;
+     font-size: 1.5vw;
+     margin-bottom: 18px;
+     color: #FF6347;
+     font-family: 'Fredoka One', cursive;
+ }
+ 
+ .confetti {
+     position: absolute;
+     pointer-events: none;
+     z-index: 2000;
+ }
+ 
+ @media (max-width: 900px) {
+     .header {
+         font-size: 6vw;
+     }
+     .speech-bubble,
+     .feedback {
+         font-size: 3vw;
+     }
+     .conversion-tools {
+         width: 94vw;
+     }
+     .conversion-chart {
+         font-size: 2vw;
+     }
+     .score-display,
+     .timer {
+         font-size: 2vw;
+     }
+     .weight-block {
+         font-size: 2vw;
+         padding: 8px 14px;
+     }
+     .submit-weight,
+     .reset-weight {
+         font-size: 1.8vw;
+     }
+ }
+ 
+ .length-blocks {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     margin-top: 18px;
+     gap: 10px;
+ }
+ 
+ .length-block {
+     background: #FFD700;
+     color: #FF6347;
+     border: 2px solid #FFB347;
+     border-radius: 10px;
+     font-size: 1.2vw;
+     font-family: 'Fredoka One', cursive;
+     padding: 10px 18px;
+     margin: 4px;
+     cursor: pointer;
+     box-shadow: 0 1px 4px #FFD700;
+     transition: background 0.2s, color 0.2s;
+ }
+ 
+ .length-block:active {
+     background: #FFB347;
+     color: #fff;
+ }
+ 
+ .selected-length {
+     font-weight: bold;
+     color: #43A047;
+     font-size: 1.2em;
+ }
+ 
+ .submit-length,
+ .reset-length {
+     background: #FFD700;
+     color: #FF6347;
+     border: 2px solid #FFB347;
+     border-radius: 8px;
+     font-size: 1vw;
+     font-family: 'Fredoka One', cursive;
+     padding: 6px 12px;
+     cursor: pointer;
+     box-shadow: 0 1px 4px #FFD700;
+     transition: background 0.2s, color 0.2s;
+ }
+ 
+ .submit-length:active,
+ .reset-length:active {
+     background: #FFB347;
+     color: #fff;
+ }
