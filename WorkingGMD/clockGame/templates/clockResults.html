@@ -68,6 +68,31 @@
         "final-score"
       ).innerText = `Final Score: ${correctAnswers} / ${totalQuestions}`;
 
+      // Save score to database
+      fetch('/samay/save_result', { // Corrected route to match blueprint registration
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          score: correctAnswers,
+          total_questions: totalQuestions
+        })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Score saved successfully:', data);
+      })
+      .catch(error => {
+        console.error('Error saving score:', error);
+        alert('Failed to save score. Please check your login and try again.');
+      });
+
       function restartGame() {
         localStorage.removeItem("quizResults");
         window.location.href = "{{url_for('clockGame.play')}}";

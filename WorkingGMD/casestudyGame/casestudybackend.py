@@ -6,6 +6,7 @@ from extension import db
 import random
 import os
 import sqlite3
+from datetime import datetime
 
 casestudyBp = Blueprint (
     "casestudyGame", __name__,
@@ -22,7 +23,8 @@ def init_db():
         CREATE TABLE IF NOT EXISTS scores (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id TEXT,
-            score INTEGER
+            score INTEGER,
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ''')
     conn.commit()
@@ -31,7 +33,9 @@ def init_db():
 def save_score(user_id, score):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    c.execute('INSERT INTO scores (user_id, score) VALUES (?, ?)', (user_id, score))
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    c.execute('INSERT INTO scores (user_id, score, timestamp) VALUES (?, ?, ?)', 
+             (user_id, score, current_time))
     conn.commit()
     conn.close()
 
@@ -91,6 +95,24 @@ def instructions():
 @login_required
 def results():
     score = request.args.get('score', 0, type=int)
-    user_id = current_user.get_id() if current_user.is_authenticated else None
-    save_score(user_id, score)
-    return render_template('casestudyResults.html',score=score)
+    return render_template('casestudyResults.html', score=score)
+
+@casestudyBp.route('/save_score', methods=['POST'])
+@login_required
+def save_score_route():
+    data = request.get_json()
+    score = data.get('score')
+    
+    if score is None:
+        return jsonify({'error': 'Missing score'}), 400
+
+    user_id = session.get('username')
+    if not user_id:
+        return jsonify({'error': 'User not logged in'}), 401
+
+    try:
+        save_score(user_id, score)
+        return jsonify({'message': 'Score saved successfully'}), 200
+    except Exception as e:
+        print(f"Error saving score: {e}")
+        return jsonify({'error': 'Failed to save score'}), 500
