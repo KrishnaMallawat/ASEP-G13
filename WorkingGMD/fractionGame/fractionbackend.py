@@ -60,16 +60,25 @@ def save_result():
     data = request.get_json()
     score = data.get('score')
     total_questions = data.get('total_questions')
+    
     if score is None or total_questions is None:
         return jsonify({'error': 'Missing data'}), 400
 
-    db_path = os.path.join(os.path.dirname(__file__), 'fraction_results.db')
-    conn = sqlite3.connect(db_path)
-    c = conn.cursor()
-    c.execute(
-        'INSERT INTO fraction_results (user_id, score, total_questions, timestamp) VALUES (?, ?, ?, ?)',
-        (current_user.id, score, total_questions, datetime.utcnow().isoformat())
-    )
-    conn.commit()
-    conn.close()
-    return jsonify({'message': 'Result saved'}), 200
+    user_id = session.get('username')
+    if not user_id:
+        return jsonify({'error': 'User not logged in'}), 401
+
+    try:
+        db_path = os.path.join(os.path.dirname(__file__), 'fraction_results.db')
+        conn = sqlite3.connect(db_path)
+        c = conn.cursor()
+        c.execute(
+            'INSERT INTO fraction_results (user_id, score, total_questions, timestamp) VALUES (?, ?, ?, ?)',
+            (user_id, score, total_questions, datetime.utcnow().isoformat())
+        )
+        conn.commit()
+        conn.close()
+        return jsonify({'message': 'Score saved successfully'}), 200
+    except Exception as e:
+        print(f"Error saving score: {e}")
+        return jsonify({'error': 'Failed to save score'}), 500

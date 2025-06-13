@@ -34,6 +34,20 @@
 
         const scoreText = document.getElementById("scoreText");
         scoreText.innerHTML = `You scored ${score} out of 3!`;
+
+        // Save score to database
+        fetch('/casestudy/save_score', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                score: parseInt(score)
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log('Score saved:', data))
+        .catch(error => console.error('Error saving score:', error));
     </script>
 </body>
 

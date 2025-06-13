@@ -94,3 +94,23 @@ def results():
     user_id = current_user.get_id() if current_user.is_authenticated else None
     save_score(user_id, score)
     return render_template('casestudyResults.html',score=score)
+
+@casestudyBp.route('/save_score', methods=['POST'])
+@login_required
+def save_score_route():
+    data = request.get_json()
+    score = data.get('score')
+    
+    if score is None:
+        return jsonify({'error': 'Missing score'}), 400
+
+    user_id = session.get('username')
+    if not user_id:
+        return jsonify({'error': 'User not logged in'}), 401
+
+    try:
+        save_score(user_id, score)
+        return jsonify({'message': 'Score saved successfully'}), 200
+    except Exception as e:
+        print(f"Error saving score: {e}")
+        return jsonify({'error': 'Failed to save score'}), 500
