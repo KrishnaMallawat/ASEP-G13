@@ -6,29 +6,29 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 import random
 import os
 
-flashCards = Blueprint (
+memoryBp  = Blueprint (
     "flashCards", __name__,
     template_folder="templates",
     static_folder="static"
 )
-memoryBp = Blueprint('memory', __name__)
+# memoryBp = Blueprint('memory', __name__)
 
-@flashCards.route("/")
+@memoryBp.route("/")
 @login_required
 def loading():
     return render_template('flashCardsloading.html')
 
-@flashCards.route("/home")
+@memoryBp.route("/home")
 @login_required
 def home():
     return render_template('flashCardshome.html')
 
-@flashCards.route("/play")
+@memoryBp.route("/play")
 @login_required
 def play():
     return render_template('flashCards.html')
 
-@flashCards.route("/how-to-play")
+@memoryBp.route("/how-to-play")
 @login_required
 def instructions():
     return render_template('flashCardsInstructions.html')
