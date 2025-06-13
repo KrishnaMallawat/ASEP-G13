@@ -105,7 +105,17 @@ def signup():
 @app.route('/home')
 @login_required
 def home():
-    return render_template('home.html')
+    user_email = session.get('username')
+    name = roll_number = school = ""
+    if user_email:
+        with closing(get_db()) as db:
+            if db:
+                user = db.execute('SELECT name, roll_number, school FROM users WHERE email = ?', (user_email,)).fetchone()
+                if user:
+                    name = user['name']
+                    roll_number = user['roll_number']
+                    school = user['school']
+    return render_template('home.html', name=name, roll_number=roll_number, school=school)
 
 @app.route('/api/login', methods=['POST'])
 def api_login():
