@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Shape Catcher</title>
+    <link rel="stylesheet" href="styles.css" class="css">
+    <link rel="stylesheet" href="{{ url_for('shapeCatcherGame.static', filename='styles.css') }}" />
+
+</head>
+
+<body>
+    <div id="game-container">
+        <!-- Math Character Decorations -->
+        <div id="char1" class="math-characters"></div>
+        <div id="char2" class="math-characters"></div>
+        <div id="char3" class="math-characters"></div>
+        <div id="char4" class="math-characters"></div>
+
+        <!-- Home Screen -->
+        <div id="home-screen">
+            <div id="home-box">
+                <h1 id="game-title">Math Shape Catcher</h1>
+                <h2 id="game-subtitle">Catch the right shapes to score points!</h2>
+                <div id="character"></div>
+                <button id="start-btn" class="home-btn">Start Game</button>
+                <button id="quit-btn" class="home-btn">Quit</button>
+            </div>
+        </div>
+
+        <!-- Menu Page -->
+        <div id="menu-page">
+            <div id="question-box">
+                <div id="question-text">Loading question...</div>
+                <div id="answer-buttons">
+                    <button class="answer-btn" data-answer="1">1</button>
+                    <button class="answer-btn" data-answer="2">2</button>
+                    <button class="answer-btn" data-answer="3">3</button>
+                    <button class="answer-btn" data-answer="4">4</button>
+                </div>
+                <div id="feedback-message"></div>
+                <div id="explanation"></div>
+                <button id="start-game-btn">Start Catching Shapes!</button>
+            </div>
+        </div>
+
+        <!-- Game Page -->
+        <div id="game-page">
+            <div id="game-header">
+                <div id="score-display">Score: 0</div>
+                <div id="time-display">Time: 30</div>
+                <div id="level-display">Level: 1</div>
+            </div>
+            <div id="game-area">
+                <div id="target-shape-display"></div>
+                <div id="catcher"></div>
+            </div>
+        </div>
+
+        <!-- Game Over Page -->
+        <div id="game-over-page">
+            <div id="result-box">
+                <h1>Game Over!</h1>
+                <div id="final-score">Score: 0</div>
+                <div id="stars">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div id="target-shape-result"></div>
+                <p>You were catching:</p>
+                <p id="shape-name">Shape Name</p>
+
+                <div id="best-scores">
+                    <h3>Your Best Scores:</h3>
+                    <div id="best-scores-list"></div>
+                </div>
+
+                <button id="play-again-btn" class="action-btn">Play Again</button>
+                <button id="next-question-btn" class="action-btn">Next Question</button>
+                <button id="home-btn" class="action-btn">Home</button>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('shapeCatcherGame.static', filename='script.js') }}"></script>
+</body>
+
+</html>

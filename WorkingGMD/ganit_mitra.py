@@ -208,6 +208,7 @@ from MatchGame.matchBackend import matchBp
 from TB.tbBackend import tbBp
 from gg.ggBackend import ggBp
 from cafeGame.cafeBackend import cafeBp
+from shapeCatcherGame.shapeCatcherBackend import shapeCatcherBp
 
 app.register_blueprint(cashierSim, url_prefix="/cashier")
 app.register_blueprint(memoryBp, url_prefix="/memory")
@@ -220,6 +221,7 @@ app.register_blueprint(matchBp,url_prefix='/match')
 app.register_blueprint(tbBp,url_prefix='/TargrtBlitz')
 app.register_blueprint(ggBp,url_prefix='/GridGuardian')
 app.register_blueprint(cafeBp,url_prefix='/CafeGame')
+app.register_blueprint(shapeCatcherBp,url_prefix='/ShapeCatcher')
 
 if __name__ == '__main__':
     init_db()
