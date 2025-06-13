@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MATCH THE PAIRS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Carme&family=Geologica:wght@100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='MatchGame/style.css') }}">
+    <style>
+      body {
+        font-family: geologica;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-image: url("{{ url_for('static', filename='MatchGame/PairStartBG.png') }}");
+        background-size: cover;
+      }
+
+      .container {
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        margin-left: 31.5%;
+        margin-top: 24%;
+        width: 40dvh;
+      }
+
+      .button {
+        margin-top: 13dvh;
+        padding: 10px 20px;
+        background-color: #0027b3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 6dvh;
+      }
+
+      .button:hover {
+        background-color: #01104a;
+        color: black;
+      }
+      .rainbow-button {
+        background: linear-gradient(
+          90deg,
+          red,
+          rgb(255, 145, 0),
+          rgb(255, 204, 0),
+          green,
+          blue,
+          indigo,
+          violet
+        );
+        background-size: 400% 400%;
+        animation: rainbow 3s infinite linear;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-weight: bold;
+        transition: transform 0.2s;
+        border: #01104a solid 1px;
+        margin-top: 12dvh;
+        margin-right: 6dvh;
+      }
+
+      @keyframes rainbow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .rainbow-button:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button class="rainbow-button">
+        <a
+          href="MatchGame.html"
+          style="text-decoration: none; color: white; font-family: geologica"
+        >
+          Start The Game!
+        </a>
+      </button>
+
+      <button class="button">
+        <a
+          href="MatchInstruction.html"
+          style="text-decoration: none; color: white; font-family: geologica"
+        >
+          Instructions
+        </a>
+      </button>
+    </div>
+    <meta name="view-transition" content="same-origin" />
+  </body>
+</html>
