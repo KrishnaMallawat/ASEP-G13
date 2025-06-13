@@ -102,9 +102,9 @@ def login():
 def signup():
     return render_template('signup.html')
 
-@app.route('/home')
+@app.route('/game')
 @login_required
-def home():
+def game():
     return render_template('home.html')
 
 @app.route('/api/login', methods=['POST'])
@@ -128,8 +128,10 @@ def api_login():
         if user and check_password_hash(user['code'], secret_code):
             login_user(User(username, username))
             session['username'] = username
-            return jsonify({'success': True, 'redirect': url_for('home')})
+            return jsonify({'success': True, 'redirect': url_for('game')})
         return jsonify({'success': False, 'message': 'Invalid credentials'})
+    
+    
 @app.route('/api/signup', methods=['POST'])
 def api_signup():
     if not request.is_json:
