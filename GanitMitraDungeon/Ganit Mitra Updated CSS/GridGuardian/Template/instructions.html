@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How to Play - Area and Perimeter City</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(to right, #5D3FD3, #30D5C8);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #ffeb3b;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 4px #000;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      max-width: 1000px;
+      width: 100%;
+      animation: fadeIn 1s ease;
+    }
+
+    .step {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-8px);
+    }
+
+    .step h3 {
+      font-size: 1.3rem;
+      color: #ffeaa7;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      font-size: 1rem;
+      color: #f0f0f0;
+    }
+
+    .back-btn {
+      margin-top: 40px;
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-btn:hover {
+      background-color: #e67600;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📘 How to Play</h1>
+  <h2>Master the grid and test your math skills!</h2>
+
+  <div class="how-grid">
+    <div class="step">
+      <h3>🟦 Step 1: Select Blocks</h3>
+      <p>Click and drag to form a rectangle on the grid by selecting blue city blocks.</p>
+    </div>
+    <div class="step">
+      <h3>📐 Step 2: Calculate Area & Perimeter</h3>
+      <p>Count the number of blocks to calculate the Area (length × width) and Perimeter (2 × (length + width)).</p>
+    </div>
+    <div class="step">
+      <h3>🔢 Step 3: Enter Values</h3>
+      <p>Input the correct values into the Area and Perimeter fields to score points and move ahead.</p>
+    </div>
+    <div class="step">
+      <h3>⏱️ Step 4: Beat the Clock</h3>
+      <p>You’ll have limited time! Solve as many as you can before time runs out to set a high score!</p>
+    </div>
+  </div>
+
+  <a href="frontpage.html" class="back-btn">⬅️ Back to Home</a>
+
+</body>
+</html>
