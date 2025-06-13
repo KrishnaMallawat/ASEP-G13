@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Game Profile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap');
+        body {
+            font-family: 'Comic Neue', cursive;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('/bg\ img.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .main-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .character-container {
+            width: 45%;
+            padding: 30px;
+            background-color: rgba(232, 245, 233, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 4px dashed #5d4037;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .info-container {
+            width: 45%;
+            padding: 30px;
+            background-image: url('/scrolll.png');
+            background-blend-mode: overlay;
+            background-position: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 4px dashed #5d4037;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+        
+        .customizer-header,
+        .info-header {
+            font-family: 'Fredoka One', cursive;
+            font-size: 28px;
+            font-weight: bold;
+            color: #e91e63;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 3px 3px 0 #ffeb3b, -1px -1px 0 #ffeb3b, 1px -1px 0 #ffeb3b, -1px 1px 0 #ffeb3b;
+            letter-spacing: 1px;
+        }
+        
+        .character-display {
+            width: 280px;
+            height: 350px;
+            background-color: #f1f8e9;
+            border-radius: 15px;
+            border: 4px dotted #5d4037;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+            box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            background-image: radial-gradient(circle, #c8e6c9 10%, transparent 10%);
+            background-size: 20px 20px;
+        }
+        
+        .character-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .customization-options {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .upload-container {
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .upload-btn {
+            background-color: #ff9800;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: 3px solid #5d4037;
+            font-family: 'Fredoka One', cursive;
+            font-weight: normal;
+            cursor: pointer;
+            box-shadow: 5px 5px 0 #5d4037;
+            transition: all 0.2s;
+            font-size: 18px;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upload-btn:hover {
+            background-color: #fb8c00;
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0 #5d4037;
+        }
+        
+        .upload-btn:active {
+            transform: translate(5px, 5px);
+            box-shadow: none;
+        }
+        
+        .upload-btn::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(45deg);
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+        
+        .upload-btn:hover::after {
+            left: 100%;
+        }
+        
+        #imageUpload {
+            display: none;
+        }
+        
+        .character-name-container {
+            width: 100%;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .character-name-label {
+            display: block;
+            font-family: 'Fredoka One', cursive;
+            font-weight: normal;
+            margin-bottom: 8px;
+            color: #2196f3;
+            font-size: 20px;
+            text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;
+        }
+        
+        .character-name-input {
+            width: 80%;
+            padding: 12px;
+            border: 3px solid #5d4037;
+            border-radius: 15px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 18px;
+            background-color: #fff9c4;
+            text-align: center;
+            box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .character-name-input:focus {
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 10px #2196f3, inset 3px 3px 5px rgba(0, 0, 0, 0.1);
+            background-color: #ffff8d;
+        }
+        
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .info-field {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .info-field label {
+            display: block;
+            font-family: 'Fredoka One', cursive;
+            font-weight: normal;
+            margin-bottom: 8px;
+            color: #2196f3;
+            font-size: 20px;
+            text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;
+        }
+        
+        .info-field input,
+        .info-field select {
+            width: 100%;
+            padding: 12px;
+            border: 3px solid #5d4037;
+            border-radius: 15px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 18px;
+            background-color: #fff9c4;
+            box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .info-field input:focus,
+        .info-field select:focus {
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 10px #2196f3, inset 3px 3px 5px rgba(0, 0, 0, 0.1);
+            background-color: #ffff8d;
+        }
+        
+        .info-field input:disabled {
+            background-color: #e0e0e0;
+            color: #888;
+            border-style: dotted;
+        }
+        
+        .info-field::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff9800, #e91e63, #2196f3);
+            border-radius: 3px;
+            opacity: 0.5;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        
+        .action-button {
+            padding: 12px 25px;
+            border: 3px solid #5d4037;
+            border-radius: 50px;
+            font-family: 'Fredoka One', cursive;
+            font-weight: normal;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 5px 5px 0 #5d4037;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0 #5d4037;
+        }
+        
+        .action-button:active {
+            transform: translate(5px, 5px);
+            box-shadow: none;
+        }
+        
+        .action-button::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(45deg);
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+        
+        .action-button:hover::after {
+            left: 100%;
+        }
+        
+        .change-password {
+            background-color: #64b5f6;
+            color: #333;
+        }
+        
+        .logout {
+            background-color: #e57373;
+            color: white;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #81c784;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-family: 'Fredoka One', cursive;
+            font-weight: normal;
+            border: 3px solid #5d4037;
+            box-shadow: 5px 5px 0 #5d4037;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .back-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0 #5d4037;
+        }
+        
+        .back-button:active {
+            transform: translate(5px, 5px);
+            box-shadow: none;
+        }
+        /* Decorative Elements */
+        
+        .leaf {
+            position: absolute;
+            font-size: 20px;
+            color: #81c784;
+            opacity: 0.7;
+            z-index: -1;
+        }
+        
+        .leaf-1 {
+            top: 10%;
+            left: 10%;
+            transform: rotate(20deg);
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .leaf-2 {
+            bottom: 15%;
+            right: 15%;
+            transform: rotate(-10deg);
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+        /* Cartoon stars for special effects */
+        
+        .star {
+            position: absolute;
+            font-size: 24px;
+            color: #ffeb3b;
+            opacity: 0;
+            pointer-events: none;
+            animation: twinkle 1s ease-out;
+        }
+        
+        @keyframes twinkle {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        /* Pencil underline effect */
+        
+        .pencil-underline {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .pencil-underline::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="4" viewBox="0 0 100 4"><path d="M0,2 Q25,4 50,2 T100,2" fill="none" stroke="%23ff9800" stroke-width="2" stroke-linecap="round"/></svg>') repeat-x;
+            background-size: 100px 4px;
+            animation: pencilMove 2s linear infinite;
+        }
+        
+        @keyframes pencilMove {
+            0% {
+                background-position-x: 0;
+            }
+            100% {
+                background-position-x: 100px;
+            }
+        }
+        /* Crayon-like select dropdown */
+        
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%235d4037" d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+            padding-right: 40px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="leaf leaf-1">🍃</div>
+    <div class="leaf leaf-2">🍂</div>
+
+    <div class="main-container">
+        <!-- Left Section - Character Customizer -->
+        <div class="character-container">
+            <div class="customizer-header">Character Customizer</div>
+
+            <div class="character-display">
+                <img src="https://i.imgur.com/J7l5o9t.png" alt="Forest Guardian" class="character-image" id="characterImage">
+            </div>
+
+            <div class="customization-options">
+                <div class="upload-container">
+                    <label for="imageUpload" class="upload-btn">✏️ Upload Character Image</label>
+                    <input type="file" id="imageUpload" accept="image/*">
+                </div>
+
+                <div class="character-name-container">
+                    <label class="character-name-label pencil-underline">Character Name</label>
+                    <input type="text" class="character-name-input" id="characterName" value="Forest Guardian">
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section - User Information -->
+        <div class="info-container">
+            <button class="back-button" onclick="goBack()">← Back to Game</button>
+            <div class="info-header">Student Profile</div>
+
+            <div class="info-section">
+                <div class="info-field">
+                    <label class="pencil-underline">Player Name</label>
+                    <input type="text" value="abc" id="playerName" placeholder="Your awesome name!">
+                </div>
+
+                <div class="info-field">
+                    <label class="pencil-underline">Email</label>
+                    <input type="email" value="dogs.gmail.com" disabled>
+                </div>
+
+                <div class="info-field">
+                    <label class="pencil-underline">School Name</label>
+                    <input type="text" value="vit" id="schoolName" placeholder="Where you learn!">
+                </div>
+
+                <div class="info-field">
+                    <label class="pencil-underline">Select Class</label>
+                    <select id="classSelection">
+                        <option>Grade 1</option>
+                        <option>Grade 2</option>    
+                        <option>Grade 3</option>
+                        <option>Grade 4</option>
+                        <option>Grade 5</option>
+                        <option>Grade 6</option>
+                        <option>Grade 7</option>
+                        <option>Grade 8</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-button change-password" onclick="changePassword()">🔐 Change Password</button>
+                <button class="action-button logout" onclick="logout()">🚪 Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load saved data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load character image
+            const savedImage = localStorage.getItem('characterImage');
+            if (savedImage) {
+                document.getElementById('characterImage').src = savedImage;
+            }
+
+            // Load character name
+            const savedName = localStorage.getItem('characterName');
+            if (savedName) {
+                document.getElementById('characterName').value = savedName;
+            }
+
+            // Load other form data
+            const savedPlayerName = localStorage.getItem('playerName');
+            const savedSchoolName = localStorage.getItem('schoolName');
+            const savedClassSelection = localStorage.getItem('classSelection');
+
+            if (savedPlayerName) {
+                document.getElementById('playerName').value = savedPlayerName;
+            }
+            if (savedSchoolName) {
+                document.getElementById('schoolName').value = savedSchoolName;
+            }
+            if (savedClassSelection) {
+                document.getElementById('classSelection').value = savedClassSelection;
+            }
+
+            // Add some initial stars for fun
+            for (let i = 0; i < 5; i++) {
+                createTwinkleStar();
+            }
+        });
+
+        // Image upload functionality
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageData = e.target.result;
+                    document.getElementById('characterImage').src = imageData;
+                    localStorage.setItem('characterImage', imageData);
+
+                    // Add celebration effect
+                    for (let i = 0; i < 15; i++) {
+                        createTwinkleStar();
+                        createFallingLeaf();
+                    }
+                    playSuccessSound();
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Save character name when changed
+        document.getElementById('characterName').addEventListener('change', function() {
+            localStorage.setItem('characterName', this.value);
+
+            // Add effects
+            for (let i = 0; i < 8; i++) {
+                createTwinkleStar();
+                createFallingLeaf();
+            }
+            playTypeSound();
+        });
+
+        // Save form data when changed
+        document.getElementById('playerName').addEventListener('change', function() {
+            localStorage.setItem('playerName', this.value);
+            playTypeSound();
+        });
+
+        document.getElementById('schoolName').addEventListener('change', function() {
+            localStorage.setItem('schoolName', this.value);
+            playTypeSound();
+        });
+
+        document.getElementById('classSelection').addEventListener('change', function() {
+            localStorage.setItem('classSelection', this.value);
+            playSuccessSound();
+        });
+
+        function createFallingLeaf() {
+            const leaf = document.createElement('div');
+            leaf.innerHTML = ['🍃', '🍂', '🌱', '🌸', '🌼'][Math.floor(Math.random() * 5)];
+            leaf.style.position = 'absolute';
+            leaf.style.fontSize = (15 + Math.random() * 15) + 'px';
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.top = '-30px';
+            leaf.style.zIndex = '1000';
+            leaf.style.opacity = '0';
+            leaf.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+            leaf.style.pointerEvents = 'none';
+            leaf.style.filter = 'drop-shadow(2px 2px 2px rgba(0,0,0,0.3))';
+
+            document.body.appendChild(leaf);
+
+            // Animate
+            setTimeout(() => {
+                leaf.style.opacity = '0.7';
+                leaf.style.top = '100vh';
+                leaf.style.left = (Math.random() * 100) + 'vw';
+                leaf.style.transition = 'all ' + (3 + Math.random() * 4) + 's linear';
+            }, 10);
+
+            // Remove after animation
+            setTimeout(() => {
+                leaf.remove();
+            }, 7000);
+        }
+
+        function createTwinkleStar() {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.innerHTML = '⭐';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.fontSize = (10 + Math.random() * 20) + 'px';
+            star.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+            document.body.appendChild(star);
+
+            // Remove after animation
+            setTimeout(() => {
+                star.remove();
+            }, 1000);
+        }
+
+        function playSuccessSound() {
+            // In a real implementation, this would play a success sound
+            console.log("Playing success sound!");
+        }
+
+        function playTypeSound() {
+            // In a real implementation, this would play a typing sound
+            console.log("Playing type sound!");
+        }
+
+        function changePassword() {
+            // Create a cartoon-style modal
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.zIndex = '10000';
+
+            const modalContent = document.createElement('div');
+            modalContent.style.backgroundColor = '#fff9c4';
+            modalContent.style.padding = '30px';
+            modalContent.style.borderRadius = '20px';
+            modalContent.style.border = '4px dashed #e91e63';
+            modalContent.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+            modalContent.style.maxWidth = '400px';
+            modalContent.style.width = '80%';
+            modalContent.style.textAlign = 'center';
+            modalContent.style.fontFamily = "'Fredoka One', cursive";
+
+            modalContent.innerHTML = `
+                <h2 style="color: #e91e63; margin-top: 0;">Change Your Password</h2>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: #2196f3; margin-bottom: 5px;">Old Password</label>
+                    <input type="password" style="width: 100%; padding: 10px; border: 3px solid #5d4037; border-radius: 10px; font-family: 'Comic Neue', cursive; background-color: white;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: #2196f3; margin-bottom: 5px;">New Password</label>
+                    <input type="password" style="width: 100%; padding: 10px; border: 3px solid #5d4037; border-radius: 10px; font-family: 'Comic Neue', cursive; background-color: white;">
+                </div>
+                <div style="margin-bottom: 25px;">
+                    <label style="display: block; color: #2196f3; margin-bottom: 5px;">Confirm New Password</label>
+                    <input type="password" style="width: 100%; padding: 10px; border: 3px solid #5d4037; border-radius: 10px; font-family: 'Comic Neue', cursive; background-color: white;">
+                </div>
+                <button onclick="this.parentElement.parentElement.remove(); playSuccessSound();" style="background-color: #81c784; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-family: 'Fredoka One', cursive; border: 3px solid #5d4037; box-shadow: 5px 5px 0 #5d4037; cursor: pointer; font-size: 16px; transition: all 0.2s;">Change Password</button>
+                <button onclick="this.parentElement.parentElement.remove();" style="background-color: #e57373; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-family: 'Fredoka One', cursive; border: 3px solid #5d4037; box-shadow: 5px 5px 0 #5d4037; cursor: pointer; font-size: 16px; transition: all 0.2s; margin-left: 10px;">Cancel</button>
+            `;
+
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+
+            // Add stars for effect
+            for (let i = 0; i < 10; i++) {
+                createTwinkleStar();
+            }
+        }
+
+        function logout() {
+            // Create a cartoon-style confirmation
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.zIndex = '10000';
+
+            const modalContent = document.createElement('div');
+            modalContent.style.backgroundColor = '#fff9c4';
+            modalContent.style.padding = '30px';
+            modalContent.style.borderRadius = '20px';
+            modalContent.style.border = '4px dotted #e91e63';
+            modalContent.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+            modalContent.style.maxWidth = '400px';
+            modalContent.style.width = '80%';
+            modalContent.style.textAlign = 'center';
+            modalContent.style.fontFamily = "'Fredoka One', cursive";
+
+            modalContent.innerHTML = `
+                <h2 style="color: #e91e63; margin-top: 0;">Leaving So Soon?</h2>
+                <p style="color: #5d4037; font-size: 18px;">The forest will miss you! Are you sure you want to logout?</p>
+                <div style="display: flex; justify-content: center; gap: 15px; margin-top: 25px;">
+                    <button onclick="confirmLogout(); this.parentElement.parentElement.parentElement.remove();" style="background-color: #e57373; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-family: 'Fredoka One', cursive; border: 3px solid #5d4037; box-shadow: 5px 5px 0 #5d4037; cursor: pointer; font-size: 16px; transition: all 0.2s;">Yes, Logout</button>
+                    <button onclick="this.parentElement.parentElement.parentElement.remove();" style="background-color: #81c784; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-family: 'Fredoka One', cursive; border: 3px solid #5d4037; box-shadow: 5px 5px 0 #5d4037; cursor: pointer; font-size: 16px; transition: all 0.2s;">Stay and Play</button>
+                </div>
+            `;
+
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+
+            // Add leaves for effect
+            for (let i = 0; i < 8; i++) {
+                createFallingLeaf();
+            }
+        }
+
+        function confirmLogout() {
+            // Create a goodbye message
+            const goodbye = document.createElement('div');
+            goodbye.style.position = 'fixed';
+            goodbye.style.top = '0';
+            goodbye.style.left = '0';
+            goodbye.style.width = '100%';
+            goodbye.style.height = '100%';
+            goodbye.style.backgroundColor = 'rgba(232, 245, 233, 0.9)';
+            goodbye.style.display = 'flex';
+            goodbye.style.justifyContent = 'center';
+            goodbye.style.alignItems = 'center';
+            goodbye.style.zIndex = '10000';
+            goodbye.style.fontFamily = "'Fredoka One', cursive";
+            goodbye.style.textAlign = 'center';
+            goodbye.style.flexDirection = 'column';
+
+            goodbye.innerHTML = `
+                <h1 style="color: #e91e63; font-size: 36px; margin-bottom: 10px;">See You Soon!</h1>
+                <p style="color: #5d4037; font-size: 24px; margin-bottom: 30px;">The forest animals will be waiting for your return!</p>
+                <div style="font-size: 60px; animation: bounce 1s infinite alternate;">🐾</div>
+                <style>
+                    @keyframes bounce {
+                        to { transform: translateY(-20px); }
+                    }
+                </style>
+            `;
+
+            document.body.appendChild(goodbye);
+
+            // In a real implementation, this would redirect after a delay
+            setTimeout(() => {
+                alert("Redirecting to login page...");
+                // window.location.href = "/login";
+            }, 3000);
+        }
+
+        function goBack() {
+            // Add effects before going back
+            for (let i = 0; i < 10; i++) {
+                createTwinkleStar();
+                createFallingLeaf();
+            }
+
+            // In a real implementation, this would navigate back
+            setTimeout(() => {
+                alert("Whoosh! Returning to the game!");
+                // window.history.back();
+            }, 500);
+        }
+    </script>
+</body>
+
+</html>
