@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter Cartoon Café</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" class="css">
+
+
+</head>
+
+<body>
+    <div class="game-container" id="game-container">
+        <!-- Quit Button -->
+        <button class="quit-btn" onclick="openQuitConfirm()">Quit</button>
+        <div class="header">Unit Converter Cartoon Café</div>
+        <div class="cafe-scene">
+            <div class="counter"></div>
+            <div class="customer">
+                <img src="https://img.freepik.com/free-vector/cute-cat-chef-cartoon-vector-icon-illustration_138676-6181.jpg" alt="Customer">
+            </div>
+            <div class="speech-bubble"></div>
+            <div class="feedback"></div>
+            <div class="conversion-tools">
+                <div class="answer-options"></div>
+                <!-- Weight blocks UI (initially hidden) -->
+                <div class="weight-blocks" style="display:none;">
+                    <div class="weight-block-row">
+                        <button class="weight-block" data-weight="1000">1 kg</button>
+                        <button class="weight-block" data-weight="500">500 g</button>
+                    </div>
+                    <div class="weight-block-row">
+                        <button class="weight-block" data-weight="100">100 g</button>
+                        <button class="weight-block" data-weight="50">50 g</button>
+                    </div>
+                    <div style="margin-top:10px;">
+                        Selected: <span class="selected-weight">0</span> g
+                        <button class="submit-weight" style="margin-left:15px;">Submit</button>
+                        <button class="reset-weight" style="margin-left:5px;">Reset</button>
+                    </div>
+                </div>
+                <div class="length-blocks" style="display:none;">
+                    <div class="weight-block-row">
+                        <button class="length-block" data-length="10000">10 m</button>
+                        <button class="length-block" data-length="100">100 cm</button>
+                        <button class="length-block" data-length="10">10 cm</button>
+                        <button class="length-block" data-length="1">1 cm</button>
+                    </div>
+                    <div style="margin-top:10px;">
+                        Selected: <span class="selected-length">0</span> cm
+                        <button class="submit-length" style="margin-left:15px;">Submit</button>
+                        <button class="reset-length" style="margin-left:5px;">Reset</button>
+                    </div>
+                </div>
+            </div>
+            <div class="score-display">
+                Score: <span class="score">0</span> | Orders: <span class="orders-completed">0</span>
+            </div>
+            <div class="conversion-chart">
+                <h3>Conversion Chart</h3>
+                <p>1 km = 1000 m</p>
+                <p>1 m = 100 cm</p>
+                <p>1 cm = 10 mm</p>
+                <p>1 kg = 1000 g</p>
+            </div>
+            <div class="timer">Time: <span class="time">90</span>s</div>
+            <div class="start-screen">
+                <h1>Welcome to the Cartoon Café!</h1>
+                <div class="instructions">
+                    <p>You're the new manager of this fun café in Math City!</p>
+                    <p>Cartoon customers will ask you to convert measurements like kilograms to grams or meters to centimeters.</p>
+                    <p>Pick the correct bag or food with the answer to complete their order and earn stars!</p>
+                    <p>Be quick - you have limited time for each order!</p>
+                    <p><b>For mass questions, use the weight blocks to build the correct weight!</b></p>
+                </div>
+                <button class="start-btn">Start Serving!</button>
+            </div>
+            <div class="level-complete" style="display: none;">
+                <h1>Level Complete!</h1>
+                <div class="instructions">
+                    <p>You completed <span class="completed-orders">0</span> orders!</p>
+                    <p>Your accuracy: <span class="accuracy">0</span>%</p>
+                    <p>Stars earned: <span class="stars-earned">0</span>/5</p>
+                </div>
+                <button class="next-level-btn">Next Level</button>
+            </div>
+        </div>
+    </div>
+    <!-- Quit Confirmation Overlay -->
+    <div class="quit-confirm-overlay" id="quit-confirm-overlay">
+        <div class="quit-confirm-box">
+            <p>Are you sure you want to quit?</p>
+            <div>
+                <button class="quit-yes" onclick="quitGame()">Yes, Quit</button>
+                <button class="quit-no" onclick="closeQuitConfirm()">No, Resume</button>
+            </div>
+        </div>
+    </div>
+    <canvas class="confetti" style="display:none;"></canvas>
+    <audio id="success-sound" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae3e5.mp3"></audio>
+    <audio id="fail-sound" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae3e5.mp3"></audio>
+    <script src="script.js"></script>
+</body>
+
+</html>
