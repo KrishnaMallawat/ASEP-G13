@@ -1,188 +1,184 @@
-body {
-    margin: 0;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: geologica;
-    background-image: url(images/homeBG.png);
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    padding: 16px;
-    box-sizing: border-box;
+      body {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: geologica;
+  background-image: url(images/FractionGameBG.png);
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .left {
-    width: 25%;
-    height: 70vh;
-    margin-left: 11%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-top: 15dvh;
+  width: 25%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 16dvh;
+  margin-right: 6dvh;
+  padding-right: 6dvh;
 }
 
 .right {
-    width: 55%;
-    height: 67.2vh;
-    background-image: url(images/field.png);
-    background-size: cover;
-    background-position: center;
-    border: 3px solid #fff;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    margin-top: 12.7dvh;
-    margin-left: 3dvh;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 35vh;
 }
 
 .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-    gap: 5px;
-    width: 100%;
-    padding: 1vh;
-    padding-bottom: 1dvh;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: 6px;
+  width: 100%;
+  padding: 1vh;
+  padding-bottom: 1dvh;
 }
 
 .cell {
-    width: 100%;
-    padding-bottom: 100%;
-    position: relative;
-    margin-bottom: 15px;
+  width: 90%;
+  height: 60px;
+  position: relative;
 }
 
 .flower {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 16dvh;
-    width: 100%;
-    object-fit: contain;
-    transition: opacity 0.3s;
-    margin-top: -30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 9dvh;
+  width: 105%;
+  object-fit: contain;
+  transition: opacity 0.3s;
 }
 
 .question,
 .buttonstab {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 4dvh;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 4dvh;
 }
 .buttonstab{
-    margin-top: -1dvh;
+  margin-top: -1dvh;
 }
 .count {
-    background-color: #ffe46bc6;
-    border-radius: 5px;
-    padding: 8px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffe46bc6;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    font-family: geologica;
-    width: 70%;
-    margin-bottom: 1dvh;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  font-family: geologica;
+  width: 70%;
+  margin-bottom: 1dvh;
 }
 
 button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 #question {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 #questionNumber,
 #score {
-    background-color: #007bff50;;
-    border-radius: 5px;
-    padding: 8px;
-    margin-bottom: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 2.5dvh;
+  background-color: #007bff50;;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 2.5dvh;
+  width: 70%;
+  text-align: center;
+  margin-left: 6dvh;
 }
+
 #mixedFraction{
-    border-radius: 5px;
-    padding: 8px;
-    margin-bottom: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 2.5dvh;
-    background-color: #ffe46be2;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 5px;
+  margin-top: 2.5dvh;
 }
 
+/* Media Queries for Smaller Screens */
 @media (max-width: 1024px) {
-    body{
-        background-image: url(images/field.png);
-    }
-    .left,
-    .right {
-        width: 100%;
-        height: auto;
-        margin: 0;
-    }
-    .left{
-    margin-left: 10dvh;
-    }
-    .right{
-    margin-right: 25dvh;
-    }
-    .container {
-        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
-    }
-
-    .flower {
-    height: 9vh;
-    margin-bottom: -5dvh;
-    padding: 0;
-    }
-
-    button {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    .question,
-    .buttonstab {
-    width: 80%;
-    text-align: center;
-
-    }
-    #resetButton {
-    display: none;
-    }
+  body{
+    background-image: url(Fraction\ BG\ g.png);
+  }
+  .left,
+  .right {
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+.left{
+  margin-left: 10dvh;
 }
+.right{
+  margin-right: 25dvh;
+}
+  .container {
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  }
 
+  .flower {
+  height: 9vh;
+  margin-bottom: -5dvh;
+  padding: 0;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+.question,
+.buttonstab {
+  width: 80%;
+  text-align: center;
+
+}
+#resetButton {
+  display: none;
+}
+}
 @media (max-width: 768px) {
-    body {
-        flex-direction: column;
-        align-items: stretch;
-    }
+  body {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-    .left,
-    .right {
-        width: 100%;
-        height: auto;
-    }
+  .left,
+  .right {
+    width: 100%;
+    height: auto;
+  }
 
-    .container {
-        grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
-    }
 
-    .flower {
-    height: 6vh;
-    margin: 2px;
-    padding: 0;
-    }
+  .container {
+    grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+  }
+
+  .flower {
+  height: 6vh;
+  margin: 2px;
+  padding: 0;
+  }
 }

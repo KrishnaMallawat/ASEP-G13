@@ -1,5 +1,6 @@
 from flask import Flask, jsonify ,render_template , Blueprint, session, request
 from flask_cors import CORS
+from flask import Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from extension import db

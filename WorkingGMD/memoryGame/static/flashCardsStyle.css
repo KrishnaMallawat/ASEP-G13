@@ -1,8 +1,7 @@
 body {
     font-family: geologica;
-    padding-left: 55dvh;
     padding-top: 5dvh;
-    background-image: url(images/flashCardsGameBG.png);
+    background-image: url(images/FormulaGameBg.png);
     background-size: cover;
     background-attachment: fixed;
 
@@ -93,10 +92,24 @@ button {
     transition: background-color 0.3s;
     font-family: geologica;
     width: 20%;
-    margin-left: 54dvh;
+    margin-left: 76dvh;
 }
 button:hover {
     background-color: #0056b3;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 8px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff6f;
+    color: #f3f3f3;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-family: geologica;
+    width: 20%;
 }
 
 @media (max-width: 1024px) {

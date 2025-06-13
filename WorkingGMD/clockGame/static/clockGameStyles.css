@@ -3,7 +3,7 @@ body {
     background-color: #f0f8ff;
     margin: 0;
     padding: 0;
-    background-image: url(images/SamaySudhaarBG.png);
+    background-image: url(images/ClockGameBG.png);
     background-size: cover;
 }
 
@@ -65,7 +65,6 @@ font-family: geologica;
     transform: translate(-50%, -50%);
 }
 
-/* --- Align Hour and Minute Buttons Side by Side --- */
 .controls {
     display: flex;
     justify-content: center;
@@ -88,7 +87,6 @@ font-family: geologica;
     gap: 10px;
 }
 
-/* --- Styling Buttons --- */
 button {
     padding: 8px;
     font-size: 16px;
@@ -98,8 +96,7 @@ button {
     color: white;
     border-radius: 5px;
     transition: 0.3s;
-    width: 105px;
-}
+    width: 105px; }
 
 button:hover {
     background-color: #99b6ff;
@@ -119,7 +116,6 @@ button:hover {
 }
 
 
-/* --- Message Styling --- */
 #result-message {
     font-size: 18px;
     font-weight: bold;

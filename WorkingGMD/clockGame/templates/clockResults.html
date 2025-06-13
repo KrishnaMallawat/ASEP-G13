@@ -33,14 +33,11 @@
         <tbody id="results-table"></tbody>
       </table>
       <h3 id="final-score"></h3>
+              <button href="{{url_for('home')}}" class="play-again-button">
+           <a href="{{url_for('home')}}" style="text-decoration: none; color: aliceblue; font-family: geologica; font-weight: 400;">Back to Menu</a>
+    </button>
       <button class="play-again-button" onclick="restartGame()"><i class="fa-solid fa-rotate-right" style="font-size: 4dvh;"></i></button>
     </div>
-
-    <button class="button" style="font-family: geologica;">
-      <a href="{{url_for('home')}}">
-          Menu  <i class="fa-solid fa-bars"></i>
-      </a>
-    </button>
 
     <script>
       const results = JSON.parse(localStorage.getItem("quizResults"));
@@ -70,20 +67,6 @@
       document.getElementById(
         "final-score"
       ).innerText = `Final Score: ${correctAnswers} / ${totalQuestions}`;
-
-      // Save score to backend using fetch
-      fetch('/samay/save_result', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          score: correctAnswers,
-          total_questions: totalQuestions
-        })
-      }).then(res => {
-        // Optionally handle response
-      });
 
       function restartGame() {
         localStorage.removeItem("quizResults");
