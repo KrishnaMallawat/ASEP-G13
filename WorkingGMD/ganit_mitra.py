@@ -205,6 +205,7 @@ from directionGame.directionbackend import directionBp
 from clockGame.clockbackend import clockBp
 from casestudyGame.casestudybackend import casestudyBp
 from MatchGame.matchBackend import matchBp
+from TB.tbBackend import tbBp
 
 app.register_blueprint(cashierSim, url_prefix="/cashier")
 app.register_blueprint(memoryBp, url_prefix="/memory")
@@ -214,6 +215,7 @@ app.register_blueprint(directionBp, url_prefix="/direction")
 app.register_blueprint(clockBp, url_prefix="/samay")
 app.register_blueprint(casestudyBp, url_prefix="/casestudy")
 app.register_blueprint(matchBp,url_prefix='/match')
+app.register_blueprint(tbBp,url_prefix='/TargrtBlitz')
 
 if __name__ == '__main__':
     init_db()

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Number Ninja</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Carme&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Unicase:wght@300;400;500;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Geologica:wght@100..900&family=MedievalSharp&family=Metamorphous&family=Modern+Antiqua&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oldenburg&family=Playwrite+PL:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('TB.static', filename='style.css') }}" />
+  </head>
+  <body style="background-image: url({{ url_for('TB.static', filename='TargetGameBG.png') }})">
+    <div class="app-container">
+      <div id="startScreen" class="start-screen">
+        <div class="logo-container">
+        </div>
+
+        <div class="description">
+          <p>Test your mental math skills by slicing the correct numbers!</p>
+        </div>
+        
+
+        <div class="high-score">
+          <p>High Score: <span id="highScoreDisplay">0</span></p>
+        </div>
+
+        <div class="game-modes">
+          <h2>Choose Your Challenge:</h2>
+          <div class="mode-buttons">
+            <button class="mode-button even-mode" onclick="startGame('even')">
+              <span class="mode-name">EVEN</span>
+              <span class="mode-desc">Slice only even numbers</span>
+            </button>
+
+            <button class="mode-button odd-mode" onclick="startGame('odd')">
+              <span class="mode-name">ODD</span>
+              <span class="mode-desc">Slice only odd numbers</span>
+            </button>
+
+            <button class="mode-button prime-mode" onclick="startGame('prime')">
+              <span class="mode-name">PRIME</span>
+              <span class="mode-desc">Slice only prime numbers</span>
+            </button>
+          </div>
+          <div class="instructions-button-container">
+            <a href="{{ url_for('TB.instruction') }}" class="instructions-button" style="background-color: #0e338f; margin-left: 28%;">Instructions</a>
+            <a href="{{ url_for('TB.home') }}" class="instructions-button" style="background-color: #0e338f;">Back To Menu</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="gameScreen" class="game-screen hidden">
+        <div class="game-header">
+          <div class="mode-indicator">
+            <span id="modeDisplay">Mode: EVEN</span>
+          </div>
+          <div class="timer">
+            <div class="timer-bar-container">
+              <div id="timerBar" class="timer-bar"></div>
+            </div>
+            <div class="timer-text">
+              <span id="timerValue" class="timer-value">60</span>
+              <span class="timer-label">sec</span>
+            </div>
+          </div>
+          <div class="score-display">
+            <div class="score">
+              <span class="score-label">Score:</span>
+              <span id="scoreValue" class="score-value">0</span>
+            </div>
+            <div id="comboDisplay" class="combo hidden">
+              <span id="comboValue" class="combo-value">x0</span>
+              <span class="combo-label">Combo</span>
+            </div>
+          </div>
+          <div class="back-button-container">
+              <button class="back-button" onclick="goBackToMenu()">← Back</button>
+          </div>
+        </div>
+        <div id="gameArea" class="game-area"></div>
+      </div>
+
+      <!-- Game Over Screen -->
+      <div id="gameOverScreen" class="game-over-screen hidden">
+        <div class="game-over-header">
+          <svg class="game-over-sword" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 17.5L3 6V3h3l11.5 11.5"></path>
+            <path d="M13 19l6-6"></path>
+            <path d="M16 16l4 4"></path>
+            <path d="M19 21l2-2"></path>
+          </svg>
+          <h1>Game Over</h1>
+          <svg class="game-over-sword flipped" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 17.5L3 6V3h3l11.5 11.5"></path>
+            <path d="M13 19l6-6"></path>
+            <path d="M16 16l4 4"></path>
+            <path d="M19 21l2-2"></path>
+          </svg>
+        </div>
+
+        <div class="final-score">
+          <span class="final-score-label">Your Score</span>
+          <span id="finalScoreValue" class="final-score-value">0</span>
+        </div>
+
+        <div id="newHighScore" class="new-high-score hidden">
+          <span>New High Score!</span>
+        </div>
+
+        <div class="high-score">
+          <span class="high-score-label">High Score</span>
+          <span id="finalHighScore" class="high-score-value">0</span>
+        </div>
+
+        <button class="restart-button" onclick="restartGame()">Play Again</button>
+
+        <div class="game-stats">
+          <h3>Your Performance</h3>
+          <div class="stats-row">
+            <div class="stat">
+              <span id="targetsHit" class="stat-value">0</span>
+              <span class="stat-label">Targets Hit</span>
+            </div>
+            <div class="stat">
+              <span id="highestCombo" class="stat-value">0</span>
+              <span class="stat-label">Highest Combo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Ensure high score is always read from localStorage on load
+      window.onload = function () {
+        const highScore = localStorage.getItem("highScore") || 0;
+        document.getElementById("highScoreDisplay").textContent = highScore;
+      };
+    </script>
+
+    <script src="{{ url_for('TB.static', filename='game.js') }}"></script>
+  </body>
+</html>
