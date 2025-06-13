@@ -50,10 +50,10 @@ def init_clock_db():
     c.execute('''
         CREATE TABLE IF NOT EXISTS clock_results (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
+            user_id TEXT NOT NULL,
             score INTEGER NOT NULL,
             total_questions INTEGER NOT NULL,
-            timestamp TEXT NOT NULL
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ''')
     conn.commit()
@@ -66,19 +66,47 @@ def setup_clock_db():
 @clockBp.route('/save_result', methods=['POST'])
 @login_required
 def save_result():
-    data = request.get_json()
-    score = data.get('score')
-    total_questions = data.get('total_questions')
-    if score is None or total_questions is None:
-        return jsonify({'error': 'Missing data'}), 400
+    try:
+        data = request.get_json()
+        print("Received data:", data)  # Debug print
+        print("Session contents:", dict(session))  # Debug print
+        if not data:
+            print("No JSON data received")
+            return jsonify({'error': 'No data received'}), 400
+            
+        score = data.get('score')
+        total_questions = data.get('total_questions')
+        
+        print(f"Received score: {score}, total_questions: {total_questions}")  # Debug print
+        
+        if score is None or total_questions is None:
+            print("Missing score or total_questions")
+            return jsonify({'error': 'Missing data'}), 400
 
-    db_path = os.path.join(os.path.dirname(__file__), 'clock_results.db')
-    conn = sqlite3.connect(db_path)
-    c = conn.cursor()
-    c.execute(
-        'INSERT INTO clock_results (user_id, score, total_questions, timestamp) VALUES (?, ?, ?, ?)',
-        (current_user.id, score, total_questions, datetime.utcnow().isoformat())
-    )
-    conn.commit()
-    conn.close()
-    return jsonify({'message': 'Result saved'}), 200
+        user_id = session.get('username')
+        print(f"User ID from session: {user_id}")  # Debug print
+        
+        if not user_id:
+            print("User not logged in")
+            return jsonify({'error': 'User not logged in'}), 401
+
+        db_path = os.path.join(os.path.dirname(__file__), 'clock_results.db')
+        conn = sqlite3.connect(db_path)
+        c = conn.cursor()
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        
+        c.execute(
+            'INSERT INTO clock_results (user_id, score, total_questions, timestamp) VALUES (?, ?, ?, ?)',
+            (user_id, score, total_questions, current_time)
+        )
+        conn.commit()
+        conn.close()
+        
+        print("Score saved successfully")  # Debug print
+        return jsonify({'message': 'Result saved successfully'}), 200
+        
+    except Exception as e:
+        print(f"Error saving score: {e}")  # Debug print
+        if 'conn' in locals():
+            conn.close()
+        return jsonify({'error': f'Failed to save score: {str(e)}'}), 500
