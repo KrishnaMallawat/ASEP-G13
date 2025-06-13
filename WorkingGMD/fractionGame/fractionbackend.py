@@ -74,7 +74,7 @@ def save_result():
         c = conn.cursor()
         c.execute(
             'INSERT INTO fraction_results (user_id, score, total_questions, timestamp) VALUES (?, ?, ?, ?)',
-            (user_id, score, total_questions, datetime.utcnow().isoformat())
+            (user_id, score, total_questions, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         )
         conn.commit()
         conn.close()

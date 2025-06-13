@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MATCH THE PAIRS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='MatchGame/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <div class="main-wrapper">
+      <div class="gamespace">
+        <h2 id="question-title">Match the Pairs</h2>
+
+        <div class="wrapper">
+          <div class="game-container" id="game-container"></div>
+          <div id="button-container"></div>
+        </div>
+
+        <div id="result"></div>
+        <div id="score"></div>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='MatchGame/script.js') }}"></script>
+  </body>
+</html>
