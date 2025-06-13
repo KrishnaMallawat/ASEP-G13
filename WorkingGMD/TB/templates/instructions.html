@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instructions - Number Ninja</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+        animation: fadeIn 1s ease-in;
+      }
+
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 30px;
+        color: #ffcc00;
+        text-shadow: 2px 2px 10px #000;
+      }
+
+      .instructions-container {
+        max-width: 1000px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        width: 100%;
+      }
+
+      .instruction-block {
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 16px;
+        padding: 20px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        animation: slideUp 0.8s ease forwards;
+      }
+
+      .instruction-block:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 24px rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .instruction-block h2 {
+        font-size: 1.5rem;
+        color: #ffcc00;
+        margin-bottom: 10px;
+      }
+
+      .instruction-block p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #eee;
+      }
+
+      .back-button {
+        margin-top: 40px;
+        padding: 12px 30px;
+        font-size: 1rem;
+        background-color: #ffcc00;
+        color: #222;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      .back-button:hover {
+        background-color: #ffaa00;
+        transform: scale(1.05);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>How to Play</h1>
+    <div class="instructions-container">
+      <div class="instruction-block">
+        <h2>🎮 Objective</h2>
+        <p>Solve the challenge by slicing only the correct type of numbers: Even, Odd, or Prime — depending on the mode you select.</p>
+      </div>
+      <div class="instruction-block">
+        <h2>🕹️ Game Modes</h2>
+        <p>
+          <strong>EVEN:</strong> Slice only even numbers.<br />
+          <strong>ODD:</strong> Slice only odd numbers.<br />
+          <strong>PRIME:</strong> Slice only prime numbers.
+        </p>
+      </div>
+      <div class="instruction-block">
+        <h2>⏱️ Timer</h2>
+        <p>You have 60 seconds to score as high as possible. Every correct slice adds points. Incorrect slices may break your combo.</p>
+      </div>
+      <div class="instruction-block">
+        <h2>🔥 Combo System</h2>
+        <p>Chain correct hits to increase your combo multiplier and get bonus points!</p>
+      </div>
+      <div class="instruction-block">
+        <h2>⚔️ Controls</h2>
+        <p>Click or tap on the numbers to slice them. Be quick and precise!</p>
+      </div>
+      <div class="instruction-block">
+        <h2>🏆 Scoring</h2>
+        <p>Correct hits earn you points. Wrong hits reset your combo and lower your potential score. Go for high accuracy!</p>
+      </div>
+    </div>
+
+    <button class="back-button" onclick="window.location.href='{{ url_for('TB.home') }}'">
+      ⬅ Back to Home
+    </button>
+  </body>
+</html>
