@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FRACTION FIELD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Carme&family=Geologica:wght@100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('fractionGame.static', filename="fractionGameStyle.css") }}">
+  </head>
+  <body>
+    <div class="left">
+      <div class="question">
+        <p id="mixedFraction"></p>
+        <p id="count">
+          Wheat stalks harvested: <span id="flowerCount">0</span>
+        </p>
+        <div id="questionNumber">Question 1 of 5</div>
+        <div id="score">Score: 0</div>
+      </div>
+      <div class="buttonstab">
+        <div class="buttonicons">
+          <button id="backButton">Back</button>
+          <button id="submitButton">Submit</button>
+          <button id="resetButton">Reset</button>
+          <p id="resultMessage"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="container">
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+        <div class="cell">
+          <img src="{{ url_for('fractionGame.static' , filename='images/crop.png') }}" class="flower" />
+        </div>
+      </div>
+    </div>
+
+    <script >
+      let flowerCount = 0;
+      let score = 0;
+      let currentQuestion = 1;
+      const totalQuestions = 5;
+      const hoveredCells = [];
+      const results = [];
+
+      function generateQuestion() {
+        let numerator, denominator, multiplicand, result;
+
+        do {
+          numerator = Math.floor(Math.random() * 10) + 1; 
+          denominator =
+            Math.floor(Math.random() * (10 - numerator)) + numerator + 1; 
+          multiplicand = Math.floor(Math.random() * 12) + 1;
+          result = (numerator / denominator) * multiplicand;
+        } while (
+          !Number.isInteger(result) ||
+          result < 1 ||
+          result > 24 ||
+          denominator === multiplicand 
+        );
+
+        document.getElementById(
+          "mixedFraction"
+        ).innerText = `A Farmer harvests [ ${numerator} / ${denominator} ] Wheat Stalks from a section of his farm at once. He further harvests ${multiplicand} such sections, What are the total number of wheat stalk harvested?`;
+        return result;
+      }
+
+      let correctAnswer = generateQuestion(); 
+
+      document.querySelectorAll(".cell").forEach((cell) => {
+        cell.addEventListener("click", function () {
+          const flower = cell.querySelector(".flower");
+          if (flower && flower.style.opacity !== "0") {
+            flower.style.opacity = "0"; 
+            flowerCount++;
+            hoveredCells.push(cell); 
+            document.getElementById("flowerCount").innerText = flowerCount;
+          }
+        });
+      });
+
+      document
+        .getElementById("submitButton")
+        .addEventListener("click", function () {
+          const isCorrect = flowerCount === correctAnswer;
+          alert(
+            isCorrect
+              ? "Correct! You harvested the right amount of wheat stalks."
+              : "Oops! That's not the right amount. Try again next time."
+          );
+          if (isCorrect) score++;
+
+          results.push({
+            question: document.getElementById("mixedFraction").innerText,
+            isCorrect: isCorrect,
+          });
+
+          updateQuizState();
+
+          if (currentQuestion < totalQuestions) {
+            proceedToNextQuestion();
+          } else {
+            localStorage.setItem("score", score);
+            localStorage.setItem("results", JSON.stringify(results));
+            window.location.href = "{{ url_for('fractionGame.results') }}";
+          }
+        });
+
+      document.querySelectorAll(".cell").forEach((cell) => {
+        cell.addEventListener("click", function () {
+          const flower = cell.querySelector(".flower");
+          if (flower && flower.style.opacity !== "0") {
+            flower.classList.add("shake"); 
+            setTimeout(() => {
+              flower.style.opacity = "0"; 
+              flower.classList.remove("shake"); 
+            }, 500); 
+
+            flowerCount++;
+            hoveredCells.push(cell); 
+            document.getElementById("flowerCount").innerText = flowerCount;
+          }
+        });
+      });
+
+      document
+        .getElementById("resetButton")
+        .addEventListener("click", function () {
+          resetGame();
+        });
+
+      document
+        .getElementById("backButton")
+        .addEventListener("click", function () {
+          if (hoveredCells.length > 0) {
+            const lastHoveredCell = hoveredCells.pop();
+            const flower = lastHoveredCell.querySelector(".flower");
+            if (flower) {
+              flower.style.opacity = "1";
+              flowerCount--;
+              document.getElementById("flowerCount").innerText = flowerCount;
+            }
+          }
+        });
+
+      function resetGame() {
+        flowerCount = 0;
+        hoveredCells.length = 0;
+        document.getElementById("flowerCount").innerText = flowerCount;
+        document.querySelectorAll(".flower").forEach((flower) => {
+          flower.style.opacity = "1"; 
+        });
+        correctAnswer = generateQuestion(); 
+      }
+
+      function proceedToNextQuestion() {
+        currentQuestion++;
+        if (currentQuestion <= totalQuestions) {
+          resetGame();
+          document.getElementById(
+            "questionNumber"
+          ).innerText = `Question ${currentQuestion} of ${totalQuestions}`;
+        }
+      }
+
+      function updateQuizState() {
+        document.getElementById("score").innerText = `Score: ${score}`;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRACTION FIELD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="{{ url_for('fractionGame.static', filename='fractionResultStyle.css') }}">
+</head>
+<body>
+    <table id="resultsTable">
+        <thead>
+            <tr>
+                <th>Your Answer</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+    <div class="summary" id="summary"></div>
+    <a href="{{url_for('home')}}" class="button">Back to Menu</a>
+        <a href="{{url_for('fractionGame.play')}}" class="button"
+          >Play Again</a
+        >
+
+    <script>
+        function loadResults() {
+            const results = JSON.parse(localStorage.getItem('results')) || [];
+            const score = localStorage.getItem('score') || 0;
+            const totalQuestions = results.length;
+
+            const tableBody = document.querySelector('#resultsTable tbody');
+            tableBody.innerHTML = '';
+
+            results.forEach((result, index) => {
+                const row = document.createElement('tr');
+                const questionCell = document.createElement('td');
+                questionCell.textContent = result.question;
+
+                const answerCell = document.createElement('td');
+                answerCell.textContent = result.isCorrect ? 'Correct' : 'Incorrect';
+
+                const statusCell = document.createElement('td');
+                statusCell.textContent = result.isCorrect ? '✔️' : '❌';
+                statusCell.className = result.isCorrect ? 'correct' : 'incorrect';
+
+                row.appendChild(answerCell);
+                row.appendChild(statusCell);
+                tableBody.appendChild(row);
+            });
+
+            const summary = document.getElementById('summary');
+            summary.textContent = `You scored ${score} out of ${totalQuestions}`;
+        }
+
+        function goBack() {
+            window.location.href = ''; 
+        }
+
+        document.addEventListener('DOMContentLoaded', loadResults);
+    </script>
+</body>
+</html>
