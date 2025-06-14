@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAMAY SUDHAAR</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel='stylesheet' href="{{url_for('clockGame.static',filename='clockResultsStyle.css')}}">
+  </head>
+
+  <body>
+    <div class="results-container">
+      <h1>Quiz Results</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Target Time</th>
+            <th>Your Answer</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody id="results-table"></tbody>
+      </table>
+      <h3 id="final-score"></h3>
+              <button href="{{url_for('home')}}" class="play-again-button">
+           <a href="{{url_for('home')}}" style="text-decoration: none; color: aliceblue; font-family: geologica; font-weight: 400;">Back to Menu</a>
+    </button>
+      <button class="play-again-button" onclick="restartGame()"><i class="fa-solid fa-rotate-right" style="font-size: 4dvh;"></i></button>
+    </div>
+
+    <script>
+      const results = JSON.parse(localStorage.getItem("quizResults"));
+      const totalQuestions = results.length;
+      let correctAnswers = 0;
+
+      const resultsTable = document.getElementById("results-table");
+      results.forEach((result, index) => {
+        let row = `<tr>
+                <td>${index + 1}</td>
+                <td>${result.targetHour}:${String(result.targetMinute).padStart(
+          2,
+          "0"
+        )}</td>
+                <td>${result.userHour}:${String(result.userMinute).padStart(
+          2,
+          "0"
+        )}</td>
+                <td class="${result.correct ? "correct" : "incorrect"}">
+                    ${result.correct ? "✅" : "❌"}
+                </td>
+            </tr>`;
+        resultsTable.innerHTML += row;
+        if (result.correct) correctAnswers++;
+      });
+
+      document.getElementById(
+        "final-score"
+      ).innerText = `Final Score: ${correctAnswers} / ${totalQuestions}`;
+
+      function restartGame() {
+        localStorage.removeItem("quizResults");
+        window.location.href = "{{url_for('clockGame.play')}}";
+      }
+    </script>
+  </body>
+</html>
