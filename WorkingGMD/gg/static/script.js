@@ -3,7 +3,7 @@ const challengeData = [
   { area: 9, perimeter: 12, hint: "Try a 3×3 square." },
   { area: 8, perimeter: 12, hint: "Try 2×4 or 4×2 rectangle." },
   { area: 10, perimeter: 14, hint: "Try 2×5 or 5×2 rectangle." },
-  { area: 12, perimeter: 16, hint: "Try 3×4 or 4×3 rectangle." }
+  { area: 12, perimeter: 16, hint: "Try 2x6 or 6x2 rectangle." }
 ];
 
 const totalChallenges = challengeData.length;
