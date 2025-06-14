@@ -120,6 +120,30 @@ function loadChallenge(level) {
   startTimer();
 }
 
+function saveGameResults() {
+  const gameData = {
+    score: score,
+    total_questions: totalChallenges
+  };
+
+  fetch('/gg/save_result', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    credentials: 'same-origin',
+    body: JSON.stringify(gameData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log('Game results saved successfully');
+    }
+  })
+  .catch(error => console.error('Error saving results:', error));
+}
+
 function submitShape() {
   const area = parseInt(currentArea.textContent);
   const perimeter = parseInt(currentPerimeter.textContent);
@@ -128,26 +152,27 @@ function submitShape() {
   if (area === required.area && perimeter === required.perimeter) {
     clearInterval(timerInterval);
 
+    // Calculate points for current challenge
+    let points = 0;
+    if (!gaveWrongAnswer) {
+      points = 100;
+      if (usedHint) points -= 20;
+      score += points;
+    }
+
     // Final challenge completed
     if (currentLevel === totalChallenges) {
-      let points = 0;
-      if (!gaveWrongAnswer) {
-        points = 100;
-        if (usedHint) points -= 20;
-        score += points;
-      }
       finalScoreDisplay.textContent = score;
       completeModal.classList.remove("hidden");
+      saveGameResults(); // Save results after updating final score
       return;
     }
 
+    // Not final challenge - show success modal
     if (gaveWrongAnswer) {
       successMessage.textContent = "✅ Correct, but no points due to earlier mistake.";
       pointsEarned.textContent = "0";
     } else {
-      let points = 100;
-      if (usedHint) points -= 20;
-      score += points;
       pointsEarned.textContent = points;
       scoreDisplay.textContent = score;
       successMessage.textContent = `✅ Correct!${usedHint ? " (Hint used: -20 pts)" : ""}`;

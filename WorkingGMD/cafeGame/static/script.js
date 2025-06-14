@@ -407,6 +407,30 @@ function checkAnswer(userAnswer, isOption) {
     }, 1700);
 }
 
+function saveGameResults() {
+  const gameData = {
+    score: score,
+    total_questions: ordersCompleted
+  };
+
+  fetch('/cafeGame/save_result', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    credentials: 'same-origin',
+    body: JSON.stringify(gameData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log('Game results saved successfully');
+    }
+  })
+  .catch(error => console.error('Error saving results:', error));
+}
+
 function endGame() {
     gameActive = false;
     clearInterval(timer);
@@ -415,6 +439,7 @@ function endGame() {
     accuracyDisplay.textContent = ordersCompleted > 0 ? Math.round((correctAnswers / ordersCompleted) * 100) : 0;
     starsEarnedDisplay.textContent = starsEarned;
     levelCompleteScreen.style.display = 'flex';
+    saveGameResults(); // Add this line to save score
     showStars();
 }
 

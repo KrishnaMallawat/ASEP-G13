@@ -117,6 +117,11 @@ def home():
                     school = user['school']
     return render_template('home.html', name=name, roll_number=roll_number, school=school)
 
+@app.route('/game')
+@login_required
+def game():
+    return render_template('game.html')
+
 @app.route('/api/login', methods=['POST'])
 def api_login():
     if not request.is_json:
@@ -140,6 +145,7 @@ def api_login():
             session['username'] = username
             return jsonify({'success': True, 'redirect': url_for('home')})
         return jsonify({'success': False, 'message': 'Invalid credentials'})
+    
 @app.route('/api/signup', methods=['POST'])
 def api_signup():
     if not request.is_json:
@@ -206,9 +212,6 @@ from clockGame.clockbackend import clockBp
 from casestudyGame.casestudybackend import casestudyBp
 from MatchGame.matchBackend import matchBp
 from TB.tbBackend import tbBp
-from gg.ggBackend import ggBp
-from cafeGame.cafeBackend import cafeBp
-from shapeCatcherGame.shapeCatcherBackend import shapeCatcherBp
 
 app.register_blueprint(cashierSim, url_prefix="/cashier")
 app.register_blueprint(memoryBp, url_prefix="/memory")
@@ -219,9 +222,6 @@ app.register_blueprint(clockBp, url_prefix="/samay")
 app.register_blueprint(casestudyBp, url_prefix="/casestudy")
 app.register_blueprint(matchBp,url_prefix='/match')
 app.register_blueprint(tbBp,url_prefix='/TargrtBlitz')
-app.register_blueprint(ggBp,url_prefix='/gg')
-app.register_blueprint(cafeBp,url_prefix='/CafeGame')
-app.register_blueprint(shapeCatcherBp,url_prefix='/ShapeCatcher')
 
 if __name__ == '__main__':
     init_db()

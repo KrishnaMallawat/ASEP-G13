@@ -68,7 +68,7 @@ async function handleLogin() {
             localStorage.setItem('username', username);
             
             // Redirect to game page on successful login
-            window.location.href = '/home';
+            window.location.href = '/game';
         } else {
             showError('Invalid username or secret code', true);  // Show register prompt
         }
