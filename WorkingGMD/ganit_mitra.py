@@ -219,7 +219,7 @@ app.register_blueprint(clockBp, url_prefix="/samay")
 app.register_blueprint(casestudyBp, url_prefix="/casestudy")
 app.register_blueprint(matchBp,url_prefix='/match')
 app.register_blueprint(tbBp,url_prefix='/TargrtBlitz')
-app.register_blueprint(ggBp,url_prefix='/GridGuardian')
+app.register_blueprint(ggBp,url_prefix='/gg')
 app.register_blueprint(cafeBp,url_prefix='/CafeGame')
 app.register_blueprint(shapeCatcherBp,url_prefix='/ShapeCatcher')
 
