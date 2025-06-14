@@ -1,0 +1,264 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Fredoka', sans-serif;
+  font-family: geologica ;
+}
+
+body {
+  background: #f2f2f2;
+  color: #333;
+  min-height: 100vh;
+  background-color: #254fbd;
+}
+
+#game-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.top-nav {
+  width: 100%;
+  height: 60px;
+  background-color: #ffcc009a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.back-home {
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  background-color: #ffcc00;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-home:hover {
+  background-color: #ffaa00;
+  transform: scale(1.05);
+}
+
+.game-header {
+  background: #133384;
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.game-title {
+  font-size: 2rem;
+}
+
+.stats {
+  display: flex;
+  gap: 20px;
+}
+
+.stat {
+  font-size: 1.2rem;
+}
+
+.stat-label {
+  font-weight: 500;
+}
+
+.stat-value {
+  font-weight: 700;
+}
+
+.game-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.challenge-panel {
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.challenge-card,
+.shape-info,
+.education-panel .concept-box {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.challenge-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.requirement {
+  margin: 6px 0;
+}
+
+.equation-reminder {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.shape-info h3 {
+  margin-bottom: 10px;
+}
+
+.shape-stats {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.shape-stat .stat-label {
+  font-weight: 500;
+}
+
+.shape-feedback {
+  color: #cc4529;
+  font-size: 0.9rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 16px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #5D3FD3;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #999;
+  color: white;
+}
+
+.btn-info {
+  background-color: #30D5C8;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.grid-container {
+  position: relative;
+  flex: 1 1 500px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+  grid-template-rows: repeat(10, 40px);
+  gap: 4px;
+  justify-content: center;
+  align-content: center;
+}
+
+.grid-cell {
+  width: 40px;
+  height: 40px;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+}
+
+
+.grid-cell.selected {
+  background-color: #5D3FD3;
+  border: 2px solid #3a2a92;
+}
+
+.education-panel {
+  margin-top: 20px;
+}
+
+.concept-box {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.concept-box h3 {
+  margin-bottom: 10px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-stat {
+  margin: 10px 0;
+}
+
+#hint-text {
+  margin-bottom: 20px;
+}

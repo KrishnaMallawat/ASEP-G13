@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Result</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='MatchGame/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('MatchGame.static', filename='MatchResultsStyle.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       rel="stylesheet"
@@ -19,27 +19,113 @@
       href="https://fonts.googleapis.com/css2?family=Carme&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Unicase:wght@300;400;500;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Geologica:wght@100..900&family=MedievalSharp&family=Metamorphous&family=Modern+Antiqua&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oldenburg&family=Playwrite+PL:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
+    <style>
+        body {
+            background-image: url("{{ url_for('MatchGame.static', filename='MatchResultBG.png') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'MedievalSharp', cursive;
+            color: #f0e6d2;
+        }
+
+        .result-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2rem 3rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            border: 2px solid #c4b998;
+            animation: fadeIn 1s ease-in;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .score-container {
+            font-size: 2rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border: 1px solid #c4b998;
+            border-radius: 10px;
+        }
+
+        .menu-container {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1.2rem;
+            font-family: 'MedievalSharp', cursive;
+            background: linear-gradient(to bottom, #c4b998, #8b7355);
+            color: #2c1810;
+            border: 2px solid #8b7355;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(to bottom, #d5cab9, #9c8466);
+            box-shadow: 0 0 15px rgba(196, 185, 152, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body style="background-image: url('{{ url_for('static', filename='MatchGame/MatchResultBG.png') }}');">
-    <h1>Game Result</h1>
-    <div id="final-score" class="score-container"></div>
-    <div class="menu-container">
-        <button id="play-again-button">Play Again</button>
-        <button id="exit-button">Exit Game</button>
+<body>
+    <div class="result-container">
+        <h1>Game Result</h1>
+        <div id="final-score" class="score-container"></div>
+        <div class="menu-container">
+            <button id="play-again-button">Play Again</button>
+            <button id="exit-button">Exit Game</button>
+        </div>
     </div>
     <script>
         document.getElementById('play-again-button').addEventListener('click', () => {
-            window.location.href = 'MatchOpen.html';
+            window.location.href = '/match/home';
         });
         document.getElementById('exit-button').addEventListener('click', () => {
-            window.location.href = '/menu.html';
+            window.location.href = '/home';
         });
 
-        // Display the score
+        // Display the score and save it
         const urlParams = new URLSearchParams(window.location.search);
         const score = urlParams.get('score');
         const total = urlParams.get('total');
         document.getElementById('final-score').textContent = `Your score: ${score} / ${total}`;
+
+        // Save score to database
+        fetch('/match/save_result', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                score: parseInt(score),
+                total_questions: parseInt(total)
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log('Score saved:', data))
+        .catch(error => console.error('Error saving score:', error));
     </script>
 </body>
 </html>

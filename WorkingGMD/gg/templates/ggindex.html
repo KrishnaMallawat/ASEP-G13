@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Area and Perimeter City - Math Game</title>
+    <link rel="stylesheet" href="{{ url_for('gg.static', filename='styles.css') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Carme&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Unicase:wght@300;400;500;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Geologica:wght@100..900&family=MedievalSharp&family=Metamorphous&family=Modern+Antiqua&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oldenburg&family=Playwrite+PL:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="top-nav">
+      <a href="{{ url_for('gg.frontpage') }}" class="back-home">Back to Home</a>
+    </div>
+
+    <div id="game-container">
+      <header class="game-header">
+        <div class="header-content">
+          <h1 class="game-title">🏙️ Area & Perimeter City</h1>
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-label">Level:</span>
+              <span id="level-display" class="stat-value">1</span>
+              <span class="stat-total"
+                >/ <span id="total-challenges">5</span></span
+              >
+            </div>
+            <div class="stat">
+              <span class="stat-label">Score:</span>
+              <span id="score-display" class="stat-value">0</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Total Time </span>
+              <span id="timer" class="stat-value">50</span> s
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="game-main">
+        <div class="challenge-panel">
+          <div class="challenge-card">
+            <h2>Current Challenge</h2>
+            <div id="challenge-info">
+              <div class="challenge-item">
+                <span class="building-icon">🏠</span>
+                <span id="challenge-text">Build a house</span>
+              </div>
+            </div>
+            <div class="challenge-requirements">
+              <div class="requirement">
+                <span class="req-label">Required Area:</span>
+                <span id="required-area" class="req-value">6</span> units²
+              </div>
+              <div class="requirement">
+                <span class="req-label">Required Perimeter:</span>
+                <span id="required-perimeter" class="req-value">10</span> units
+              </div>
+            </div>
+            <div class="equation-reminder">
+              <p>🧮 <strong>Remember:</strong></p>
+              <p>Area = length × width</p>
+              <p>Perimeter = 2 × (length + width)</p>
+            </div>
+          </div>
+
+          <div class="shape-info">
+            <h3>📐 Your Shape</h3>
+            <div class="shape-stats">
+              <div class="shape-stat">
+                <span class="stat-label">Area:</span>
+                <span id="current-area" class="stat-value">0</span> units²
+              </div>
+              <div class="shape-stat">
+                <span class="stat-label">Perimeter:</span>
+                <span id="current-perimeter" class="stat-value">0</span> units
+              </div>
+            </div>
+            <div class="shape-feedback" id="shape-feedback">
+              Select blocks on the grid to match the target!
+            </div>
+          </div>
+
+          <div class="controls">
+            <button id="clear-btn" class="btn btn-secondary">
+              Clear Shape
+            </button>
+            <button id="submit-btn" class="btn btn-primary">
+              Submit Building
+            </button>
+            <button id="hint-btn" class="btn btn-info">Hint</button>
+          </div>
+        </div>
+
+        <div class="game-area">
+          <div class="grid-container">
+            <div id="game-grid" class="game-grid"></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="education-panel">
+        <div class="concept-box">
+          <h3>Math Concepts</h3>
+          <div class="concept-item">
+            <strong>Area:</strong> The space inside a shape (length × width for
+            rectangles)
+          </div>
+          <div class="concept-item">
+            <strong>Perimeter:</strong> The distance around the outside of a
+            shape
+          </div>
+          <div class="concept-item">
+            <strong>Strategy:</strong> Try creating rectangles that match the
+            target!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="success-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Excellent Work!</h2>
+        <p id="success-message">You built the perfect shape!</p>
+        <div class="modal-stats">
+          <div class="modal-stat">
+            <span class="stat-label">Points Earned:</span>
+            <span id="points-earned" class="stat-value">100</span>
+          </div>
+        </div>
+        <button id="next-level-btn" class="btn btn-primary">
+          Next Challenge →
+        </button>
+      </div>
+    </div>
+
+    <!-- Hint Modal -->
+    <div id="hint-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Helpful Hint</h2>
+        <p id="hint-text">
+          Try making a rectangle! Remember: Area = length × width
+        </p>
+        <button id="close-hint-btn" class="btn btn-secondary">Got it!</button>
+      </div>
+    </div>
+
+    <!-- Game Complete Modal -->
+    <div id="complete-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>All Challenges Completed!</h2>
+        <p>Great job building all the shapes!</p>
+        <p>
+          Your Final Score: <strong><span id="final-score">0</span></strong>
+        </p>
+        <button class="btn btn-primary" onclick="location.reload()">
+          Play Again
+        </button>
+        <a href="{{ url_for('gg.frontpage') }}" class="btn btn-secondary">Back to Home</a>
+      </div>
+    </div>
+
+    <script src="{{ url_for('gg.static', filename='script.js') }}"></script>
+  </body>
+</html>

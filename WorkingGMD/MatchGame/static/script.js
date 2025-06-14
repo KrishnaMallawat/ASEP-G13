@@ -297,8 +297,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const total = data.reduce((acc, question) => acc + question.items.length, 0);
-        // Use Flask route for results page
-        window.location.href = '/results';
+        // Redirect to the correct results route with score and total as query parameters
+        window.location.href = `/match/results?score=${score}&total=${total}`;
     }
 
     // Function to reset the current question
